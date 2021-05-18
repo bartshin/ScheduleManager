@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="2ek-MQ-bGT" userLabel="Weekday Stack View">
+                                <rect key="frame" x="0.0" y="94" width="414" height="30"/>
+                                <color key="backgroundColor" name="basic-quaternary"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ghD-6r-oaH"/>
+                                </constraints>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="wnL-9U-Fqt" userLabel="Tab Bar">
+                                <rect key="frame" x="0.0" y="816" width="414" height="80"/>
+                                <color key="backgroundColor" name="basic-quaternary"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="9rU-cx-4eM"/>
+                                </constraints>
+                            </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Character_launchscreen" translatesAutoresizingMaskIntoConstraints="NO" id="gE3-rk-om3">
+                                <rect key="frame" x="41.5" y="329" width="331" height="248"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="gE3-rk-om3" secondAttribute="height" multiplier="2:1.5" id="V1a-ob-JRl"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_screen_ring" translatesAutoresizingMaskIntoConstraints="NO" id="ocv-Ue-Uad">
+                                <rect key="frame" x="93.5" y="44" width="20" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="0qd-VZ-x6Y"/>
+                                    <constraint firstAttribute="width" constant="20" id="2Po-zj-LLu"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_screen_ring" translatesAutoresizingMaskIntoConstraints="NO" id="fIP-cH-o3h">
+                                <rect key="frame" x="300.5" y="44" width="20" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="PdW-fq-hmH"/>
+                                    <constraint firstAttribute="width" constant="20" id="YQg-d6-JIe"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="wnL-9U-Fqt" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="4Ld-TH-ghL"/>
+                            <constraint firstItem="gE3-rk-om3" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.8" id="6TY-oM-dON"/>
+                            <constraint firstItem="ocv-Ue-Uad" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" multiplier="0.5" id="9V5-Nv-QsV"/>
+                            <constraint firstItem="wnL-9U-Fqt" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="9dq-Jt-a8v"/>
+                            <constraint firstItem="2ek-MQ-bGT" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="9rK-KT-VUE"/>
+                            <constraint firstItem="gE3-rk-om3" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="ABt-Kl-LK1"/>
+                            <constraint firstItem="2ek-MQ-bGT" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="AjW-OM-RsA"/>
+                            <constraint firstItem="fIP-cH-o3h" firstAttribute="bottom" secondItem="2ek-MQ-bGT" secondAttribute="bottom" id="BPs-iu-hWg"/>
+                            <constraint firstAttribute="bottom" secondItem="wnL-9U-Fqt" secondAttribute="bottom" id="H7H-Zm-yHW"/>
+                            <constraint firstItem="fIP-cH-o3h" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" multiplier="1.5" id="JZO-Vf-wjK"/>
+                            <constraint firstItem="2ek-MQ-bGT" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="LPQ-Cc-F4M"/>
+                            <constraint firstItem="gE3-rk-om3" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="TO8-hV-zXn"/>
+                            <constraint firstItem="ocv-Ue-Uad" firstAttribute="bottom" secondItem="2ek-MQ-bGT" secondAttribute="bottom" id="d5n-Pl-wZU"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Character_launchscreen" width="250" height="200"/>
+        <image name="launch_screen_ring" width="20" height="100"/>
+        <namedColor name="basic-quaternary">
+            <color red="0.81176470588235294" green="0.82745098039215681" blue="0.80784313725490198" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

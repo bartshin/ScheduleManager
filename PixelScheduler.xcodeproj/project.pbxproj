@@ -1,0 +1,1530 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1C3A75F725E4D2E300415F32 /* Calendar&DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A75F625E4D2E300415F32 /* Calendar&DateExtension.swift */; };
+		1C3A75FA25E4D3A600415F32 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A75F925E4D3A600415F32 /* ColorExtension.swift */; };
+		1C3A75FD25E4D57700415F32 /* ScrollViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A75FC25E4D57700415F32 /* ScrollViewExtension.swift */; };
+		1C3A760025E4D5AE00415F32 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A75FF25E4D5AE00415F32 /* UIViewExtension.swift */; };
+		1C3A760A25E4D69E00415F32 /* CalendarCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A760925E4D69E00415F32 /* CalendarCellView.swift */; };
+		1C3A760D25E4D6CE00415F32 /* CalenderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A760C25E4D6CE00415F32 /* CalenderCell.swift */; };
+		1C3A761025E4D6FB00415F32 /* ScheduleModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A760F25E4D6FB00415F32 /* ScheduleModelController.swift */; };
+		1C3A761325E4D72400415F32 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A761225E4D72400415F32 /* Schedule.swift */; };
+		1C3A761625E4D74900415F32 /* HolidayGather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A761525E4D74900415F32 /* HolidayGather.swift */; };
+		1C3A761925E4D77100415F32 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A761825E4D77100415F32 /* NotificationController.swift */; };
+		1C3A761C25E4D81C00415F32 /* CalendarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A761B25E4D81C00415F32 /* CalendarController.swift */; };
+		1C9948B125D1128600ACDBB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9948B025D1128600ACDBB4 /* AppDelegate.swift */; };
+		1C9948B325D1128600ACDBB4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9948B225D1128600ACDBB4 /* SceneDelegate.swift */; };
+		1C9948B825D1128600ACDBB4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C9948B625D1128600ACDBB4 /* Main.storyboard */; };
+		1C9948BA25D1128700ACDBB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C9948B925D1128700ACDBB4 /* Assets.xcassets */; };
+		1C9948BD25D1128700ACDBB4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C9948BB25D1128700ACDBB4 /* LaunchScreen.storyboard */; };
+		1CE8AF1525D25182004A8F37 /* CalendarCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE8AF1425D25182004A8F37 /* CalendarCollectionController.swift */; };
+		89A5CEAE2653F8AF00873C57 /* PuzzleMaker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89A5CEAB2653F89C00873C57 /* PuzzleMaker.framework */; };
+		89A5CEAF2653F8AF00873C57 /* PuzzleMaker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 89A5CEAB2653F89C00873C57 /* PuzzleMaker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CC0B2D64260F02510097909B /* ListTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0B2D63260F02510097909B /* ListTaskCell.swift */; };
+		CC0B3DA625EB733A00896FED /* CurrentTimeLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0B3DA525EB733A00896FED /* CurrentTimeLine.swift */; };
+		CC0EBAA2260A2DA5001EF592 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0EBAA1260A2DA5001EF592 /* ImageExtension.swift */; };
+		CC0F0FAA2611FC6E004C696D /* ScaleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0F0FA92611FC6D004C696D /* ScaleImage.swift */; };
+		CC0F0FB226123EB2004C696D /* puzzle_flip.wav in Resources */ = {isa = PBXBuildFile; fileRef = CC0F0FB126123EB2004C696D /* puzzle_flip.wav */; };
+		CC0F0FB426124A5C004C696D /* EditPuzzleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0F0FB326124A5C004C696D /* EditPuzzleVC.swift */; };
+		CC11DA652639307400830B3D /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC11DA642639307400830B3D /* CloudKit.framework */; };
+		CC12A36725E95E630054B878 /* DailyScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC12A36625E95E630054B878 /* DailyScrollView.swift */; };
+		CC1355F0260B7FD500B076EA /* TaskCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1355EF260B7FD500B076EA /* TaskCollectionVC.swift */; };
+		CC142E0726255A1900E69623 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC142E0626255A1900E69623 /* IAPHelper.swift */; };
+		CC142E092625608800E69623 /* InAppPurchaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC142E082625608800E69623 /* InAppPurchaseVC.swift */; };
+		CC15603A2614575B00CDF6E4 /* CharacterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1560392614575B00CDF6E4 /* CharacterHelper.swift */; };
+		CC15603E26145EEB00CDF6E4 /* QuikHelpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC15603D26145EEB00CDF6E4 /* QuikHelpVC.swift */; };
+		CC1560402614732000CDF6E4 /* SpeechBalloon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC15603F2614732000CDF6E4 /* SpeechBalloon.swift */; };
+		CC19D0DA2630A16D000C262A /* Sticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC19D0D92630A16D000C262A /* Sticker.swift */; };
+		CC19D0DB2630A16D000C262A /* Sticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC19D0D92630A16D000C262A /* Sticker.swift */; };
+		CC19D0DF2630A47E000C262A /* StickerSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC19D0DE2630A47E000C262A /* StickerSelectVC.swift */; };
+		CC1CCB5D25EB684C008E7D7D /* ScheduleBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1CCB5C25EB684C008E7D7D /* ScheduleBackground.swift */; };
+		CC21501A2615F9FF00859050 /* barbarian_attack.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC2150122615F9FF00859050 /* barbarian_attack.gif */; };
+		CC21501B2615F9FF00859050 /* dragon_attack.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC2150152615F9FF00859050 /* dragon_attack.gif */; };
+		CC21501C2615F9FF00859050 /* gargoyle_attack.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC2150162615F9FF00859050 /* gargoyle_attack.gif */; };
+		CC21501D2615F9FF00859050 /* princess_attack.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC2150172615F9FF00859050 /* princess_attack.gif */; };
+		CC21501E2615F9FF00859050 /* soldier_attack.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC2150182615F9FF00859050 /* soldier_attack.gif */; };
+		CC21501F2615F9FF00859050 /* wizard_attack.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC2150192615F9FF00859050 /* wizard_attack.gif */; };
+		CC2150212615FCE900859050 /* explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = CC2150202615FCE900859050 /* explosion.wav */; };
+		CC21E2B5260C788F00195716 /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC21E2B4260C788F00195716 /* CustomAlertViewController.swift */; };
+		CC242A97260C3DFB0034EA9E /* HapticExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC242A96260C3DFB0034EA9E /* HapticExtension.swift */; };
+		CC242A9B260C5AFC0034EA9E /* UserDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC242A9A260C5AFC0034EA9E /* UserDataContainer.swift */; };
+		CC242A9E260C620B0034EA9E /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC242A9D260C620B0034EA9E /* Task.swift */; };
+		CC242AA1260C62AC0034EA9E /* TaskCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC242AA0260C62AC0034EA9E /* TaskCollection.swift */; };
+		CC28DC6B25EE312800128011 /* MapKitExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC28DC6A25EE312800128011 /* MapKitExtension.swift */; };
+		CC2AD05D26299A640063880A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C9948B925D1128700ACDBB4 /* Assets.xcassets */; };
+		CC2AD06026299A810063880A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC3EEA89262959CC00A48D15 /* Assets.xcassets */; };
+		CC2B269F260B818F0024A763 /* TaskModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2B269E260B818F0024A763 /* TaskModelController.swift */; };
+		CC2B26A3260B85730024A763 /* CollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2B26A2260B85730024A763 /* CollectionCell.swift */; };
+		CC2B26A6260B9DCA0024A763 /* CustomTableHeaderFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2B26A5260B9DCA0024A763 /* CustomTableHeaderFooter.swift */; };
+		CC36805725E8D76400F72F92 /* WeeklyCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC36805625E8D76400F72F92 /* WeeklyCellView.swift */; };
+		CC36805A25E8D7FD00F72F92 /* WeeklyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC36805925E8D7FD00F72F92 /* WeeklyCell.swift */; };
+		CC3A66E6262D666E000AD84D /* ScheduleOfDayInWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3A66E5262D666E000AD84D /* ScheduleOfDayInWeek.swift */; };
+		CC3EEA84262959C800A48D15 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB90A01262883A500DD995E /* WidgetKit.framework */; };
+		CC3EEA85262959C800A48D15 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB90A03262883A500DD995E /* SwiftUI.framework */; };
+		CC3EEA88262959C800A48D15 /* PixelSchedulerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3EEA87262959C800A48D15 /* PixelSchedulerWidget.swift */; };
+		CC3EEA8E262959CC00A48D15 /* PixelSchedulerWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CC3EEA83262959C800A48D15 /* PixelSchedulerWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CC3EEA93262959DA00A48D15 /* ScheduleWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB90A192628878000DD995E /* ScheduleWidgetView.swift */; };
+		CC3EEA95262959DA00A48D15 /* ScheduleProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB90A1C2628885400DD995E /* ScheduleProvider.swift */; };
+		CC3EEA97262959FB00A48D15 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A761225E4D72400415F32 /* Schedule.swift */; };
+		CC3EEA9926295A1300A48D15 /* StringError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD17EF2261EB56E00000E37 /* StringError.swift */; };
+		CC437D2A260F1A71009BB23A /* SoundEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC437D29260F1A71009BB23A /* SoundEffect.swift */; };
+		CC437D32260F1F90009BB23A /* paper.wav in Resources */ = {isa = PBXBuildFile; fileRef = CC437D2F260F1F8F009BB23A /* paper.wav */; };
+		CC437D33260F1F90009BB23A /* close_drawer.wav in Resources */ = {isa = PBXBuildFile; fileRef = CC437D30260F1F8F009BB23A /* close_drawer.wav */; };
+		CC437D34260F1F90009BB23A /* open_drawer.wav in Resources */ = {isa = PBXBuildFile; fileRef = CC437D31260F1F90009BB23A /* open_drawer.wav */; };
+		CC437D37260F42F9009BB23A /* GifImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC437D36260F42F9009BB23A /* GifImage.swift */; };
+		CC53A677262E9685000D8958 /* coin.wav in Resources */ = {isa = PBXBuildFile; fileRef = CC58653C261605B600300E19 /* coin.wav */; };
+		CC53A67C262EACF4000D8958 /* CustomWidgetURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCED8BC7262C496800D2A869 /* CustomWidgetURL.swift */; };
+		CC53A67E262EB904000D8958 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC242A9D260C620B0034EA9E /* Task.swift */; };
+		CC53A680262EB90D000D8958 /* TaskCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC242AA0260C62AC0034EA9E /* TaskCollection.swift */; };
+		CC53A686262EBBED000D8958 /* TaskWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53A682262EBBBC000D8958 /* TaskWidget.swift */; };
+		CC53A68B262EBC94000D8958 /* TaskProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53A687262EBC27000D8958 /* TaskProvider.swift */; };
+		CC53A68E262EBCB3000D8958 /* TaskWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53A68D262EBCB3000D8958 /* TaskWidgetView.swift */; };
+		CC53A692262ED62C000D8958 /* ListProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53A691262ED62C000D8958 /* ListProgress.swift */; };
+		CC57A6982624625400BF5154 /* ContactGather.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC57A6972624625400BF5154 /* ContactGather.swift */; };
+		CC58653F261605B600300E19 /* coin.wav in Resources */ = {isa = PBXBuildFile; fileRef = CC58653C261605B600300E19 /* coin.wav */; };
+		CC5865432616084C00300E19 /* dragon_fire.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC5865402616084C00300E19 /* dragon_fire.gif */; };
+		CC5865442616084C00300E19 /* fireball.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC5865412616084C00300E19 /* fireball.gif */; };
+		CC5865452616084C00300E19 /* iceball.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC5865422616084C00300E19 /* iceball.gif */; };
+		CC586547261611B600300E19 /* goblin_attack.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC586546261611B600300E19 /* goblin_attack.gif */; };
+		CC5B0293262D82CA00F37B4B /* ScheduleDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5B0292262D82CA00F37B4B /* ScheduleDetail.swift */; };
+		CC5C058E260DC60D009C73CD /* PuzzleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5C058D260DC60D009C73CD /* PuzzleViewController.swift */; };
+		CC5C0591260DC6C1009C73CD /* ToggleableContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5C0590260DC6C1009C73CD /* ToggleableContainerVC.swift */; };
+		CC5ED9FC25F1E5F200B1F3D5 /* SearchResultTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5ED9FB25F1E5F200B1F3D5 /* SearchResultTableVC.swift */; };
+		CC5ED9FF25F1E9A100B1F3D5 /* SuggestionTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5ED9FE25F1E9A100B1F3D5 /* SuggestionTableVC.swift */; };
+		CC66EC122615E5F800FAF80E /* explosion.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC66EC112615E5F800FAF80E /* explosion.gif */; };
+		CC6752D42613329A00A15D76 /* soldier_move.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC6752CB2613329800A15D76 /* soldier_move.gif */; };
+		CC6752D52613329A00A15D76 /* barbarian_move.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC6752CE2613329800A15D76 /* barbarian_move.gif */; };
+		CC6752D62613329A00A15D76 /* princess_move.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC6752CF2613329900A15D76 /* princess_move.gif */; };
+		CC6752D72613329A00A15D76 /* wizard_move.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC6752D02613329900A15D76 /* wizard_move.gif */; };
+		CC6752D82613329A00A15D76 /* goblin_move.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC6752D12613329900A15D76 /* goblin_move.gif */; };
+		CC6752D92613329A00A15D76 /* dragon_move.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC6752D22613329A00A15D76 /* dragon_move.gif */; };
+		CC6752DA2613329A00A15D76 /* gargoyle_move.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC6752D32613329A00A15D76 /* gargoyle_move.gif */; };
+		CC6752DC2613372300A15D76 /* wizard_idle.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC6752DB2613372300A15D76 /* wizard_idle.gif */; };
+		CC6D99FF26299667006E5005 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A75F925E4D3A600415F32 /* ColorExtension.swift */; };
+		CC75058B2615DA0A0035400E /* TileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC75058A2615DA0A0035400E /* TileView.swift */; };
+		CC76E011260B64B8007D3355 /* ScrollviewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC76E010260B64B8007D3355 /* ScrollviewDataSource.swift */; };
+		CC7D4920261E25FE00A73607 /* princess.wav in Resources */ = {isa = PBXBuildFile; fileRef = CC7D4917261E25FD00A73607 /* princess.wav */; };
+		CC7D4921261E25FE00A73607 /* gargoyle.wav in Resources */ = {isa = PBXBuildFile; fileRef = CC7D491A261E25FD00A73607 /* gargoyle.wav */; };
+		CC7D4922261E25FE00A73607 /* goblin.wav in Resources */ = {isa = PBXBuildFile; fileRef = CC7D491B261E25FD00A73607 /* goblin.wav */; };
+		CC7D4923261E25FE00A73607 /* dragon.wav in Resources */ = {isa = PBXBuildFile; fileRef = CC7D491C261E25FD00A73607 /* dragon.wav */; };
+		CC7D4924261E25FE00A73607 /* barbarian.wav in Resources */ = {isa = PBXBuildFile; fileRef = CC7D491D261E25FE00A73607 /* barbarian.wav */; };
+		CC7D4925261E25FE00A73607 /* wizard.wav in Resources */ = {isa = PBXBuildFile; fileRef = CC7D491E261E25FE00A73607 /* wizard.wav */; };
+		CC7D4926261E25FE00A73607 /* soldier.wav in Resources */ = {isa = PBXBuildFile; fileRef = CC7D491F261E25FE00A73607 /* soldier.wav */; };
+		CC7EE36525F37C27002A4920 /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7EE36425F37C27002A4920 /* SettingController.swift */; };
+		CC8447122621992F00667918 /* Retro Gaming.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CC8447102621992E00667918 /* Retro Gaming.ttf */; };
+		CC8447132621992F00667918 /* 양진체v0.9ttf.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CC8447112621992F00667918 /* 양진체v0.9ttf.ttf */; };
+		CC891EA02613084B000D881F /* SelectCharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC891E9F2613084B000D881F /* SelectCharacterCell.swift */; };
+		CC8C806F25EB815000AD5177 /* EditScheduleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8C806E25EB815000AD5177 /* EditScheduleVC.swift */; };
+		CC8DEF992612F1ED00B39ECF /* SelectCharacterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8DEF982612F1ED00B39ECF /* SelectCharacterVC.swift */; };
+		CC8DEFB02613059A00B39ECF /* soldier_idle.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC8DEFAA2613059300B39ECF /* soldier_idle.gif */; };
+		CC8DEFB12613059A00B39ECF /* gargoyle_idle.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC8DEFAB2613059400B39ECF /* gargoyle_idle.gif */; };
+		CC8DEFB22613059A00B39ECF /* goblin_idle.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC8DEFAC2613059500B39ECF /* goblin_idle.gif */; };
+		CC8DEFB32613059A00B39ECF /* barbarian_idle.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC8DEFAD2613059600B39ECF /* barbarian_idle.gif */; };
+		CC8DEFB42613059A00B39ECF /* dragon_idle.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC8DEFAE2613059700B39ECF /* dragon_idle.gif */; };
+		CC8DEFB52613059A00B39ECF /* princess_idle.gif in Resources */ = {isa = PBXBuildFile; fileRef = CC8DEFAF2613059A00B39ECF /* princess_idle.gif */; };
+		CC95EDEF25ED1EE40091C7BB /* scheduleDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC95EDEE25ED1EE40091C7BB /* scheduleDetailVC.swift */; };
+		CC97420E25F223CF00181924 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CC97420D25F223CF00181924 /* Localizable.strings */; };
+		CC99BC3125E4DBD200F2CCC7 /* ScheduleCalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC99BC3025E4DBD200F2CCC7 /* ScheduleCalendarVC.swift */; };
+		CC99BC4425E4DC1600F2CCC7 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC99BC3425E4DC1500F2CCC7 /* SettingViewController.swift */; };
+		CC99BC4525E4DC1600F2CCC7 /* ConnectGoogleCalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC99BC3625E4DC1500F2CCC7 /* ConnectGoogleCalendarVC.swift */; };
+		CC99BC4625E4DC1600F2CCC7 /* GoogleOAuthConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC99BC3725E4DC1500F2CCC7 /* GoogleOAuthConfig.swift */; };
+		CC99BC4725E4DC1600F2CCC7 /* CalendarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC99BC3925E4DC1600F2CCC7 /* CalendarComponent.swift */; };
+		CC99BC4825E4DC1600F2CCC7 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC99BC3A25E4DC1600F2CCC7 /* DateExtension.swift */; };
+		CC99BC4925E4DC1600F2CCC7 /* ICalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC99BC3B25E4DC1600F2CCC7 /* ICalendar.swift */; };
+		CC99BC4A25E4DC1600F2CCC7 /* ICalendarAlarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC99BC3C25E4DC1600F2CCC7 /* ICalendarAlarm.swift */; };
+		CC99BC4B25E4DC1600F2CCC7 /* ICalendarError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC99BC3D25E4DC1600F2CCC7 /* ICalendarError.swift */; };
+		CC99BC4C25E4DC1600F2CCC7 /* ICalendarEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC99BC3E25E4DC1600F2CCC7 /* ICalendarEvent.swift */; };
+		CC99BC4D25E4DC1600F2CCC7 /* ICalendarParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC99BC3F25E4DC1600F2CCC7 /* ICalendarParser.swift */; };
+		CC99BC4E25E4DC1600F2CCC7 /* IcsElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC99BC4025E4DC1600F2CCC7 /* IcsElement.swift */; };
+		CC99BC4F25E4DC1600F2CCC7 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC99BC4125E4DC1600F2CCC7 /* StringExtension.swift */; };
+		CC99BC5025E4DC1600F2CCC7 /* OAuthGather.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC99BC4225E4DC1600F2CCC7 /* OAuthGather.swift */; };
+		CC99BC5125E4DC1600F2CCC7 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC99BC4325E4DC1600F2CCC7 /* WebViewController.swift */; };
+		CC99BC5825E4DCF200F2CCC7 /* ViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC99BC5425E4DCF200F2CCC7 /* ViewControllerExtension.swift */; };
+		CC99BC5925E4DCF200F2CCC7 /* Future&Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC99BC5525E4DCF200F2CCC7 /* Future&Promise.swift */; };
+		CC99BC5A25E4DCF200F2CCC7 /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC99BC5625E4DCF200F2CCC7 /* URLExtension.swift */; };
+		CC99BC5B25E4DCF200F2CCC7 /* Loopable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC99BC5725E4DCF200F2CCC7 /* Loopable.swift */; };
+		CC9F686525EAAB13002EC017 /* AlldaySchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9F686425EAAB13002EC017 /* AlldaySchedule.swift */; };
+		CC9F686825EADA5F002EC017 /* OverlappedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9F686725EADA5F002EC017 /* OverlappedCell.swift */; };
+		CC9F686B25EADC03002EC017 /* DailyScrollViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9F686A25EADC03002EC017 /* DailyScrollViewHelper.swift */; };
+		CCA7E00B25EA55C8004B3014 /* ScheduleContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA7E00A25EA55C8004B3014 /* ScheduleContentsView.swift */; };
+		CCAB25D426247EA1003F2B08 /* ContactImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAB25D326247EA1003F2B08 /* ContactImageView.swift */; };
+		CCAD57E42614BDB900C40A2E /* InstructionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAD57E32614BDB900C40A2E /* InstructionCell.swift */; };
+		CCB952502616190B000F0003 /* chest_green.gif in Resources */ = {isa = PBXBuildFile; fileRef = CCB952442616190A000F0003 /* chest_green.gif */; };
+		CCB952512616190B000F0003 /* chest_red.gif in Resources */ = {isa = PBXBuildFile; fileRef = CCB952472616190A000F0003 /* chest_red.gif */; };
+		CCB952522616190B000F0003 /* coin_green.gif in Resources */ = {isa = PBXBuildFile; fileRef = CCB952482616190B000F0003 /* coin_green.gif */; };
+		CCB952532616190B000F0003 /* chest_blue.gif in Resources */ = {isa = PBXBuildFile; fileRef = CCB952492616190B000F0003 /* chest_blue.gif */; };
+		CCB952542616190B000F0003 /* coin_orange.gif in Resources */ = {isa = PBXBuildFile; fileRef = CCB9524A2616190B000F0003 /* coin_orange.gif */; };
+		CCB952552616190B000F0003 /* coin_blue.gif in Resources */ = {isa = PBXBuildFile; fileRef = CCB9524B2616190B000F0003 /* coin_blue.gif */; };
+		CCB952562616190B000F0003 /* chest_yellow.gif in Resources */ = {isa = PBXBuildFile; fileRef = CCB9524C2616190B000F0003 /* chest_yellow.gif */; };
+		CCB952572616190B000F0003 /* chest_orange.gif in Resources */ = {isa = PBXBuildFile; fileRef = CCB9524D2616190B000F0003 /* chest_orange.gif */; };
+		CCB952582616190B000F0003 /* coin_red.gif in Resources */ = {isa = PBXBuildFile; fileRef = CCB9524E2616190B000F0003 /* coin_red.gif */; };
+		CCB952592616190B000F0003 /* coin_yellow.gif in Resources */ = {isa = PBXBuildFile; fileRef = CCB9524F2616190B000F0003 /* coin_yellow.gif */; };
+		CCBDC9E925E90695003D0C75 /* ScheduleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBDC9E825E90695003D0C75 /* ScheduleExtension.swift */; };
+		CCBDC9EC25E918F5003D0C75 /* DailyScrollVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBDC9EB25E918F5003D0C75 /* DailyScrollVC.swift */; };
+		CCC0E3C925E583D400146770 /* ExternalCalendarEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0E3C825E583D400146770 /* ExternalCalendarEventCell.swift */; };
+		CCC0E3CC25E5867600146770 /* ExternalCalendarEventListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0E3CB25E5867600146770 /* ExternalCalendarEventListController.swift */; };
+		CCC0E3CF25E62D9000146770 /* DispatchQueueExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC0E3CE25E62D9000146770 /* DispatchQueueExtension.swift */; };
+		CCC489B8262B3C6A00A18298 /* Dayoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC489B7262B3C6A00A18298 /* Dayoff.swift */; };
+		CCC489BC262B423000A18298 /* UpCommingSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC489BB262B423000A18298 /* UpCommingSchedule.swift */; };
+		CCCA0562262F25A000A64053 /* PuzzleProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCA0561262F25A000A64053 /* PuzzleProgress.swift */; };
+		CCCBC3E6261DD0BC00B17A39 /* AppleCalendarGather.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCBC3E5261DD0BC00B17A39 /* AppleCalendarGather.swift */; };
+		CCCBC3E8261DD5B000B17A39 /* ConnectAppleCalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCBC3E7261DD5B000B17A39 /* ConnectAppleCalendarVC.swift */; };
+		CCD17EF3261EB56E00000E37 /* StringError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD17EF2261EB56E00000E37 /* StringError.swift */; };
+		CCD1B38225EBD2FD003DDA88 /* MultiSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD1B38125EBD2FD003DDA88 /* MultiSegmentView.swift */; };
+		CCD1B38825EBEAB2003DDA88 /* DateSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD1B38725EBEAB2003DDA88 /* DateSelectVC.swift */; };
+		CCD7F15225F0AA5B009F96FE /* LocationSelectorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD7F15125F0AA5B009F96FE /* LocationSelectorVC.swift */; };
+		CCD9241D2615754400D41708 /* quik_help.wav in Resources */ = {isa = PBXBuildFile; fileRef = CCD9241C2615754400D41708 /* quik_help.wav */; };
+		CCD9A54E2631467B00150E3A /* StickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD9A54D2631467B00150E3A /* StickerCell.swift */; };
+		CCDAE6F82613B0F500B02072 /* PuzzleSettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDAE6F72613B0F500B02072 /* PuzzleSettingVC.swift */; };
+		CCDEAC76260E01D00068209D /* ColorBackgroundProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDEAC75260E01D00068209D /* ColorBackgroundProtocol.swift */; };
+		CCE011882632DBDD0066813F /* write.wav in Resources */ = {isa = PBXBuildFile; fileRef = CCE011842632DBDD0066813F /* write.wav */; };
+		CCE011892632DBDD0066813F /* delete.wav in Resources */ = {isa = PBXBuildFile; fileRef = CCE011872632DBDD0066813F /* delete.wav */; };
+		CCED8BC2262C3DB700D2A869 /* ScheduleWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCED8BC1262C3DB700D2A869 /* ScheduleWidget.swift */; };
+		CCED8BC8262C496800D2A869 /* CustomWidgetURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCED8BC7262C496800D2A869 /* CustomWidgetURL.swift */; };
+		CCEFB64025E67D35008B14AC /* DailyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEFB63F25E67D35008B14AC /* DailyViewController.swift */; };
+		CCEFB64425E68193008B14AC /* WeeklyScheduleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEFB64325E68193008B14AC /* WeeklyScheduleVC.swift */; };
+		CCF36B172629F62100FED509 /* Calendar&DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3A75F625E4D2E300415F32 /* Calendar&DateExtension.swift */; };
+		CCF36B1B2629F89E00FED509 /* DataGather.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF36B1A2629F89E00FED509 /* DataGather.swift */; };
+		CCF36B22262A9DDA00FED509 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5C058A260DC5FD009C73CD /* ListViewController.swift */; };
+		CCF36B25262AA0B300FED509 /* DateSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF36B24262AA0B300FED509 /* DateSquare.swift */; };
+		CCF36B28262AA5AD00FED509 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF36B27262AA5AD00FED509 /* UserDefaultsExtension.swift */; };
+		CCF36B29262AA5AD00FED509 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF36B27262AA5AD00FED509 /* UserDefaultsExtension.swift */; };
+		CCF36B2C262AA60A00FED509 /* UserConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF36B2B262AA60A00FED509 /* UserConfig.swift */; };
+		CCF36B2F262AB1E400FED509 /* ScheduleRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF36B2E262AB1E400FED509 /* ScheduleRow.swift */; };
+		CCF36B31262ABA6600FED509 /* GifImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC437D36260F42F9009BB23A /* GifImage.swift */; };
+		CCF4997425ECC80A0020157A /* placeHolderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF4997325ECC80A0020157A /* placeHolderTextView.swift */; };
+		CCF5A1D8260AD221001D0D57 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF5A1D7260AD221001D0D57 /* TodoListViewController.swift */; };
+		CCF7605226158E2A00DDED25 /* UserGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7605126158E2A00DDED25 /* UserGuide.swift */; };
+		CCFED69825EA0423004A2311 /* BaseLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCFED69725EA0423004A2311 /* BaseLine.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		89A5CEAA2653F89C00873C57 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 89A5CEA52653F89C00873C57 /* PuzzleMaker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 48DC7DCC1D59E3260024C008;
+			remoteInfo = "PuzzleMaker iOS";
+		};
+		89A5CEAC2653F89C00873C57 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 89A5CEA52653F89C00873C57 /* PuzzleMaker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 48BAFF441D5CA4FC00AE346A;
+			remoteInfo = PuzzleMakerTests;
+		};
+		CC3EEA8C262959CC00A48D15 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C9948A525D1128600ACDBB4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC3EEA82262959C800A48D15;
+			remoteInfo = PixelSchedulerWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		89A5CEB02653F8AF00873C57 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				89A5CEAF2653F8AF00873C57 /* PuzzleMaker.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CCB90A14262883A900DD995E /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				CC3EEA8E262959CC00A48D15 /* PixelSchedulerWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1C3A75F625E4D2E300415F32 /* Calendar&DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar&DateExtension.swift"; sourceTree = "<group>"; };
+		1C3A75F925E4D3A600415F32 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		1C3A75FC25E4D57700415F32 /* ScrollViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewExtension.swift; sourceTree = "<group>"; };
+		1C3A75FF25E4D5AE00415F32 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		1C3A760925E4D69E00415F32 /* CalendarCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCellView.swift; sourceTree = "<group>"; };
+		1C3A760C25E4D6CE00415F32 /* CalenderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderCell.swift; sourceTree = "<group>"; };
+		1C3A760F25E4D6FB00415F32 /* ScheduleModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModelController.swift; sourceTree = "<group>"; };
+		1C3A761225E4D72400415F32 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
+		1C3A761525E4D74900415F32 /* HolidayGather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolidayGather.swift; sourceTree = "<group>"; };
+		1C3A761825E4D77100415F32 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		1C3A761B25E4D81C00415F32 /* CalendarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarController.swift; sourceTree = "<group>"; };
+		1C9948AD25D1128600ACDBB4 /* PixelScheduler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PixelScheduler.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C9948B025D1128600ACDBB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1C9948B225D1128600ACDBB4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		1C9948B725D1128600ACDBB4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1C9948B925D1128700ACDBB4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1C9948BC25D1128700ACDBB4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1C9948BE25D1128700ACDBB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1CE8AF1425D25182004A8F37 /* CalendarCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCollectionController.swift; sourceTree = "<group>"; };
+		89A5CEA52653F89C00873C57 /* PuzzleMaker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PuzzleMaker.xcodeproj; path = ../PuzzleMaker/PuzzleMaker.xcodeproj; sourceTree = "<group>"; };
+		CC0B2D63260F02510097909B /* ListTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTaskCell.swift; sourceTree = "<group>"; };
+		CC0B3DA525EB733A00896FED /* CurrentTimeLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTimeLine.swift; sourceTree = "<group>"; };
+		CC0EBAA1260A2DA5001EF592 /* ImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtension.swift; sourceTree = "<group>"; };
+		CC0F0FA92611FC6D004C696D /* ScaleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleImage.swift; sourceTree = "<group>"; };
+		CC0F0FB126123EB2004C696D /* puzzle_flip.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = puzzle_flip.wav; sourceTree = "<group>"; };
+		CC0F0FB326124A5C004C696D /* EditPuzzleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPuzzleVC.swift; sourceTree = "<group>"; };
+		CC11DA642639307400830B3D /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		CC12A36625E95E630054B878 /* DailyScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyScrollView.swift; sourceTree = "<group>"; };
+		CC1355EF260B7FD500B076EA /* TaskCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollectionVC.swift; sourceTree = "<group>"; };
+		CC142E0626255A1900E69623 /* IAPHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
+		CC142E082625608800E69623 /* InAppPurchaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchaseVC.swift; sourceTree = "<group>"; };
+		CC1560392614575B00CDF6E4 /* CharacterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterHelper.swift; sourceTree = "<group>"; };
+		CC15603D26145EEB00CDF6E4 /* QuikHelpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuikHelpVC.swift; sourceTree = "<group>"; };
+		CC15603F2614732000CDF6E4 /* SpeechBalloon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechBalloon.swift; sourceTree = "<group>"; };
+		CC19D0D92630A16D000C262A /* Sticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sticker.swift; sourceTree = "<group>"; };
+		CC19D0DE2630A47E000C262A /* StickerSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerSelectVC.swift; sourceTree = "<group>"; };
+		CC1CCB5C25EB684C008E7D7D /* ScheduleBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleBackground.swift; sourceTree = "<group>"; };
+		CC2150122615F9FF00859050 /* barbarian_attack.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = barbarian_attack.gif; sourceTree = "<group>"; };
+		CC2150152615F9FF00859050 /* dragon_attack.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = dragon_attack.gif; sourceTree = "<group>"; };
+		CC2150162615F9FF00859050 /* gargoyle_attack.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = gargoyle_attack.gif; sourceTree = "<group>"; };
+		CC2150172615F9FF00859050 /* princess_attack.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = princess_attack.gif; sourceTree = "<group>"; };
+		CC2150182615F9FF00859050 /* soldier_attack.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = soldier_attack.gif; sourceTree = "<group>"; };
+		CC2150192615F9FF00859050 /* wizard_attack.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = wizard_attack.gif; sourceTree = "<group>"; };
+		CC2150202615FCE900859050 /* explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion.wav; sourceTree = "<group>"; };
+		CC21E2B4260C788F00195716 /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
+		CC242A96260C3DFB0034EA9E /* HapticExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticExtension.swift; sourceTree = "<group>"; };
+		CC242A9A260C5AFC0034EA9E /* UserDataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataContainer.swift; sourceTree = "<group>"; };
+		CC242A9D260C620B0034EA9E /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		CC242AA0260C62AC0034EA9E /* TaskCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCollection.swift; sourceTree = "<group>"; };
+		CC28DC6A25EE312800128011 /* MapKitExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapKitExtension.swift; sourceTree = "<group>"; };
+		CC2B269E260B818F0024A763 /* TaskModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModelController.swift; sourceTree = "<group>"; };
+		CC2B26A2260B85730024A763 /* CollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCell.swift; sourceTree = "<group>"; };
+		CC2B26A5260B9DCA0024A763 /* CustomTableHeaderFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableHeaderFooter.swift; sourceTree = "<group>"; };
+		CC36805625E8D76400F72F92 /* WeeklyCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCellView.swift; sourceTree = "<group>"; };
+		CC36805925E8D7FD00F72F92 /* WeeklyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCell.swift; sourceTree = "<group>"; };
+		CC3A66E5262D666E000AD84D /* ScheduleOfDayInWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleOfDayInWeek.swift; sourceTree = "<group>"; };
+		CC3EEA83262959C800A48D15 /* PixelSchedulerWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PixelSchedulerWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC3EEA87262959C800A48D15 /* PixelSchedulerWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelSchedulerWidget.swift; sourceTree = "<group>"; };
+		CC3EEA89262959CC00A48D15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CC3EEA8B262959CC00A48D15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC437D29260F1A71009BB23A /* SoundEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEffect.swift; sourceTree = "<group>"; };
+		CC437D2F260F1F8F009BB23A /* paper.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = paper.wav; sourceTree = "<group>"; };
+		CC437D30260F1F8F009BB23A /* close_drawer.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = close_drawer.wav; sourceTree = "<group>"; };
+		CC437D31260F1F90009BB23A /* open_drawer.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = open_drawer.wav; sourceTree = "<group>"; };
+		CC437D36260F42F9009BB23A /* GifImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifImage.swift; sourceTree = "<group>"; };
+		CC53A682262EBBBC000D8958 /* TaskWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskWidget.swift; sourceTree = "<group>"; };
+		CC53A687262EBC27000D8958 /* TaskProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskProvider.swift; sourceTree = "<group>"; };
+		CC53A68D262EBCB3000D8958 /* TaskWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskWidgetView.swift; sourceTree = "<group>"; };
+		CC53A691262ED62C000D8958 /* ListProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProgress.swift; sourceTree = "<group>"; };
+		CC57A6972624625400BF5154 /* ContactGather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactGather.swift; sourceTree = "<group>"; };
+		CC58653C261605B600300E19 /* coin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin.wav; sourceTree = "<group>"; };
+		CC5865402616084C00300E19 /* dragon_fire.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = dragon_fire.gif; sourceTree = "<group>"; };
+		CC5865412616084C00300E19 /* fireball.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = fireball.gif; sourceTree = "<group>"; };
+		CC5865422616084C00300E19 /* iceball.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = iceball.gif; sourceTree = "<group>"; };
+		CC586546261611B600300E19 /* goblin_attack.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = goblin_attack.gif; sourceTree = "<group>"; };
+		CC5B0292262D82CA00F37B4B /* ScheduleDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDetail.swift; sourceTree = "<group>"; };
+		CC5C058A260DC5FD009C73CD /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		CC5C058D260DC60D009C73CD /* PuzzleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleViewController.swift; sourceTree = "<group>"; };
+		CC5C0590260DC6C1009C73CD /* ToggleableContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleableContainerVC.swift; sourceTree = "<group>"; };
+		CC5ED9FB25F1E5F200B1F3D5 /* SearchResultTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableVC.swift; sourceTree = "<group>"; };
+		CC5ED9FE25F1E9A100B1F3D5 /* SuggestionTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionTableVC.swift; sourceTree = "<group>"; };
+		CC66EC112615E5F800FAF80E /* explosion.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = explosion.gif; sourceTree = "<group>"; };
+		CC6752CB2613329800A15D76 /* soldier_move.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = soldier_move.gif; sourceTree = "<group>"; };
+		CC6752CE2613329800A15D76 /* barbarian_move.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = barbarian_move.gif; sourceTree = "<group>"; };
+		CC6752CF2613329900A15D76 /* princess_move.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = princess_move.gif; sourceTree = "<group>"; };
+		CC6752D02613329900A15D76 /* wizard_move.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = wizard_move.gif; sourceTree = "<group>"; };
+		CC6752D12613329900A15D76 /* goblin_move.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = goblin_move.gif; sourceTree = "<group>"; };
+		CC6752D22613329A00A15D76 /* dragon_move.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = dragon_move.gif; sourceTree = "<group>"; };
+		CC6752D32613329A00A15D76 /* gargoyle_move.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = gargoyle_move.gif; sourceTree = "<group>"; };
+		CC6752DB2613372300A15D76 /* wizard_idle.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = wizard_idle.gif; sourceTree = "<group>"; };
+		CC6D99FC26299119006E5005 /* PixelSchedulerWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PixelSchedulerWidgetExtension.entitlements; sourceTree = "<group>"; };
+		CC75058A2615DA0A0035400E /* TileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileView.swift; sourceTree = "<group>"; };
+		CC76E010260B64B8007D3355 /* ScrollviewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollviewDataSource.swift; sourceTree = "<group>"; };
+		CC7D4917261E25FD00A73607 /* princess.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = princess.wav; sourceTree = "<group>"; };
+		CC7D491A261E25FD00A73607 /* gargoyle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gargoyle.wav; sourceTree = "<group>"; };
+		CC7D491B261E25FD00A73607 /* goblin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = goblin.wav; sourceTree = "<group>"; };
+		CC7D491C261E25FD00A73607 /* dragon.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dragon.wav; sourceTree = "<group>"; };
+		CC7D491D261E25FE00A73607 /* barbarian.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = barbarian.wav; sourceTree = "<group>"; };
+		CC7D491E261E25FE00A73607 /* wizard.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = wizard.wav; sourceTree = "<group>"; };
+		CC7D491F261E25FE00A73607 /* soldier.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = soldier.wav; sourceTree = "<group>"; };
+		CC7EE36425F37C27002A4920 /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
+		CC8447102621992E00667918 /* Retro Gaming.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Retro Gaming.ttf"; sourceTree = "<group>"; };
+		CC8447112621992F00667918 /* 양진체v0.9ttf.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "양진체v0.9ttf.ttf"; sourceTree = "<group>"; };
+		CC891E9F2613084B000D881F /* SelectCharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCharacterCell.swift; sourceTree = "<group>"; };
+		CC8C806E25EB815000AD5177 /* EditScheduleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScheduleVC.swift; sourceTree = "<group>"; };
+		CC8DEF982612F1ED00B39ECF /* SelectCharacterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCharacterVC.swift; sourceTree = "<group>"; };
+		CC8DEFAA2613059300B39ECF /* soldier_idle.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = soldier_idle.gif; sourceTree = "<group>"; };
+		CC8DEFAB2613059400B39ECF /* gargoyle_idle.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = gargoyle_idle.gif; sourceTree = "<group>"; };
+		CC8DEFAC2613059500B39ECF /* goblin_idle.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = goblin_idle.gif; sourceTree = "<group>"; };
+		CC8DEFAD2613059600B39ECF /* barbarian_idle.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = barbarian_idle.gif; sourceTree = "<group>"; };
+		CC8DEFAE2613059700B39ECF /* dragon_idle.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = dragon_idle.gif; sourceTree = "<group>"; };
+		CC8DEFAF2613059A00B39ECF /* princess_idle.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = princess_idle.gif; sourceTree = "<group>"; };
+		CC95EDEE25ED1EE40091C7BB /* scheduleDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = scheduleDetailVC.swift; sourceTree = "<group>"; };
+		CC97420D25F223CF00181924 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		CC99BC3025E4DBD200F2CCC7 /* ScheduleCalendarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCalendarVC.swift; sourceTree = "<group>"; };
+		CC99BC3425E4DC1500F2CCC7 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		CC99BC3625E4DC1500F2CCC7 /* ConnectGoogleCalendarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectGoogleCalendarVC.swift; sourceTree = "<group>"; };
+		CC99BC3725E4DC1500F2CCC7 /* GoogleOAuthConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleOAuthConfig.swift; sourceTree = "<group>"; };
+		CC99BC3925E4DC1600F2CCC7 /* CalendarComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarComponent.swift; sourceTree = "<group>"; };
+		CC99BC3A25E4DC1600F2CCC7 /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		CC99BC3B25E4DC1600F2CCC7 /* ICalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICalendar.swift; sourceTree = "<group>"; };
+		CC99BC3C25E4DC1600F2CCC7 /* ICalendarAlarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICalendarAlarm.swift; sourceTree = "<group>"; };
+		CC99BC3D25E4DC1600F2CCC7 /* ICalendarError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICalendarError.swift; sourceTree = "<group>"; };
+		CC99BC3E25E4DC1600F2CCC7 /* ICalendarEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICalendarEvent.swift; sourceTree = "<group>"; };
+		CC99BC3F25E4DC1600F2CCC7 /* ICalendarParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICalendarParser.swift; sourceTree = "<group>"; };
+		CC99BC4025E4DC1600F2CCC7 /* IcsElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IcsElement.swift; sourceTree = "<group>"; };
+		CC99BC4125E4DC1600F2CCC7 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		CC99BC4225E4DC1600F2CCC7 /* OAuthGather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthGather.swift; sourceTree = "<group>"; };
+		CC99BC4325E4DC1600F2CCC7 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		CC99BC5425E4DCF200F2CCC7 /* ViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerExtension.swift; sourceTree = "<group>"; };
+		CC99BC5525E4DCF200F2CCC7 /* Future&Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Future&Promise.swift"; sourceTree = "<group>"; };
+		CC99BC5625E4DCF200F2CCC7 /* URLExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
+		CC99BC5725E4DCF200F2CCC7 /* Loopable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loopable.swift; sourceTree = "<group>"; };
+		CC9F686425EAAB13002EC017 /* AlldaySchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlldaySchedule.swift; sourceTree = "<group>"; };
+		CC9F686725EADA5F002EC017 /* OverlappedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlappedCell.swift; sourceTree = "<group>"; };
+		CC9F686A25EADC03002EC017 /* DailyScrollViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyScrollViewHelper.swift; sourceTree = "<group>"; };
+		CCA7E00A25EA55C8004B3014 /* ScheduleContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleContentsView.swift; sourceTree = "<group>"; };
+		CCAB25D326247EA1003F2B08 /* ContactImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactImageView.swift; sourceTree = "<group>"; };
+		CCAD57E32614BDB900C40A2E /* InstructionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionCell.swift; sourceTree = "<group>"; };
+		CCB909FA26287FFB00DD995E /* PixelScheduler.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PixelScheduler.entitlements; sourceTree = "<group>"; };
+		CCB90A01262883A500DD995E /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		CCB90A03262883A500DD995E /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		CCB90A192628878000DD995E /* ScheduleWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleWidgetView.swift; sourceTree = "<group>"; };
+		CCB90A1C2628885400DD995E /* ScheduleProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleProvider.swift; sourceTree = "<group>"; };
+		CCB952442616190A000F0003 /* chest_green.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = chest_green.gif; sourceTree = "<group>"; };
+		CCB952472616190A000F0003 /* chest_red.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = chest_red.gif; sourceTree = "<group>"; };
+		CCB952482616190B000F0003 /* coin_green.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = coin_green.gif; sourceTree = "<group>"; };
+		CCB952492616190B000F0003 /* chest_blue.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = chest_blue.gif; sourceTree = "<group>"; };
+		CCB9524A2616190B000F0003 /* coin_orange.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = coin_orange.gif; sourceTree = "<group>"; };
+		CCB9524B2616190B000F0003 /* coin_blue.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = coin_blue.gif; sourceTree = "<group>"; };
+		CCB9524C2616190B000F0003 /* chest_yellow.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = chest_yellow.gif; sourceTree = "<group>"; };
+		CCB9524D2616190B000F0003 /* chest_orange.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = chest_orange.gif; sourceTree = "<group>"; };
+		CCB9524E2616190B000F0003 /* coin_red.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = coin_red.gif; sourceTree = "<group>"; };
+		CCB9524F2616190B000F0003 /* coin_yellow.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = coin_yellow.gif; sourceTree = "<group>"; };
+		CCBDC9E825E90695003D0C75 /* ScheduleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleExtension.swift; sourceTree = "<group>"; };
+		CCBDC9EB25E918F5003D0C75 /* DailyScrollVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyScrollVC.swift; sourceTree = "<group>"; };
+		CCC0E3C825E583D400146770 /* ExternalCalendarEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalCalendarEventCell.swift; sourceTree = "<group>"; };
+		CCC0E3CB25E5867600146770 /* ExternalCalendarEventListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalCalendarEventListController.swift; sourceTree = "<group>"; };
+		CCC0E3CE25E62D9000146770 /* DispatchQueueExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueExtension.swift; sourceTree = "<group>"; };
+		CCC489B7262B3C6A00A18298 /* Dayoff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dayoff.swift; sourceTree = "<group>"; };
+		CCC489BB262B423000A18298 /* UpCommingSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpCommingSchedule.swift; sourceTree = "<group>"; };
+		CCCA0561262F25A000A64053 /* PuzzleProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleProgress.swift; sourceTree = "<group>"; };
+		CCCBC3E5261DD0BC00B17A39 /* AppleCalendarGather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleCalendarGather.swift; sourceTree = "<group>"; };
+		CCCBC3E7261DD5B000B17A39 /* ConnectAppleCalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectAppleCalendarVC.swift; sourceTree = "<group>"; };
+		CCD17EF2261EB56E00000E37 /* StringError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringError.swift; sourceTree = "<group>"; };
+		CCD1B38125EBD2FD003DDA88 /* MultiSegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSegmentView.swift; sourceTree = "<group>"; };
+		CCD1B38725EBEAB2003DDA88 /* DateSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectVC.swift; sourceTree = "<group>"; };
+		CCD7F15125F0AA5B009F96FE /* LocationSelectorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectorVC.swift; sourceTree = "<group>"; };
+		CCD9241C2615754400D41708 /* quik_help.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = quik_help.wav; sourceTree = "<group>"; };
+		CCD9A54D2631467B00150E3A /* StickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerCell.swift; sourceTree = "<group>"; };
+		CCDAE6F72613B0F500B02072 /* PuzzleSettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleSettingVC.swift; sourceTree = "<group>"; };
+		CCDEAC75260E01D00068209D /* ColorBackgroundProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBackgroundProtocol.swift; sourceTree = "<group>"; };
+		CCE011842632DBDD0066813F /* write.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = write.wav; sourceTree = "<group>"; };
+		CCE011872632DBDD0066813F /* delete.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = delete.wav; sourceTree = "<group>"; };
+		CCED8BC1262C3DB700D2A869 /* ScheduleWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleWidget.swift; sourceTree = "<group>"; };
+		CCED8BC7262C496800D2A869 /* CustomWidgetURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWidgetURL.swift; sourceTree = "<group>"; };
+		CCEFB63F25E67D35008B14AC /* DailyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyViewController.swift; sourceTree = "<group>"; };
+		CCEFB64325E68193008B14AC /* WeeklyScheduleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyScheduleVC.swift; sourceTree = "<group>"; };
+		CCF36B1A2629F89E00FED509 /* DataGather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataGather.swift; sourceTree = "<group>"; };
+		CCF36B24262AA0B300FED509 /* DateSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSquare.swift; sourceTree = "<group>"; };
+		CCF36B27262AA5AD00FED509 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
+		CCF36B2B262AA60A00FED509 /* UserConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConfig.swift; sourceTree = "<group>"; };
+		CCF36B2E262AB1E400FED509 /* ScheduleRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleRow.swift; sourceTree = "<group>"; };
+		CCF4997325ECC80A0020157A /* placeHolderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = placeHolderTextView.swift; sourceTree = "<group>"; };
+		CCF5A1D7260AD221001D0D57 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
+		CCF7605126158E2A00DDED25 /* UserGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGuide.swift; sourceTree = "<group>"; };
+		CCFED69725EA0423004A2311 /* BaseLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLine.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1C9948AA25D1128600ACDBB4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC11DA652639307400830B3D /* CloudKit.framework in Frameworks */,
+				89A5CEAE2653F8AF00873C57 /* PuzzleMaker.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC3EEA80262959C800A48D15 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC3EEA85262959C800A48D15 /* SwiftUI.framework in Frameworks */,
+				CC3EEA84262959C800A48D15 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1C3A75F125E4CCB200415F32 /* SettingTab */ = {
+			isa = PBXGroup;
+			children = (
+				CCCBC3E4261DCEC600B17A39 /* Apple Calendar */,
+				CC99BC3525E4DC1500F2CCC7 /* Google Calendar */,
+				CCC0E3CB25E5867600146770 /* ExternalCalendarEventListController.swift */,
+				CCC0E3C825E583D400146770 /* ExternalCalendarEventCell.swift */,
+				CC142E0326255A0600E69623 /* InAppPurchase */,
+				CC99BC3425E4DC1500F2CCC7 /* SettingViewController.swift */,
+				CC15603D26145EEB00CDF6E4 /* QuikHelpVC.swift */,
+				CC891EA326130851000D881F /* CharacterSelect */,
+			);
+			name = SettingTab;
+			sourceTree = "<group>";
+		};
+		1C3A760225E4D5C900415F32 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				CCD1B37725EBD0FB003DDA88 /* UI */,
+				1C3A75F625E4D2E300415F32 /* Calendar&DateExtension.swift */,
+				CCC0E3CE25E62D9000146770 /* DispatchQueueExtension.swift */,
+				CC28DC6A25EE312800128011 /* MapKitExtension.swift */,
+				CCF36B27262AA5AD00FED509 /* UserDefaultsExtension.swift */,
+				CCD17EF2261EB56E00000E37 /* StringError.swift */,
+				CCBDC9E825E90695003D0C75 /* ScheduleExtension.swift */,
+				CC242A9A260C5AFC0034EA9E /* UserDataContainer.swift */,
+				CC99BC5525E4DCF200F2CCC7 /* Future&Promise.swift */,
+				CC99BC5725E4DCF200F2CCC7 /* Loopable.swift */,
+				CC99BC5625E4DCF200F2CCC7 /* URLExtension.swift */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
+		1C3A760425E4D62A00415F32 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1C3A760925E4D69E00415F32 /* CalendarCellView.swift */,
+				CC36805625E8D76400F72F92 /* WeeklyCellView.swift */,
+				CCD1B38125EBD2FD003DDA88 /* MultiSegmentView.swift */,
+				CC0B3DAA25EB752800896FED /* DailyScrollView */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		1C3A760525E4D63600415F32 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CC7B75D625EBEE3500FBE7B7 /* Edit */,
+				CC8C806A25EB762900AD5177 /* Calendar */,
+				CC8C806B25EB763B00AD5177 /* Weekly */,
+				CC8C806C25EB764600AD5177 /* Daily */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		1C3A760825E4D65700415F32 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1C3A760F25E4D6FB00415F32 /* ScheduleModelController.swift */,
+				CC2B269E260B818F0024A763 /* TaskModelController.swift */,
+				CC242AA0260C62AC0034EA9E /* TaskCollection.swift */,
+				CC19D0D92630A16D000C262A /* Sticker.swift */,
+				CCF7605126158E2A00DDED25 /* UserGuide.swift */,
+				CC57A6972624625400BF5154 /* ContactGather.swift */,
+				CC242A9D260C620B0034EA9E /* Task.swift */,
+				1C3A761225E4D72400415F32 /* Schedule.swift */,
+				CC7EE36425F37C27002A4920 /* SettingController.swift */,
+				1C3A761525E4D74900415F32 /* HolidayGather.swift */,
+				1C3A761825E4D77100415F32 /* NotificationController.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		1C3E984D25DAAB3E00268DB0 /* ScheduleTab */ = {
+			isa = PBXGroup;
+			children = (
+				1C3A760525E4D63600415F32 /* ViewController */,
+				1C3A760425E4D62A00415F32 /* View */,
+			);
+			name = ScheduleTab;
+			sourceTree = "<group>";
+		};
+		1C9948A425D1128600ACDBB4 = {
+			isa = PBXGroup;
+			children = (
+				CC6D99FC26299119006E5005 /* PixelSchedulerWidgetExtension.entitlements */,
+				1C9948AF25D1128600ACDBB4 /* PixelScheduler */,
+				CC3EEA86262959C800A48D15 /* PixelSchedulerWidget */,
+				CC606A132611DCC8000A8D5E /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		1C9948AE25D1128600ACDBB4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1C9948AD25D1128600ACDBB4 /* PixelScheduler.app */,
+				CC3EEA83262959C800A48D15 /* PixelSchedulerWidgetExtension.appex */,
+			);
+			name = Products;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		1C9948AF25D1128600ACDBB4 /* PixelScheduler */ = {
+			isa = PBXGroup;
+			children = (
+				CCB909FA26287FFB00DD995E /* PixelScheduler.entitlements */,
+				1C9948BE25D1128700ACDBB4 /* Info.plist */,
+				1C9948B225D1128600ACDBB4 /* SceneDelegate.swift */,
+				1C9948B025D1128600ACDBB4 /* AppDelegate.swift */,
+				CC5ED9FA25F1E5B300B1F3D5 /* Resource */,
+				1C3A75F125E4CCB200415F32 /* SettingTab */,
+				1C3A760825E4D65700415F32 /* Model */,
+				1C3E984D25DAAB3E00268DB0 /* ScheduleTab */,
+				CCF5A1D6260AD1E5001D0D57 /* TodoListTab */,
+				1C3A760225E4D5C900415F32 /* Helper */,
+				1C9948AE25D1128600ACDBB4 /* Products */,
+			);
+			path = PixelScheduler;
+			sourceTree = "<group>";
+		};
+		89A5CEA62653F89C00873C57 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				89A5CEAB2653F89C00873C57 /* PuzzleMaker.framework */,
+				89A5CEAD2653F89C00873C57 /* PuzzleMakerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC0B3DAA25EB752800896FED /* DailyScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				CC12A36625E95E630054B878 /* DailyScrollView.swift */,
+				CC0B3DA525EB733A00896FED /* CurrentTimeLine.swift */,
+				CC9F686725EADA5F002EC017 /* OverlappedCell.swift */,
+				CC1CCB5C25EB684C008E7D7D /* ScheduleBackground.swift */,
+				CC9F686425EAAB13002EC017 /* AlldaySchedule.swift */,
+				CCA7E00A25EA55C8004B3014 /* ScheduleContentsView.swift */,
+				CCFED69725EA0423004A2311 /* BaseLine.swift */,
+			);
+			name = DailyScrollView;
+			sourceTree = "<group>";
+		};
+		CC1355F2260B7FE700B076EA /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CCF5A1D7260AD221001D0D57 /* TodoListViewController.swift */,
+				CC5C0590260DC6C1009C73CD /* ToggleableContainerVC.swift */,
+				CCDAE6F72613B0F500B02072 /* PuzzleSettingVC.swift */,
+				CC5C058A260DC5FD009C73CD /* ListViewController.swift */,
+				CC5C058D260DC60D009C73CD /* PuzzleViewController.swift */,
+				CC0F0FB326124A5C004C696D /* EditPuzzleVC.swift */,
+				CC1355EF260B7FD500B076EA /* TaskCollectionVC.swift */,
+				CC21E2B4260C788F00195716 /* CustomAlertViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		CC142E0326255A0600E69623 /* InAppPurchase */ = {
+			isa = PBXGroup;
+			children = (
+				CC142E0626255A1900E69623 /* IAPHelper.swift */,
+				CC142E082625608800E69623 /* InAppPurchaseVC.swift */,
+			);
+			path = InAppPurchase;
+			sourceTree = "<group>";
+		};
+		CC2B26A1260B853E0024A763 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CC2B26A2260B85730024A763 /* CollectionCell.swift */,
+				CC2B26A5260B9DCA0024A763 /* CustomTableHeaderFooter.swift */,
+				CC75058A2615DA0A0035400E /* TileView.swift */,
+				CC0B2D63260F02510097909B /* ListTaskCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CC3EEA86262959C800A48D15 /* PixelSchedulerWidget */ = {
+			isa = PBXGroup;
+			children = (
+				CC3EEA87262959C800A48D15 /* PixelSchedulerWidget.swift */,
+				CCED8BC1262C3DB700D2A869 /* ScheduleWidget.swift */,
+				CC53A682262EBBBC000D8958 /* TaskWidget.swift */,
+				CC53A690262ED618000D8958 /* TaskWidgetView */,
+				CC3EEA89262959CC00A48D15 /* Assets.xcassets */,
+				CCB90A1C2628885400DD995E /* ScheduleProvider.swift */,
+				CC53A687262EBC27000D8958 /* TaskProvider.swift */,
+				CCF36B2B262AA60A00FED509 /* UserConfig.swift */,
+				CCC489B5262B2B7900A18298 /* ScheduleWidgetView */,
+				CCF36B1A2629F89E00FED509 /* DataGather.swift */,
+				CC3EEA8B262959CC00A48D15 /* Info.plist */,
+			);
+			path = PixelSchedulerWidget;
+			sourceTree = "<group>";
+		};
+		CC437D2E260F1F73009BB23A /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				CC437D30260F1F8F009BB23A /* close_drawer.wav */,
+				CC0F0FB126123EB2004C696D /* puzzle_flip.wav */,
+				CCD9241C2615754400D41708 /* quik_help.wav */,
+				CC2150202615FCE900859050 /* explosion.wav */,
+				CC437D31260F1F90009BB23A /* open_drawer.wav */,
+				CC7D491D261E25FE00A73607 /* barbarian.wav */,
+				CC7D491C261E25FD00A73607 /* dragon.wav */,
+				CC7D491A261E25FD00A73607 /* gargoyle.wav */,
+				CCE011872632DBDD0066813F /* delete.wav */,
+				CCE011842632DBDD0066813F /* write.wav */,
+				CC7D491B261E25FD00A73607 /* goblin.wav */,
+				CC7D491F261E25FE00A73607 /* soldier.wav */,
+				CC7D4917261E25FD00A73607 /* princess.wav */,
+				CC7D491E261E25FE00A73607 /* wizard.wav */,
+				CC58653C261605B600300E19 /* coin.wav */,
+				CC437D2F260F1F8F009BB23A /* paper.wav */,
+			);
+			name = Sound;
+			sourceTree = "<group>";
+		};
+		CC437D39260F4C62009BB23A /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				CC5865402616084C00300E19 /* dragon_fire.gif */,
+				CC5865412616084C00300E19 /* fireball.gif */,
+				CC5865422616084C00300E19 /* iceball.gif */,
+				CC8DEFAD2613059600B39ECF /* barbarian_idle.gif */,
+				CC8DEFAE2613059700B39ECF /* dragon_idle.gif */,
+				CC8DEFAB2613059400B39ECF /* gargoyle_idle.gif */,
+				CC8DEFAC2613059500B39ECF /* goblin_idle.gif */,
+				CC8DEFAF2613059A00B39ECF /* princess_idle.gif */,
+				CC8DEFAA2613059300B39ECF /* soldier_idle.gif */,
+				CC6752CE2613329800A15D76 /* barbarian_move.gif */,
+				CC6752D22613329A00A15D76 /* dragon_move.gif */,
+				CC6752D32613329A00A15D76 /* gargoyle_move.gif */,
+				CC6752D12613329900A15D76 /* goblin_move.gif */,
+				CC586546261611B600300E19 /* goblin_attack.gif */,
+				CC6752DB2613372300A15D76 /* wizard_idle.gif */,
+				CC66EC112615E5F800FAF80E /* explosion.gif */,
+				CCB952492616190B000F0003 /* chest_blue.gif */,
+				CCB952442616190A000F0003 /* chest_green.gif */,
+				CCB9524D2616190B000F0003 /* chest_orange.gif */,
+				CCB952472616190A000F0003 /* chest_red.gif */,
+				CCB9524C2616190B000F0003 /* chest_yellow.gif */,
+				CCB9524B2616190B000F0003 /* coin_blue.gif */,
+				CCB952482616190B000F0003 /* coin_green.gif */,
+				CCB9524A2616190B000F0003 /* coin_orange.gif */,
+				CCB9524E2616190B000F0003 /* coin_red.gif */,
+				CCB9524F2616190B000F0003 /* coin_yellow.gif */,
+				CC6752CF2613329900A15D76 /* princess_move.gif */,
+				CC6752CB2613329800A15D76 /* soldier_move.gif */,
+				CC2150122615F9FF00859050 /* barbarian_attack.gif */,
+				CC2150152615F9FF00859050 /* dragon_attack.gif */,
+				CC2150162615F9FF00859050 /* gargoyle_attack.gif */,
+				CC2150172615F9FF00859050 /* princess_attack.gif */,
+				CC2150182615F9FF00859050 /* soldier_attack.gif */,
+				CC2150192615F9FF00859050 /* wizard_attack.gif */,
+				CC6752D02613329900A15D76 /* wizard_move.gif */,
+			);
+			name = Image;
+			sourceTree = "<group>";
+		};
+		CC4CFFB525E7268000F63C61 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CC99BC3625E4DC1500F2CCC7 /* ConnectGoogleCalendarVC.swift */,
+				CC99BC4325E4DC1600F2CCC7 /* WebViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CC4CFFB725E7269700F63C61 /* OAuth */ = {
+			isa = PBXGroup;
+			children = (
+				CC99BC3725E4DC1500F2CCC7 /* GoogleOAuthConfig.swift */,
+				CC99BC4225E4DC1600F2CCC7 /* OAuthGather.swift */,
+			);
+			path = OAuth;
+			sourceTree = "<group>";
+		};
+		CC53A690262ED618000D8958 /* TaskWidgetView */ = {
+			isa = PBXGroup;
+			children = (
+				CC53A68D262EBCB3000D8958 /* TaskWidgetView.swift */,
+				CCCA0561262F25A000A64053 /* PuzzleProgress.swift */,
+				CC53A691262ED62C000D8958 /* ListProgress.swift */,
+			);
+			path = TaskWidgetView;
+			sourceTree = "<group>";
+		};
+		CC5ED9FA25F1E5B300B1F3D5 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				1C9948B625D1128600ACDBB4 /* Main.storyboard */,
+				1C9948B925D1128700ACDBB4 /* Assets.xcassets */,
+				1C9948BB25D1128700ACDBB4 /* LaunchScreen.storyboard */,
+				CC97420D25F223CF00181924 /* Localizable.strings */,
+				CC84470D2621972700667918 /* Font */,
+				CC437D39260F4C62009BB23A /* Image */,
+				CC437D2E260F1F73009BB23A /* Sound */,
+			);
+			name = Resource;
+			sourceTree = "<group>";
+		};
+		CC606A132611DCC8000A8D5E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				89A5CEA52653F89C00873C57 /* PuzzleMaker.xcodeproj */,
+				CC11DA642639307400830B3D /* CloudKit.framework */,
+				CCB90A01262883A500DD995E /* WidgetKit.framework */,
+				CCB90A03262883A500DD995E /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC7B75D625EBEE3500FBE7B7 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				CCD1B38725EBEAB2003DDA88 /* DateSelectVC.swift */,
+				CCD7F15125F0AA5B009F96FE /* LocationSelectorVC.swift */,
+				CC5ED9FE25F1E9A100B1F3D5 /* SuggestionTableVC.swift */,
+				CC8C806E25EB815000AD5177 /* EditScheduleVC.swift */,
+				CC5ED9FB25F1E5F200B1F3D5 /* SearchResultTableVC.swift */,
+			);
+			name = Edit;
+			sourceTree = "<group>";
+		};
+		CC84470D2621972700667918 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				CC8447102621992E00667918 /* Retro Gaming.ttf */,
+				CC8447112621992F00667918 /* 양진체v0.9ttf.ttf */,
+			);
+			name = Font;
+			sourceTree = "<group>";
+		};
+		CC891EA326130851000D881F /* CharacterSelect */ = {
+			isa = PBXGroup;
+			children = (
+				CC8DEF982612F1ED00B39ECF /* SelectCharacterVC.swift */,
+				CC891E9F2613084B000D881F /* SelectCharacterCell.swift */,
+			);
+			path = CharacterSelect;
+			sourceTree = "<group>";
+		};
+		CC8C806A25EB762900AD5177 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				1C3A760C25E4D6CE00415F32 /* CalenderCell.swift */,
+				CC99BC3025E4DBD200F2CCC7 /* ScheduleCalendarVC.swift */,
+				1C3A761B25E4D81C00415F32 /* CalendarController.swift */,
+			);
+			name = Calendar;
+			sourceTree = "<group>";
+		};
+		CC8C806B25EB763B00AD5177 /* Weekly */ = {
+			isa = PBXGroup;
+			children = (
+				CC36805925E8D7FD00F72F92 /* WeeklyCell.swift */,
+				CCEFB64325E68193008B14AC /* WeeklyScheduleVC.swift */,
+			);
+			name = Weekly;
+			sourceTree = "<group>";
+		};
+		CC8C806C25EB764600AD5177 /* Daily */ = {
+			isa = PBXGroup;
+			children = (
+				CCEFB63F25E67D35008B14AC /* DailyViewController.swift */,
+				CC95EDEE25ED1EE40091C7BB /* scheduleDetailVC.swift */,
+				CCAB25D326247EA1003F2B08 /* ContactImageView.swift */,
+				CC76E010260B64B8007D3355 /* ScrollviewDataSource.swift */,
+				CCBDC9EB25E918F5003D0C75 /* DailyScrollVC.swift */,
+			);
+			name = Daily;
+			sourceTree = "<group>";
+		};
+		CC99BC3525E4DC1500F2CCC7 /* Google Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				CC4CFFB525E7268000F63C61 /* View */,
+				CC4CFFB725E7269700F63C61 /* OAuth */,
+				CC99BC3825E4DC1600F2CCC7 /* ICalendarLibrary */,
+			);
+			path = "Google Calendar";
+			sourceTree = "<group>";
+		};
+		CC99BC3825E4DC1600F2CCC7 /* ICalendarLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				CC99BC3925E4DC1600F2CCC7 /* CalendarComponent.swift */,
+				CC99BC3A25E4DC1600F2CCC7 /* DateExtension.swift */,
+				CC99BC3B25E4DC1600F2CCC7 /* ICalendar.swift */,
+				CC99BC3C25E4DC1600F2CCC7 /* ICalendarAlarm.swift */,
+				CC99BC3D25E4DC1600F2CCC7 /* ICalendarError.swift */,
+				CC99BC3E25E4DC1600F2CCC7 /* ICalendarEvent.swift */,
+				CC99BC3F25E4DC1600F2CCC7 /* ICalendarParser.swift */,
+				CC99BC4025E4DC1600F2CCC7 /* IcsElement.swift */,
+				CC99BC4125E4DC1600F2CCC7 /* StringExtension.swift */,
+			);
+			path = ICalendarLibrary;
+			sourceTree = "<group>";
+		};
+		CCC489B5262B2B7900A18298 /* ScheduleWidgetView */ = {
+			isa = PBXGroup;
+			children = (
+				CCF36B2E262AB1E400FED509 /* ScheduleRow.swift */,
+				CCC489B7262B3C6A00A18298 /* Dayoff.swift */,
+				CCB90A192628878000DD995E /* ScheduleWidgetView.swift */,
+				CCC489BB262B423000A18298 /* UpCommingSchedule.swift */,
+				CCF36B24262AA0B300FED509 /* DateSquare.swift */,
+				CC3A66E5262D666E000AD84D /* ScheduleOfDayInWeek.swift */,
+				CC5B0292262D82CA00F37B4B /* ScheduleDetail.swift */,
+				CCED8BC7262C496800D2A869 /* CustomWidgetURL.swift */,
+			);
+			path = ScheduleWidgetView;
+			sourceTree = "<group>";
+		};
+		CCCBC3E4261DCEC600B17A39 /* Apple Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				CCCBC3E5261DD0BC00B17A39 /* AppleCalendarGather.swift */,
+				CCCBC3E7261DD5B000B17A39 /* ConnectAppleCalendarVC.swift */,
+			);
+			path = "Apple Calendar";
+			sourceTree = "<group>";
+		};
+		CCD1B37725EBD0FB003DDA88 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				CCAD57E32614BDB900C40A2E /* InstructionCell.swift */,
+				CC1560392614575B00CDF6E4 /* CharacterHelper.swift */,
+				CCD9A54D2631467B00150E3A /* StickerCell.swift */,
+				CC15603F2614732000CDF6E4 /* SpeechBalloon.swift */,
+				1CE8AF1425D25182004A8F37 /* CalendarCollectionController.swift */,
+				CC19D0DE2630A47E000C262A /* StickerSelectVC.swift */,
+				CC0F0FA92611FC6D004C696D /* ScaleImage.swift */,
+				CC9F686A25EADC03002EC017 /* DailyScrollViewHelper.swift */,
+				CC437D36260F42F9009BB23A /* GifImage.swift */,
+				CC0EBAA1260A2DA5001EF592 /* ImageExtension.swift */,
+				CCDEAC75260E01D00068209D /* ColorBackgroundProtocol.swift */,
+				CC242A96260C3DFB0034EA9E /* HapticExtension.swift */,
+				CC437D29260F1A71009BB23A /* SoundEffect.swift */,
+				CCF4997325ECC80A0020157A /* placeHolderTextView.swift */,
+				CC99BC5425E4DCF200F2CCC7 /* ViewControllerExtension.swift */,
+				1C3A75F925E4D3A600415F32 /* ColorExtension.swift */,
+				1C3A75FC25E4D57700415F32 /* ScrollViewExtension.swift */,
+				1C3A75FF25E4D5AE00415F32 /* UIViewExtension.swift */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		CCF5A1D6260AD1E5001D0D57 /* TodoListTab */ = {
+			isa = PBXGroup;
+			children = (
+				CC2B26A1260B853E0024A763 /* View */,
+				CC1355F2260B7FE700B076EA /* ViewController */,
+			);
+			name = TodoListTab;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1C9948AC25D1128600ACDBB4 /* PixelScheduler */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1C9948C125D1128700ACDBB4 /* Build configuration list for PBXNativeTarget "PixelScheduler" */;
+			buildPhases = (
+				1C9948A925D1128600ACDBB4 /* Sources */,
+				1C9948AA25D1128600ACDBB4 /* Frameworks */,
+				1C9948AB25D1128600ACDBB4 /* Resources */,
+				CCB90A14262883A900DD995E /* Embed App Extensions */,
+				89A5CEB02653F8AF00873C57 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC3EEA8D262959CC00A48D15 /* PBXTargetDependency */,
+			);
+			name = PixelScheduler;
+			packageProductDependencies = (
+			);
+			productName = Schedule_B;
+			productReference = 1C9948AD25D1128600ACDBB4 /* PixelScheduler.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CC3EEA82262959C800A48D15 /* PixelSchedulerWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC3EEA8F262959CC00A48D15 /* Build configuration list for PBXNativeTarget "PixelSchedulerWidgetExtension" */;
+			buildPhases = (
+				CC3EEA7F262959C800A48D15 /* Sources */,
+				CC3EEA80262959C800A48D15 /* Frameworks */,
+				CC3EEA81262959C800A48D15 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PixelSchedulerWidgetExtension;
+			productName = PixelSchedulerWidgetExtension;
+			productReference = CC3EEA83262959C800A48D15 /* PixelSchedulerWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1C9948A525D1128600ACDBB4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					1C9948AC25D1128600ACDBB4 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+					CC3EEA82262959C800A48D15 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+				};
+			};
+			buildConfigurationList = 1C9948A825D1128600ACDBB4 /* Build configuration list for PBXProject "PixelScheduler" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1C9948A425D1128600ACDBB4;
+			packageReferences = (
+			);
+			productRefGroup = 1C9948AE25D1128600ACDBB4 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 89A5CEA62653F89C00873C57 /* Products */;
+					ProjectRef = 89A5CEA52653F89C00873C57 /* PuzzleMaker.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				1C9948AC25D1128600ACDBB4 /* PixelScheduler */,
+				CC3EEA82262959C800A48D15 /* PixelSchedulerWidgetExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		89A5CEAB2653F89C00873C57 /* PuzzleMaker.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PuzzleMaker.framework;
+			remoteRef = 89A5CEAA2653F89C00873C57 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		89A5CEAD2653F89C00873C57 /* PuzzleMakerTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = PuzzleMakerTests.xctest;
+			remoteRef = 89A5CEAC2653F89C00873C57 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1C9948AB25D1128600ACDBB4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C9948BD25D1128700ACDBB4 /* LaunchScreen.storyboard in Resources */,
+				CC6752DC2613372300A15D76 /* wizard_idle.gif in Resources */,
+				CCB952532616190B000F0003 /* chest_blue.gif in Resources */,
+				CC7D4924261E25FE00A73607 /* barbarian.wav in Resources */,
+				CC6752DA2613329A00A15D76 /* gargoyle_move.gif in Resources */,
+				CC7D4925261E25FE00A73607 /* wizard.wav in Resources */,
+				CC6752D62613329A00A15D76 /* princess_move.gif in Resources */,
+				CC0F0FB226123EB2004C696D /* puzzle_flip.wav in Resources */,
+				CC8DEFB22613059A00B39ECF /* goblin_idle.gif in Resources */,
+				CCB952572616190B000F0003 /* chest_orange.gif in Resources */,
+				CC6752D52613329A00A15D76 /* barbarian_move.gif in Resources */,
+				CC6752D72613329A00A15D76 /* wizard_move.gif in Resources */,
+				CC97420E25F223CF00181924 /* Localizable.strings in Resources */,
+				CCB952512616190B000F0003 /* chest_red.gif in Resources */,
+				CC7D4926261E25FE00A73607 /* soldier.wav in Resources */,
+				CC8DEFB32613059A00B39ECF /* barbarian_idle.gif in Resources */,
+				CC5865432616084C00300E19 /* dragon_fire.gif in Resources */,
+				CC21501C2615F9FF00859050 /* gargoyle_attack.gif in Resources */,
+				CCB952542616190B000F0003 /* coin_orange.gif in Resources */,
+				CC437D34260F1F90009BB23A /* open_drawer.wav in Resources */,
+				CC8447122621992F00667918 /* Retro Gaming.ttf in Resources */,
+				CCD9241D2615754400D41708 /* quik_help.wav in Resources */,
+				CC8DEFB42613059A00B39ECF /* dragon_idle.gif in Resources */,
+				CC8DEFB52613059A00B39ECF /* princess_idle.gif in Resources */,
+				CC7D4923261E25FE00A73607 /* dragon.wav in Resources */,
+				CC437D33260F1F90009BB23A /* close_drawer.wav in Resources */,
+				CC437D32260F1F90009BB23A /* paper.wav in Resources */,
+				CCE011892632DBDD0066813F /* delete.wav in Resources */,
+				CC8447132621992F00667918 /* 양진체v0.9ttf.ttf in Resources */,
+				CCB952552616190B000F0003 /* coin_blue.gif in Resources */,
+				CC21501F2615F9FF00859050 /* wizard_attack.gif in Resources */,
+				CCB952522616190B000F0003 /* coin_green.gif in Resources */,
+				CC586547261611B600300E19 /* goblin_attack.gif in Resources */,
+				CC5865452616084C00300E19 /* iceball.gif in Resources */,
+				CC21501D2615F9FF00859050 /* princess_attack.gif in Resources */,
+				CC8DEFB12613059A00B39ECF /* gargoyle_idle.gif in Resources */,
+				CCE011882632DBDD0066813F /* write.wav in Resources */,
+				CC6752D82613329A00A15D76 /* goblin_move.gif in Resources */,
+				CCB952562616190B000F0003 /* chest_yellow.gif in Resources */,
+				CC21501A2615F9FF00859050 /* barbarian_attack.gif in Resources */,
+				CC7D4920261E25FE00A73607 /* princess.wav in Resources */,
+				CCB952582616190B000F0003 /* coin_red.gif in Resources */,
+				CC21501E2615F9FF00859050 /* soldier_attack.gif in Resources */,
+				CC21501B2615F9FF00859050 /* dragon_attack.gif in Resources */,
+				CC66EC122615E5F800FAF80E /* explosion.gif in Resources */,
+				1C9948BA25D1128700ACDBB4 /* Assets.xcassets in Resources */,
+				CC7D4922261E25FE00A73607 /* goblin.wav in Resources */,
+				CC5865442616084C00300E19 /* fireball.gif in Resources */,
+				CC2150212615FCE900859050 /* explosion.wav in Resources */,
+				CCB952502616190B000F0003 /* chest_green.gif in Resources */,
+				CC6752D92613329A00A15D76 /* dragon_move.gif in Resources */,
+				CC6752D42613329A00A15D76 /* soldier_move.gif in Resources */,
+				CC58653F261605B600300E19 /* coin.wav in Resources */,
+				1C9948B825D1128600ACDBB4 /* Main.storyboard in Resources */,
+				CC7D4921261E25FE00A73607 /* gargoyle.wav in Resources */,
+				CC8DEFB02613059A00B39ECF /* soldier_idle.gif in Resources */,
+				CCB952592616190B000F0003 /* coin_yellow.gif in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC3EEA81262959C800A48D15 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC53A677262E9685000D8958 /* coin.wav in Resources */,
+				CC2AD06026299A810063880A /* Assets.xcassets in Resources */,
+				CC2AD05D26299A640063880A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1C9948A925D1128600ACDBB4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCF36B22262A9DDA00FED509 /* ListViewController.swift in Sources */,
+				CC7EE36525F37C27002A4920 /* SettingController.swift in Sources */,
+				1C3A761625E4D74900415F32 /* HolidayGather.swift in Sources */,
+				CC242A9B260C5AFC0034EA9E /* UserDataContainer.swift in Sources */,
+				CC142E0726255A1900E69623 /* IAPHelper.swift in Sources */,
+				CCBDC9EC25E918F5003D0C75 /* DailyScrollVC.swift in Sources */,
+				CC99BC4425E4DC1600F2CCC7 /* SettingViewController.swift in Sources */,
+				CC8DEF992612F1ED00B39ECF /* SelectCharacterVC.swift in Sources */,
+				CC2B269F260B818F0024A763 /* TaskModelController.swift in Sources */,
+				CC36805A25E8D7FD00F72F92 /* WeeklyCell.swift in Sources */,
+				CCA7E00B25EA55C8004B3014 /* ScheduleContentsView.swift in Sources */,
+				CC99BC4B25E4DC1600F2CCC7 /* ICalendarError.swift in Sources */,
+				CC15603A2614575B00CDF6E4 /* CharacterHelper.swift in Sources */,
+				CCD9A54E2631467B00150E3A /* StickerCell.swift in Sources */,
+				1C9948B125D1128600ACDBB4 /* AppDelegate.swift in Sources */,
+				CCC0E3CF25E62D9000146770 /* DispatchQueueExtension.swift in Sources */,
+				CC53A67C262EACF4000D8958 /* CustomWidgetURL.swift in Sources */,
+				CCDAE6F82613B0F500B02072 /* PuzzleSettingVC.swift in Sources */,
+				CC5C0591260DC6C1009C73CD /* ToggleableContainerVC.swift in Sources */,
+				CC99BC4725E4DC1600F2CCC7 /* CalendarComponent.swift in Sources */,
+				CC99BC4825E4DC1600F2CCC7 /* DateExtension.swift in Sources */,
+				CC95EDEF25ED1EE40091C7BB /* scheduleDetailVC.swift in Sources */,
+				CC142E092625608800E69623 /* InAppPurchaseVC.swift in Sources */,
+				1C9948B325D1128600ACDBB4 /* SceneDelegate.swift in Sources */,
+				CC99BC5925E4DCF200F2CCC7 /* Future&Promise.swift in Sources */,
+				1C3A75FA25E4D3A600415F32 /* ColorExtension.swift in Sources */,
+				CCFED69825EA0423004A2311 /* BaseLine.swift in Sources */,
+				CC99BC4625E4DC1600F2CCC7 /* GoogleOAuthConfig.swift in Sources */,
+				CC2B26A6260B9DCA0024A763 /* CustomTableHeaderFooter.swift in Sources */,
+				CC0F0FAA2611FC6E004C696D /* ScaleImage.swift in Sources */,
+				CCAD57E42614BDB900C40A2E /* InstructionCell.swift in Sources */,
+				CC9F686525EAAB13002EC017 /* AlldaySchedule.swift in Sources */,
+				CC19D0DF2630A47E000C262A /* StickerSelectVC.swift in Sources */,
+				CC12A36725E95E630054B878 /* DailyScrollView.swift in Sources */,
+				CC76E011260B64B8007D3355 /* ScrollviewDataSource.swift in Sources */,
+				CC242AA1260C62AC0034EA9E /* TaskCollection.swift in Sources */,
+				CC1355F0260B7FD500B076EA /* TaskCollectionVC.swift in Sources */,
+				1C3A761025E4D6FB00415F32 /* ScheduleModelController.swift in Sources */,
+				1C3A760025E4D5AE00415F32 /* UIViewExtension.swift in Sources */,
+				CC0B2D64260F02510097909B /* ListTaskCell.swift in Sources */,
+				CCEFB64025E67D35008B14AC /* DailyViewController.swift in Sources */,
+				CC19D0DA2630A16D000C262A /* Sticker.swift in Sources */,
+				1C3A75F725E4D2E300415F32 /* Calendar&DateExtension.swift in Sources */,
+				CCDEAC76260E01D00068209D /* ColorBackgroundProtocol.swift in Sources */,
+				CCD1B38225EBD2FD003DDA88 /* MultiSegmentView.swift in Sources */,
+				1C3A760D25E4D6CE00415F32 /* CalenderCell.swift in Sources */,
+				1C3A761C25E4D81C00415F32 /* CalendarController.swift in Sources */,
+				1C3A761925E4D77100415F32 /* NotificationController.swift in Sources */,
+				CCD1B38825EBEAB2003DDA88 /* DateSelectVC.swift in Sources */,
+				CC2B26A3260B85730024A763 /* CollectionCell.swift in Sources */,
+				CC5ED9FF25F1E9A100B1F3D5 /* SuggestionTableVC.swift in Sources */,
+				CC99BC5125E4DC1600F2CCC7 /* WebViewController.swift in Sources */,
+				CC15603E26145EEB00CDF6E4 /* QuikHelpVC.swift in Sources */,
+				CCF4997425ECC80A0020157A /* placeHolderTextView.swift in Sources */,
+				CCC0E3CC25E5867600146770 /* ExternalCalendarEventListController.swift in Sources */,
+				CC99BC3125E4DBD200F2CCC7 /* ScheduleCalendarVC.swift in Sources */,
+				CCEFB64425E68193008B14AC /* WeeklyScheduleVC.swift in Sources */,
+				CC57A6982624625400BF5154 /* ContactGather.swift in Sources */,
+				CC99BC5825E4DCF200F2CCC7 /* ViewControllerExtension.swift in Sources */,
+				CCBDC9E925E90695003D0C75 /* ScheduleExtension.swift in Sources */,
+				CC9F686B25EADC03002EC017 /* DailyScrollViewHelper.swift in Sources */,
+				CC99BC5A25E4DCF200F2CCC7 /* URLExtension.swift in Sources */,
+				CC437D37260F42F9009BB23A /* GifImage.swift in Sources */,
+				CC1CCB5D25EB684C008E7D7D /* ScheduleBackground.swift in Sources */,
+				CC1560402614732000CDF6E4 /* SpeechBalloon.swift in Sources */,
+				CC75058B2615DA0A0035400E /* TileView.swift in Sources */,
+				CC99BC5B25E4DCF200F2CCC7 /* Loopable.swift in Sources */,
+				CC9F686825EADA5F002EC017 /* OverlappedCell.swift in Sources */,
+				CC28DC6B25EE312800128011 /* MapKitExtension.swift in Sources */,
+				CC0F0FB426124A5C004C696D /* EditPuzzleVC.swift in Sources */,
+				CCF5A1D8260AD221001D0D57 /* TodoListViewController.swift in Sources */,
+				CC99BC4F25E4DC1600F2CCC7 /* StringExtension.swift in Sources */,
+				CC99BC4E25E4DC1600F2CCC7 /* IcsElement.swift in Sources */,
+				CC5ED9FC25F1E5F200B1F3D5 /* SearchResultTableVC.swift in Sources */,
+				CC242A97260C3DFB0034EA9E /* HapticExtension.swift in Sources */,
+				CC5C058E260DC60D009C73CD /* PuzzleViewController.swift in Sources */,
+				CC99BC4A25E4DC1600F2CCC7 /* ICalendarAlarm.swift in Sources */,
+				CC8C806F25EB815000AD5177 /* EditScheduleVC.swift in Sources */,
+				CCC0E3C925E583D400146770 /* ExternalCalendarEventCell.swift in Sources */,
+				1C3A761325E4D72400415F32 /* Schedule.swift in Sources */,
+				CC21E2B5260C788F00195716 /* CustomAlertViewController.swift in Sources */,
+				CCCBC3E8261DD5B000B17A39 /* ConnectAppleCalendarVC.swift in Sources */,
+				CCF7605226158E2A00DDED25 /* UserGuide.swift in Sources */,
+				CC99BC4525E4DC1600F2CCC7 /* ConnectGoogleCalendarVC.swift in Sources */,
+				1CE8AF1525D25182004A8F37 /* CalendarCollectionController.swift in Sources */,
+				CC242A9E260C620B0034EA9E /* Task.swift in Sources */,
+				CCF36B28262AA5AD00FED509 /* UserDefaultsExtension.swift in Sources */,
+				CC891EA02613084B000D881F /* SelectCharacterCell.swift in Sources */,
+				CC0EBAA2260A2DA5001EF592 /* ImageExtension.swift in Sources */,
+				CCD17EF3261EB56E00000E37 /* StringError.swift in Sources */,
+				CC99BC4D25E4DC1600F2CCC7 /* ICalendarParser.swift in Sources */,
+				CC0B3DA625EB733A00896FED /* CurrentTimeLine.swift in Sources */,
+				1C3A75FD25E4D57700415F32 /* ScrollViewExtension.swift in Sources */,
+				CC36805725E8D76400F72F92 /* WeeklyCellView.swift in Sources */,
+				CC99BC4C25E4DC1600F2CCC7 /* ICalendarEvent.swift in Sources */,
+				1C3A760A25E4D69E00415F32 /* CalendarCellView.swift in Sources */,
+				CCD7F15225F0AA5B009F96FE /* LocationSelectorVC.swift in Sources */,
+				CCAB25D426247EA1003F2B08 /* ContactImageView.swift in Sources */,
+				CCCBC3E6261DD0BC00B17A39 /* AppleCalendarGather.swift in Sources */,
+				CC99BC5025E4DC1600F2CCC7 /* OAuthGather.swift in Sources */,
+				CC99BC4925E4DC1600F2CCC7 /* ICalendar.swift in Sources */,
+				CC437D2A260F1A71009BB23A /* SoundEffect.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC3EEA7F262959C800A48D15 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC53A692262ED62C000D8958 /* ListProgress.swift in Sources */,
+				CCED8BC2262C3DB700D2A869 /* ScheduleWidget.swift in Sources */,
+				CC5B0293262D82CA00F37B4B /* ScheduleDetail.swift in Sources */,
+				CC53A686262EBBED000D8958 /* TaskWidget.swift in Sources */,
+				CCF36B31262ABA6600FED509 /* GifImage.swift in Sources */,
+				CCF36B2F262AB1E400FED509 /* ScheduleRow.swift in Sources */,
+				CCF36B29262AA5AD00FED509 /* UserDefaultsExtension.swift in Sources */,
+				CCF36B172629F62100FED509 /* Calendar&DateExtension.swift in Sources */,
+				CCCA0562262F25A000A64053 /* PuzzleProgress.swift in Sources */,
+				CC6D99FF26299667006E5005 /* ColorExtension.swift in Sources */,
+				CC3EEA9926295A1300A48D15 /* StringError.swift in Sources */,
+				CCC489B8262B3C6A00A18298 /* Dayoff.swift in Sources */,
+				CC3EEA97262959FB00A48D15 /* Schedule.swift in Sources */,
+				CC3EEA95262959DA00A48D15 /* ScheduleProvider.swift in Sources */,
+				CC53A680262EB90D000D8958 /* TaskCollection.swift in Sources */,
+				CC53A68B262EBC94000D8958 /* TaskProvider.swift in Sources */,
+				CCF36B2C262AA60A00FED509 /* UserConfig.swift in Sources */,
+				CC53A67E262EB904000D8958 /* Task.swift in Sources */,
+				CC3A66E6262D666E000AD84D /* ScheduleOfDayInWeek.swift in Sources */,
+				CC53A68E262EBCB3000D8958 /* TaskWidgetView.swift in Sources */,
+				CCF36B1B2629F89E00FED509 /* DataGather.swift in Sources */,
+				CC3EEA88262959C800A48D15 /* PixelSchedulerWidget.swift in Sources */,
+				CCF36B25262AA0B300FED509 /* DateSquare.swift in Sources */,
+				CC3EEA93262959DA00A48D15 /* ScheduleWidgetView.swift in Sources */,
+				CCED8BC8262C496800D2A869 /* CustomWidgetURL.swift in Sources */,
+				CCC489BC262B423000A18298 /* UpCommingSchedule.swift in Sources */,
+				CC19D0DB2630A16D000C262A /* Sticker.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CC3EEA8D262959CC00A48D15 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC3EEA82262959C800A48D15 /* PixelSchedulerWidgetExtension */;
+			targetProxy = CC3EEA8C262959CC00A48D15 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1C9948B625D1128600ACDBB4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1C9948B725D1128600ACDBB4 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1C9948BB25D1128700ACDBB4 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1C9948BC25D1128700ACDBB4 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1C9948BF25D1128700ACDBB4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1C9948C025D1128700ACDBB4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1C9948C225D1128700ACDBB4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PixelScheduler/PixelScheduler.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.0.2;
+				DEVELOPMENT_TEAM = 96XCF965VW;
+				INFOPLIST_FILE = "$(SRCROOT)/PixelScheduler/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = bartshin.com.github.pxscheduler;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		1C9948C325D1128700ACDBB4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PixelScheduler/PixelScheduler.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.0.2;
+				DEVELOPMENT_TEAM = 96XCF965VW;
+				INFOPLIST_FILE = "$(SRCROOT)/PixelScheduler/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = bartshin.com.github.pxscheduler;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		CC3EEA90262959CC00A48D15 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PixelSchedulerWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.0.2;
+				DEVELOPMENT_TEAM = 96XCF965VW;
+				INFOPLIST_FILE = PixelSchedulerWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = bartshin.com.github.pxscheduler.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		CC3EEA91262959CC00A48D15 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PixelSchedulerWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.0.2;
+				DEVELOPMENT_TEAM = 96XCF965VW;
+				INFOPLIST_FILE = PixelSchedulerWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = bartshin.com.github.pxscheduler.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1C9948A825D1128600ACDBB4 /* Build configuration list for PBXProject "PixelScheduler" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C9948BF25D1128700ACDBB4 /* Debug */,
+				1C9948C025D1128700ACDBB4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1C9948C125D1128700ACDBB4 /* Build configuration list for PBXNativeTarget "PixelScheduler" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C9948C225D1128700ACDBB4 /* Debug */,
+				1C9948C325D1128700ACDBB4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC3EEA8F262959CC00A48D15 /* Build configuration list for PBXNativeTarget "PixelSchedulerWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC3EEA90262959CC00A48D15 /* Debug */,
+				CC3EEA91262959CC00A48D15 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1C9948A525D1128600ACDBB4 /* Project object */;
+}
