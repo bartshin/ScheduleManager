@@ -10,12 +10,12 @@ import SwiftUI
 struct DailyOverlappedCell: View, DailyScrollViewProtocol {
     
     // MARK: Data
-    @ObservedObject var dataSource: ScrollviewDataSource
+    @ObservedObject var dataSource: ScrollViewDataSource
     var date: Date?
     var schedules: [Schedule]
     private let tapSchedule: (Schedule) -> Void
     // MARK:- View Properties
-    private let colorPalette: SettingController.ColorPalette
+    private let colorPalette: SettingKey.ColorPalette
     private var titleColor: Color {
         Color(colorPalette.primary)
     }
@@ -94,8 +94,8 @@ struct DailyOverlappedCell: View, DailyScrollViewProtocol {
          date: Date,
          in size: CGSize,
          lineHeight: CGFloat,
-         with palette: SettingController.ColorPalette,
-         watch dataSource: ScrollviewDataSource,
+         with palette: SettingKey.ColorPalette,
+         watch dataSource: ScrollViewDataSource,
          tapScheduleHandeler: @escaping (Schedule) -> Void) {
         self.schedules = schedules
         self.dataSource = dataSource

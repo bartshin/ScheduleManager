@@ -249,7 +249,7 @@ class PuzzleViewController: UIViewController, PlaySoundEffect, ColorBackground {
         tasksNotCompletedFirst.forEach {
             description.append(
                 NSAttributedString(
-                    string: $0.completed ? "\($0.text) (완료) \n" : $0.text + "\n",
+                    string:  $0.text + "\n",
                     attributes: [
                         .font : UIFont.systemFont(ofSize: $0.completed ? 12: 15),
                         .foregroundColor : $0.completed ? UIColor.gray : settingController.palette.primary,

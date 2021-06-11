@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "Phone number"; ObjectID = "Nmb-FB-xLR"; */
+"Nmb-FB-xLR.text" = "Phone number";
+
+/* Class = "UILabel"; text = "Location address"; ObjectID = "UuQ-Ol-PzH"; */
+"UuQ-Ol-PzH.text" = "Location address";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "ekx-cj-TEj"; */
+"ekx-cj-TEj.text" = "Name";
+
+/* Class = "UILabel"; text = "Location title"; ObjectID = "x6S-J1-FMk"; */
+"x6S-J1-FMk.text" = "Location title";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "y0A-QU-283"; */
+"y0A-QU-283.text" = "Date";

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DailyTableScheduleBackground: View {
     
-    @ObservedObject var dataSource: ScrollviewDataSource
+    @ObservedObject var dataSource: ScrollViewDataSource
     private let date: Date?
     private let schedule: Schedule
     private let width: CGFloat
@@ -23,7 +23,7 @@ struct DailyTableScheduleBackground: View {
             .foregroundColor(schedule.isDone(for: date!.toInt) == false ? Color.backgroundByPriority(schedule.priority): .gray)
             .opacity(0.8)
     }
-    init(for schedule: Schedule, width: CGFloat, height: CGFloat, date: Date, watch dataSource: ScrollviewDataSource) {
+    init(for schedule: Schedule, width: CGFloat, height: CGFloat, date: Date, watch dataSource: ScrollViewDataSource) {
         self.schedule = schedule
         self.width = width
         self.height = height

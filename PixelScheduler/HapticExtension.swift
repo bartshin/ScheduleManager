@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIImpactFeedbackGenerator {
-    func generateFeedback(for mode: SettingController.HapticMode) {
+    func generateFeedback(for mode: SettingKey.HapticMode) {
         switch mode {
         case .off:
             break

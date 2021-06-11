@@ -14,7 +14,7 @@ struct ScheduleProvider: TimelineProvider {
     func placeholder(in context: Context) -> ScheduleEntry {
         ScheduleEntry(
             date: Date(),
-            holidayTable: [Int : DataGather.Holiday](),
+            holidayTable: [Int : HolidayGather.Holiday](),
             stickerTable: [Date().toInt: ScheduleEntry.Dummy.sticker],
             scheduleTable: [Date().toInt: [ScheduleEntry.Dummy.reload]])
     }
@@ -25,8 +25,8 @@ struct ScheduleProvider: TimelineProvider {
             filename: dataGather.scheduleFileName,
             as: [Int: [Schedule]].self),
            var holidayTable = dataGather.restore(
-               filename: dataGather.holidayFileName,
-               as: [Int: DataGather.Holiday].self),
+						filename: dataGather.holidayFileName,
+               as: [Int: HolidayGather.Holiday].self),
            var stickerTable = dataGather.restore(filename: dataGather.stickerFileName, as: [Int: Sticker].self){
             
             var entries = [ScheduleEntry]()
@@ -84,7 +84,7 @@ struct ScheduleProvider: TimelineProvider {
         }else {
             let entries = [ ScheduleEntry(
                 date: Date(),
-                holidayTable: [Int : DataGather.Holiday](),
+                holidayTable: [Int : HolidayGather.Holiday](),
                 stickerTable: [Date().toInt: ScheduleEntry.Dummy.sticker],
                 scheduleTable: [
                     Date().toInt : [ScheduleEntry.Dummy.reload]
@@ -99,7 +99,7 @@ struct ScheduleProvider: TimelineProvider {
         let baseDate = Date()
         let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: baseDate)!
         completion(ScheduleEntry(date: Date(),
-                                 holidayTable: [Int : DataGather.Holiday](),
+                                 holidayTable: [Int : HolidayGather.Holiday](),
                                  stickerTable: [Date().toInt: ScheduleEntry.Dummy.sticker],
                                  scheduleTable: [
                                     baseDate.toInt: ScheduleEntry.Dummy.firstSchedules,
@@ -122,7 +122,7 @@ struct ScheduleEntry: TimelineEntry {
     var date: Date
     
     /// Holidays for a week
-    var holidayTable: [Int: DataGather.Holiday]
+    var holidayTable: [Int: HolidayGather.Holiday]
     /// Schedule for displaying date
     var schedules: [Schedule] {
         scheduleTable[date.toInt] ?? []

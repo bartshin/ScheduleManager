@@ -13,7 +13,7 @@ struct ContactImageView: View {
     private let priority: Int
     private let profileImage: UIImage
     static let defaultIamge = UIImage(named: "default_profile")!
-    var palette: SettingController.ColorPalette
+    var palette: SettingKey.ColorPalette
     
     var body: some View {
         Image(uiImage: profileImage)
@@ -24,7 +24,7 @@ struct ContactImageView: View {
                         .stroke(Color.byPriority(priority),lineWidth: 5)
             )
     }
-    init(name: String, priority: Int, image: UIImage? = nil, palette: SettingController.ColorPalette) {
+    init(name: String, priority: Int, image: UIImage? = nil, palette: SettingKey.ColorPalette) {
         self.name = name
         self.priority = priority
         self.profileImage = image ?? ContactImageView.defaultIamge

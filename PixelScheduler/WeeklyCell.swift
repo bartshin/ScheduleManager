@@ -23,7 +23,7 @@ class WeeklyCell: UICollectionViewCell {
     
     static func size(in frameSize: CGSize) -> CGSize {
         CGSize(width:
-                frameSize.width / 6,
+                frameSize.width / 7,
                height: frameSize.height)
     }
 }

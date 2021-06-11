@@ -9,123 +9,131 @@ import UIKit
 import Combine
 
 class WeeklyScheduleVC: UIViewController {
-    
-    //MARK: Controllers
-    var settingController: SettingController!
-    var modelController: ScheduleModelController! {
-        didSet {
-            observeScheduleCancellable = modelController.objectWillChange.sink {
-                [self] _ in
-                if dateIntChosen != nil {
-                    initDataSource(with: dateChosen)
-                }
-            }
-        }
-    }
-    var observeScheduleCancellable: AnyCancellable?
-    //MARK:- Properties
-    
-    @IBOutlet private weak var weeklyScheduleView: UICollectionView!
-    internal var squaresInCalendarView = [Int?]()
-    @Published var dateIntChosen: Int! {
-        didSet {
-            if !squaresInCalendarView.isEmpty {
-                weeklyScheduleView?.reloadData()
-            }
-        }
-    }
-    var dateChosen: Date {
-        dateIntChosen.toDate!
-    }
-    private var isScrollingByCode = true
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        weeklyScheduleView.dataSource = self
-        weeklyScheduleView.delegate = self
-        initDataSource(with: dateIntChosen.toDate!)
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        scrollToCenter()
-    }
-    
-    func initDataSource(with centralDate: Date) {
-        squaresInCalendarView.removeAll()
-        let startDate = Calendar.current.date(byAdding: .day, value: -14, to: centralDate)!
-        let endDate = Calendar.current.date(byAdding: .day, value: 14, to: centralDate)!
-        stride(from: startDate,
-               to: endDate,
-               by: TimeInterval.forOneDay).forEach{
-            squaresInCalendarView.append($0.toInt)
-        }
-        weeklyScheduleView.reloadData()
-    }
-    
+	
+	//MARK: Controllers
+	var settingController: SettingController!
+	var modelController: ScheduleModelController! {
+		didSet {
+			observeScheduleCancellable = modelController.objectWillChange.sink {
+				[self] _ in
+				if dateIntChosen != nil {
+					weeklyScheduleView.reloadData()
+				}
+			}
+		}
+	}
+	
+	//MARK:- Properties
+	
+	fileprivate let cellCountForPage = 7
+	fileprivate let pageCount = 11
+	fileprivate var centerIndex: Int {
+		cellCountForPage*pageCount/2 + cellCountForPage/2
+	}
+	fileprivate var scrollByTap = false
+	fileprivate var observeScheduleCancellable: AnyCancellable?
+	@IBOutlet private weak var weeklyScheduleView: UICollectionView!
+	
+	@Published var dateIntChosen: Int! {
+		didSet {
+			leftMostCellDate = Calendar.current.date(byAdding: .day, value: -centerIndex, to: dateChosen)
+		}
+	}
+	
+	fileprivate var leftMostCellDate: Date!
+	fileprivate var dateChosen: Date {
+		dateIntChosen.toDate!
+	}
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		weeklyScheduleView.isPagingEnabled = true
+		weeklyScheduleView.dataSource = self
+		weeklyScheduleView.delegate = self
+	}
+	
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		scrollToIndex(centerIndex, animated: false)
+	}
+	
+	fileprivate func scrollToIndex(_ index: Int, animated: Bool) {
+		let leftIndex = index - cellCountForPage/2
+		let originX = WeeklyCell.size(in: weeklyScheduleView.bounds.size).width * CGFloat(leftIndex)
+		weeklyScheduleView.setContentOffset(
+			CGPoint(x: originX,
+							y: weeklyScheduleView.bounds.origin.y), animated: animated)
+	}
 }
 
-
-extension WeeklyScheduleVC: CalendarCollectionController {
-    
-    //MARK:- Collection view controller delegate
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return squaresInCalendarView.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cell = weeklyScheduleView.dequeueReusableCell(withReuseIdentifier: WeeklyCell.reuseID, for: indexPath) as! WeeklyCell
-        cell.weeklyCellView.labelLanguage = settingController.dateLanguage
-        cell = drawCellForWeeklyView(cell, at: indexPath, calendarView: weeklyScheduleView, with: settingController.palette)
-        cell.weeklyCellView.isSelected = squaresInCalendarView[indexPath.row] == dateIntChosen
-        return cell
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return WeeklyCell.size(in: weeklyScheduleView.frame.size)
-    }
-   
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        dateIntChosen = squaresInCalendarView[indexPath.row]
-    }
-    
-    
-    // MARK:- Scroll view delegate
-    
-    private func scrollToCenter(by offSet: Int = 0) {
-        isScrollingByCode = true
-        weeklyScheduleView.scrollToItem(
-            at: IndexPath(row: (squaresInCalendarView.count + offSet) / 2
-                          , section: 0),
-            at: .centeredHorizontally,
-            animated: false)
-        isScrollingByCode = false
-    }
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard !isScrollingByCode else { return }
-        let halfOfTotal = squaresInCalendarView.count / 2
-        if scrollView.contentOffset.x < 50,
-           let currentFirst = squaresInCalendarView.first{
-            let twoWeeksAgo = Calendar.current.date(
-                byAdding: .day, value: -14, to: currentFirst!.toDate!)!
-            let previousDays = stride(from: twoWeeksAgo,
-                                      to: currentFirst!.toDate!,
-                                      by: TimeInterval.forOneDay).compactMap{ $0.toInt}
-            squaresInCalendarView = previousDays + squaresInCalendarView[...halfOfTotal]
-            scrollToCenter(by: 2)
-        }else if scrollView.contentOffset.x > 1500,
-                 let currentLast = squaresInCalendarView.last{
-            let dayAfterLast = Calendar.current.date(byAdding: .day,
-                                                     value: 1,
-                                                     to: currentLast!.toDate!)!
-            let twoWeeksAfter = Calendar.current.date(
-                byAdding: .day, value: 15, to: dayAfterLast)!
-            let afterwardsDays = stride(from: dayAfterLast,
-                                        to: twoWeeksAfter,
-                                        by: TimeInterval.forOneDay).compactMap{
-                                            $0.toInt
-                                        }
-            squaresInCalendarView = squaresInCalendarView[halfOfTotal...] + afterwardsDays
-            scrollToCenter(by: -3)
-        }
-    }
+extension WeeklyScheduleVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+	
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return cellCountForPage*pageCount
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		guard let weeklyCell = weeklyScheduleView.dequeueReusableCell(withReuseIdentifier: WeeklyCell.reuseID, for: indexPath) as? WeeklyCell else {
+			return WeeklyCell()
+		}
+		weeklyCell.weeklyCellView.labelLanguage = settingController.dateLanguage
+		return weeklyCell
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+		guard let weeklyCell = cell as? WeeklyCell ,
+					let date = Calendar.current.date(byAdding: .day, value: indexPath.row, to: leftMostCellDate) else {
+			return
+		}
+		drawCell(weeklyCell, for: date.toInt, calendarView: weeklyScheduleView, with: settingController.palette)
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+		return WeeklyCell.size(in: weeklyScheduleView.frame.size)
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		guard let selectedCell = collectionView.cellForItem(at: indexPath) as? WeeklyCell else {
+			assertionFailure("Can't get date-int for selected cell")
+			return
+		}
+		let dateInt = selectedCell.weeklyCellView.date.toInt
+		dateIntChosen = dateInt
+		selectedCell.weeklyCellView.isSelected = true
+		scrollByTap = true
+		scrollToIndex(indexPath.row, animated: true)
+	}
+	
+	func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+		weeklyScheduleView.reloadData()
+		scrollToIndex(centerIndex, animated: false)
+		scrollByTap = false
+	}
+	
+	func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+		guard !scrollByTap,
+					let visibleLeftCell = weeklyScheduleView.subviews.first(where: {
+						$0.frame.contains(weeklyScheduleView.contentOffset)
+					}) as? WeeklyCell else {
+			return
+		}
+		leftMostCellDate = Calendar.current.date(byAdding: .day, value: -cellCountForPage*pageCount/2, to: visibleLeftCell.weeklyCellView.date)
+		weeklyScheduleView.reloadData()
+		scrollToIndex(centerIndex, animated: false)
+	}
+	
+	fileprivate func drawCell(_ cell: WeeklyCell, for dateInt: Int, calendarView: UICollectionView, with palette: SettingKey.ColorPalette)  {
+		// toss date to cell
+		cell.weeklyCellView.date = dateInt.toDate!
+		cell.weeklyCellView.colorPalette = palette
+		cell.weeklyCellView.schedules = modelController.getSchedules(for: dateInt)
+		cell.weeklyCellView.holiday = modelController.holidayTable[dateInt]
+		// adjust swift ui view
+		cell.weeklyCellHC.view.translatesAutoresizingMaskIntoConstraints = false
+		cell.weeklyCellHC.view.frame = cell.contentView.frame
+		cell.contentView.addSubview(cell.weeklyCellHC.view)
+		cell.layer.borderColor = .init(gray: 0.5, alpha: 0.5)
+		cell.layer.borderWidth = 0.8
+		cell.weeklyCellView.isSelected = dateInt == dateIntChosen
+	}
 }

@@ -46,7 +46,17 @@ class ConnectGoogleCalendarVC: UITableViewController, PlaySoundEffect{
     }
     // MARK:- User Intents
     
-    @IBAction private func tapLoginButton(_ sender: Any) {
+	@IBAction func tapGuideButton(_ sender: UIButton) {
+		guard	let guideVC = UIStoryboard(name: "Setting", bundle: nil).instantiateViewController(identifier: String(describing: GuideViewController.self)) as? GuideViewController else {
+			return
+		}
+		let guides: [GoogleGuide] = [.desktop, .setting, .share]
+		guides.forEach {
+			guideVC.guides.append(.init(title: $0.title, text: $0.text, image: $0.image))
+		}
+		present(guideVC, animated: true)
+	}
+	@IBAction private func tapLoginButton(_ sender: Any) {
         loginButton.isEnabled = false
         let webViewController = WebViewController()
         let visualMode = settingController.visualMode
@@ -93,7 +103,7 @@ class ConnectGoogleCalendarVC: UITableViewController, PlaySoundEffect{
     }
     
     @IBAction private func tapAddCalendarButton(_ sender: UIButton) {
-        guard let token = OAuthGather.OAuthToken.readInKeyChain(
+        guard let token = OAuthGather.OAuthToken.readFromKeyChain(
                 for: OAuthGather.OAuthToken.keyChainAccountForGoogleOAuth),
               token.expires_at > Date() else {
             let alertController = UIAlertController(
@@ -261,7 +271,7 @@ class ConnectGoogleCalendarVC: UITableViewController, PlaySoundEffect{
         eventListTableView.delegate = eventListController
         eventListTableView.dataSource = eventListController
         
-        if let token = OAuthGather.OAuthToken.readInKeyChain(
+        if let token = OAuthGather.OAuthToken.readFromKeyChain(
             for: OAuthGather.OAuthToken.keyChainAccountForGoogleOAuth),
            token.expires_at > Date()
         {

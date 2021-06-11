@@ -15,7 +15,7 @@ class LocationSelectorVC: UIViewController {
     private var locationManager = CLLocationManager()
     var modelController: ScheduleModelController!
     var settingController: SettingController!
-    private var searchResultTableVC: SearchResultTableVC!
+    private var searchResultTableVC: MapSearchResultTableVC!
     
     // MARK:- Properties
     
@@ -93,7 +93,7 @@ class LocationSelectorVC: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SegueID.SearchResult.rawValue,
-           let searchResultTableVC = segue.destination as? SearchResultTableVC{
+           let searchResultTableVC = segue.destination as? MapSearchResultTableVC{
             searchResultTableVC.locationManager = locationManager
             self.searchResultTableVC = searchResultTableVC
             searchResultTableVC.searchBar = searchBar

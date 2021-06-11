@@ -17,7 +17,7 @@ class TaskCollectionVC: UIViewController, PlaySoundEffect {
     
     // MARK: - Properties
 
-    private let tableview: UITableView
+    private let tableView: UITableView
     private let headerView: CustomTableHeaderFooter
     @Published var selectedCollection: TaskCollection? {
         didSet {
@@ -27,17 +27,17 @@ class TaskCollectionVC: UIViewController, PlaySoundEffect {
     private let footerView: CustomTableHeaderFooter
     private var allCollections: [TaskCollection] {
         didSet {
-            tableview.reloadData()
+            tableView.reloadData()
         }
     }
     var isExtended = false {
         didSet {
-            tableview.isScrollEnabled = isExtended
-            tableview.allowsSelection = isExtended
+            tableView.isScrollEnabled = isExtended
+            tableView.allowsSelection = isExtended
             headerView.title!.text = isExtended ? "컬렉션 닫기" : "컬렉션 열기"
             headerView.image!.image = isExtended ? closeIcon.withTintColor(settingController.palette.tertiary) :
                 openIcon.withTintColor(settingController.palette.tertiary)
-            tableview.reloadData()
+            tableView.reloadData()
         }
     }
     
@@ -52,7 +52,7 @@ class TaskCollectionVC: UIViewController, PlaySoundEffect {
     private let closeIcon = UIImage(systemName: "tray.and.arrow.up")!
     private let openIcon = UIImage(systemName: "tray.and.arrow.down.fill")!
     
-    init(tableview: UITableView, taskModelController: TaskModelController, settingController: SettingController, toggle trigger: @escaping () -> Void) {
+    init(tableView: UITableView, taskModelController: TaskModelController, settingController: SettingController, toggle trigger: @escaping () -> Void) {
         
         self.taskModelController = taskModelController
         self.settingController = settingController
@@ -61,7 +61,7 @@ class TaskCollectionVC: UIViewController, PlaySoundEffect {
         selectedCollection = collections.first { $0.title == settingController.collectionBookmark } ?? collections.first
         self.toggleTrigger = trigger
         
-        self.tableview = tableview
+        self.tableView = tableView
         self.headerView = CustomTableHeaderFooter(
             for: .CustomHeader,
             title: "컬렉션 보기",
@@ -85,7 +85,7 @@ class TaskCollectionVC: UIViewController, PlaySoundEffect {
     }
     func tableWillAppear() {
         applyUI()
-        tableview.reloadData()
+        tableView.reloadData()
     }
     private func applyUI() {
         headerView.title!.textColor = settingController.palette.primary
@@ -107,7 +107,7 @@ class TaskCollectionVC: UIViewController, PlaySoundEffect {
             selectedCollection = allCollections.first
         }
         toggleTrigger()
-        tableview.reloadData()
+        tableView.reloadData()
     }
     @objc private func tapFooterButton() {
         let alert = UIAlertController(title: "새 컬렉션",
@@ -166,7 +166,7 @@ extension TaskCollectionVC: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: CollectionCell
-        if let dequeuedCell = tableview.dequeueReusableCell(withIdentifier: CollectionCell.reuseID, for: indexPath) as? CollectionCell {
+        if let dequeuedCell = tableView.dequeueReusableCell(withIdentifier: CollectionCell.reuseID, for: indexPath) as? CollectionCell {
             cell = dequeuedCell
         }else {
             cell = CollectionCell(style: .default, reuseIdentifier: CollectionCell.reuseID)
@@ -212,7 +212,7 @@ extension TaskCollectionVC: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if !isExtended { return 0 }
         // Storyboard row height 70
-        return tableview.visibleSize.height - ( 70 * CGFloat(allCollections.count + 1))
+        return tableView.visibleSize.height - ( 70 * CGFloat(allCollections.count + 1))
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         footerView

@@ -1,5 +1,5 @@
 //
-//  SearchResultTableVC.swift
+//  MapSearchResultTableVC.swift
 //  ScheduleManager
 //
 //  Created by Shin on 3/5/21.
@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 import Combine
 
-class SearchResultTableVC: UITableViewController {
+class MapSearchResultTableVC: UITableViewController {
     
     // MARK: Controllers
     private(set) var suggestionController: SuggestionTableVC!
@@ -144,7 +144,7 @@ class SearchResultTableVC: UITableViewController {
 
 // MARK:- UI TableView data source
 
-extension SearchResultTableVC {
+extension MapSearchResultTableVC {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch cellType {
         case .searchResult:
@@ -226,7 +226,7 @@ extension SearchResultTableVC {
     }
 }
  
-extension SearchResultTableVC: UISearchBarDelegate {
+extension MapSearchResultTableVC: UISearchBarDelegate {
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()

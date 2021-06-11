@@ -9,7 +9,7 @@ import UIKit
 
 class StickerSelectVC: UIViewController {
     
-    var palette: SettingController.ColorPalette!
+    var palette: SettingKey.ColorPalette!
     
     private let allStampCollection: [Sticker.Collection] = Sticker.Collection.allCases
     

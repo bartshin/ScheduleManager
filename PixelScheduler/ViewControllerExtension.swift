@@ -12,7 +12,7 @@ extension UIViewController: ASWebAuthenticationPresentationContextProviding {
     public func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
         return view.window!
     }
-    func applyColorScheme(_ scheme: SettingController.VisualMode) {
+    func applyColorScheme(_ scheme: SettingKey.VisualMode) {
         switch scheme {
         case .dark:
             overrideUserInterfaceStyle = .dark

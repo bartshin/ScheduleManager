@@ -18,7 +18,7 @@ class TodoListViewController: UIViewController, PlaySoundEffect {
     
     // View controllers
     private(set) lazy var collectionVC = TaskCollectionVC(
-        tableview: collectionTableView,
+        tableView: collectionTableView,
         taskModelController: taskModelController,
         settingController: settingController,
         toggle: toggleCollectionView)

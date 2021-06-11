@@ -8,6 +8,6 @@
 import UIKit
 
 class InstructionCell: UITableViewCell {
-    @IBOutlet weak var textview: UITextView!
+    @IBOutlet weak var textView: UITextView!
 
 }

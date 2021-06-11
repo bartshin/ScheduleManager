@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Inject Model controller
         notificationCenter.delegate = self
         let tabBarController = window?.rootViewController as! UITabBarController
-        if let scheduleVC = tabBarController.viewControllers?.first as? ScheduleCalendarViewController {
+        if let scheduleVC = tabBarController.viewControllers?.first as? CalendarViewController {
             scheduleVC.modelController = scheduleModelController
             scheduleVC.settingController = settingController
         }
@@ -121,7 +121,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         let tabBarController = window?.rootViewController as! UITabBarController
         if (components.host == "schedule" || components.host == "date"),
-           let scheduleVC = tabBarController.viewControllers?.first as? ScheduleCalendarViewController{
+           let scheduleVC = tabBarController.viewControllers?.first as? CalendarViewController{
             tabBarController.selectedViewController = scheduleVC
             if let dateIntParam = components.queryItems?.first(where: { $0.name == "dateInt"
             }),
@@ -134,7 +134,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     navigationVC!.popToViewController(dailyVC, animated: false)
                     dailyVC.dateIntShowing = dateInt
                 }else {
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let storyboard = UIStoryboard(name: "Schedule", bundle: nil)
                     navigationVC = storyboard.instantiateViewController(identifier: "DailyNavigationVC")
                     dailyVC = navigationVC?.visibleViewController as! DailyViewController
                     dailyVC.modelController = scheduleModelController
@@ -154,10 +154,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 // New schedule
                 if scheduleVC.presentedViewController != nil {
                     scheduleVC.dismiss(animated: false) {
-                        scheduleVC.performSegue(withIdentifier: ScheduleCalendarViewController.SegueID.NewScheduleSegue.rawValue, sender: nil)
+                        scheduleVC.performSegue(withIdentifier: CalendarViewController.SegueID.NewScheduleSegue.rawValue, sender: nil)
                     }
                 }else {
-                    scheduleVC.performSegue(withIdentifier: ScheduleCalendarViewController.SegueID.NewScheduleSegue.rawValue, sender: nil)
+                    scheduleVC.performSegue(withIdentifier: CalendarViewController.SegueID.NewScheduleSegue.rawValue, sender: nil)
                 }
             }
         } else if components.host == "taskCollection",

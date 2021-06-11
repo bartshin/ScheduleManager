@@ -18,7 +18,7 @@ class QuikHelpVC: UIViewController {
     private let cellReuseID = "InstructionCell"
     var characterLocation: CGPoint!
     @IBOutlet private weak var backgroundBalloon: SpeechBalloon!
-    @IBOutlet private weak var tableview: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
     var instructions: [(String, NSAttributedString)]!
     @IBOutlet weak var balloonVerticalOrigin: NSLayoutConstraint!
     @IBOutlet weak var balloonHorizontalOrigin: NSLayoutConstraint!
@@ -39,8 +39,8 @@ class QuikHelpVC: UIViewController {
         super.viewDidLoad()
         backgroundBalloon.fillColor = settingController.palette.quaternary
         adjustView()
-        tableview.dataSource = self
-        tableview.delegate = self
+        tableView.dataSource = self
+        tableView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,10 +74,10 @@ extension QuikHelpVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableview.dequeueReusableCell(withIdentifier: cellReuseID) as!
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseID) as!
         InstructionCell
-        cell.textview.attributedText = instructions[indexPath.section].1
-        cell.textview.textColor = settingController.palette.primary
+        cell.textView.attributedText = instructions[indexPath.section].1
+        cell.textView.textColor = settingController.palette.primary
         return cell
     }
     

@@ -1,0 +1,15 @@
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "GFi-6U-zvY"; */
+"GFi-6U-zvY.title" = "Item";
+
+/* Class = "UIButton"; normalTitle = "돌아가기"; ObjectID = "NU4-W3-tNz"; */
+"NU4-W3-tNz.normalTitle" = "돌아가기";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut "; ObjectID = "YPT-Fd-BIr"; */
+"YPT-Fd-BIr.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut ";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "lwP-Lp-bMK"; */
+"lwP-Lp-bMK.title" = "Item";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "q8d-BT-CBQ"; */
+"q8d-BT-CBQ.title" = "Item";

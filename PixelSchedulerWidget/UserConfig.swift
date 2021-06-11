@@ -8,60 +8,26 @@
 import SwiftUI
 
 struct UserConfig {
-    
-    let character: Character
-    let palette: ColorPalette
-    
-    
-    enum Character: String, CaseIterable {
-        case princess
-        case soldier
-        case dragon
-        case wizard
-        case gargoyle
-        case goblin
-        case barbarian
-        
-        var image: UIImage {
-            UIImage(named: self.rawValue + "_static")!
-        }
-    }
-    
-    enum ColorPalette: String, CaseIterable {
-        case basic
-        case vivid
-        case vintage
-        case cool
-        case pastel
-        case coffee
-        case forest
-        case mint
-        case lemonade
-        
-        var primary: UIColor {
-            UIColor(named: "\(self.rawValue)-primary")!
-        }
-        var secondary: UIColor {
-            UIColor(named: "\(self.rawValue)-secondary")!
-        }
-        var tertiary: UIColor {
-            UIColor(named: "\(self.rawValue)-tertiary")!
-        }
-        var quaternary: UIColor {
-            UIColor(named: "\(self.rawValue)-quaternary")!
-        }
-    }
-    
-    init() {
-        if let storedCharacter = UserDefaults.getPreference(for: .character) {
-            self.character = Character(rawValue: storedCharacter)!
-        }else {
-            self.character = .soldier
-        }
-        if let storedPalette = UserDefaults.getPreference(for: .colorPalette) {
-            self.palette = ColorPalette(rawValue: storedPalette)!
-        }else {
-            self.palette = .basic
-        }
-    }
+	
+	let character: SettingKey.Character
+	let palette: SettingKey.ColorPalette
+	let dateLanguage: SettingKey.DateLanguage
+	
+	init() {
+		if let storedCharacter = UserDefaults.getPreference(for: .character) {
+			self.character = SettingKey.Character(rawValue: storedCharacter)!
+		}else {
+			self.character = .soldier
+		}
+		if let storedPalette = UserDefaults.getPreference(for: .colorPalette) {
+			self.palette = SettingKey.ColorPalette(rawValue: storedPalette)!
+		}else {
+			self.palette = .basic
+		}
+		if let storedLanguage = UserDefaults.getPreference(for: .dateLanguage) {
+			self.dateLanguage = SettingKey.DateLanguage(rawValue: storedLanguage)!
+		}else {
+			self.dateLanguage = .korean
+		}
+	}
 }

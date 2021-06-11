@@ -10,9 +10,9 @@ import SwiftUI
 struct DailyTableAlldaySchedule: View {
     
     private let schedules: [Schedule]
-    @ObservedObject var dataSource: ScrollviewDataSource
+    @ObservedObject var dataSource: ScrollViewDataSource
     private let tapSchedule: (Schedule) -> Void
-    private let colorPalette: SettingController.ColorPalette
+    private let colorPalette: SettingKey.ColorPalette
     private let size: CGSize
     private var titleColor: Color {
         Color(colorPalette.primary)
@@ -59,9 +59,9 @@ struct DailyTableAlldaySchedule: View {
         )
         
     }
-    init(schedules: [Schedule], with palette: SettingController.ColorPalette,
+    init(schedules: [Schedule], with palette: SettingKey.ColorPalette,
          in size: CGSize,
-         watch dataSource: ScrollviewDataSource,
+         watch dataSource: ScrollViewDataSource,
          tapScheduleHandeler: @escaping (Schedule) -> Void) {
         self.schedules = schedules
         self.dataSource = dataSource

@@ -140,7 +140,7 @@ extension OAuthGather.OAuthToken {
         
         return SecItemAdd(query as CFDictionary, nil)
     }
-    static func readInKeyChain(for account: String) -> OAuthGather.OAuthToken?{
+    static func readFromKeyChain(for account: String) -> OAuthGather.OAuthToken?{
         let query: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,
             kSecAttrService: Bundle.main.bundleIdentifier!,

@@ -8,7 +8,39 @@
 import Foundation
 import UIKit
 
-enum UserGuide {
+enum GoogleGuide: String {
+	case desktop
+	case setting
+	case share
+	
+	var title: String {
+		switch self {
+		case .desktop:
+			return "구글 캘린더 사이트 접속"
+		case .setting:
+				return "원하는 캘린더의 설정화면 들어가기"
+		case .share:
+			return "액세스 권한 변경"
+		}
+	}
+	
+	var text: String {
+		switch self {
+		case .desktop:
+			return "구글 캘린더 페이지를 열어주세요 (https://calendar.google.com/calendar)\n 모바일에서 접속한 경우 화면 하단의 데스크탑을 눌러주세요"
+		case .setting:
+			return "화면 좌측 하단의 내 캘린더를 또는 다른 캘린더 중 원하는 캘린더의 오른쪽 부분을 눌러 팝업창을 연 뒤 설정 및 공유를 눌러주세요"
+		case .share:
+			return "액세스 권한 설정 항목에서 공개 사용 설정을 활성화 해주세요"
+		}
+	}
+	
+	var image: UIImage {
+		UIImage(named: "google_guide_\(self.rawValue)")!
+	}
+}
+
+enum CharacterPresentingGuide {
     
     case firstOpen
     case monthlyCalendar
@@ -33,9 +65,9 @@ enum UserGuide {
             return [
                 ("일별 일정 보기", UIImage(systemName: "hand.tap")!.makeAttributedString(with: " 원하는 날짜를 눌러 이동할 수 있어요")),
                 ("새로운 일정 추가", UIImage(named: "add_schedule_orange")!.makeAttributedString(with: " 화면 하단  우측의 버튼을 눌러 주세요")),
-                ("이전 달과 다음달 보기", UIImage(systemName: "arrow.left.and.right")!.makeAttributedString(with: " 좌우로 캘린더를 넘길 수 있어요")),
+                ("이전 달과 다음달 보기", UIImage(systemName: "arrow.left.and.right")!.makeAttributedString(with: " 달력으로 사용중일때는 상하로 스크롤으로 사용중일때는 좌우로 밀어 넘길 수 있어요 설정에서 변경 할 수 있어요")),
                 ("년도와 월 찾기", UIImage(systemName: "calendar")!.makeAttributedString(with: " 버튼을 클릭하면 쉽게 찾을 수 있어요")),
-                ("일정 필터링", UIImage(systemName: "magnifyingglass")!.makeAttributedString(with: " 버튼을 눌러 캘린더의 색상, 내용으로 필터링할 수 있어요"))
+                ("일정 필터링 및 검색", UIImage(systemName: "magnifyingglass")!.makeAttributedString(with: "버튼을 눌러 색상을 고르거나 텍스트를 입력해 실시간으로 필터링 할 수 있어요 검색 버튼을 누르면 검색창이 열려요"))
             ]
         case .weeklyCalendar:
             return [
