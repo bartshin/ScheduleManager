@@ -9,7 +9,7 @@ import AVFoundation
 
 protocol PlaySoundEffect: AnyObject {
     var player: AVAudioPlayer! { get set }
-    var settingController: SettingController! { get }
+    var settingController: SettingController { get }
 }
 
 extension PlaySoundEffect {

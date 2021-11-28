@@ -44,6 +44,10 @@ struct Schedule: Codable, Identifiable {
 			}
 		}
 	}
+	mutating func copyCompleteHistory(from schedule: Schedule) {
+		daysCompleted = schedule.daysCompleted
+		isDoneForOneDay = schedule.isDoneForOneDay
+	}
 	
 	enum DateType: Codable {
 		case spot (Date)

@@ -10,7 +10,7 @@ import SwiftUI
 struct DailyTableAlldaySchedule: View {
     
     private let schedules: [Schedule]
-    @ObservedObject var dataSource: ScrollViewDataSource
+    @ObservedObject var dataSource: DailyViewDataSource
     private let tapSchedule: (Schedule) -> Void
     private let colorPalette: SettingKey.ColorPalette
     private let size: CGSize
@@ -61,7 +61,7 @@ struct DailyTableAlldaySchedule: View {
     }
     init(schedules: [Schedule], with palette: SettingKey.ColorPalette,
          in size: CGSize,
-         watch dataSource: ScrollViewDataSource,
+         watch dataSource: DailyViewDataSource,
          tapScheduleHandeler: @escaping (Schedule) -> Void) {
         self.schedules = schedules
         self.dataSource = dataSource

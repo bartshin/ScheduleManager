@@ -1,8 +1,8 @@
 //
 //  DailySwiftUIView.swift
-//  Schedule_B
+//  PixelScheduler
 //
-//  Created by Shin on 2/28/21.
+//  Created by bart Shin on 2/28/21.
 //
 
 import SwiftUI

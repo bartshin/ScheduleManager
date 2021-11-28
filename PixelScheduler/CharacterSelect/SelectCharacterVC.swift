@@ -8,7 +8,9 @@
 import UIKit
 import AVFoundation
 
-class SelectCharacterVC: UIViewController, PlaySoundEffect {
+class SelectCharacterVC: UIViewController
+//, PlaySoundEffect
+{
 	
 	var settingController: SettingController!
 	
@@ -66,7 +68,7 @@ extension SelectCharacterVC: UITableViewDataSource, UITableViewDelegate {
 			withDuration: 3,
 			delay: 0,
 			options: .curveLinear) {
-			self.playSound(character.rawValue)
+//			self.playSound(character.rawValue)
 			self.characterPreview.layer.transform = CATransform3DIdentity
 		} completion: { [weak weakSelf = self] progress in
 			if progress == .end {

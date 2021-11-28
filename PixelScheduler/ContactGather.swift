@@ -8,8 +8,9 @@
 import Foundation
 import ContactsUI
 
-class ContactGather {
+class ContactGather: NSObject, ObservableObject {
     let store: CNContactStore
+	private(set) var isContactAvailable: Bool
     
     func requestPermission(permittedHandler: @escaping () -> Void ,
                            deniedHandler: @escaping () -> Void) {
@@ -48,7 +49,9 @@ class ContactGather {
         }
     }
     
-    init() {
+	override init() {
         store = CNContactStore()
+		isContactAvailable = CNContactStore.authorizationStatus(for: .contacts) == .authorized
+		super.init()
     }
 }

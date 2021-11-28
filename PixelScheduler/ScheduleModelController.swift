@@ -9,7 +9,7 @@ class ScheduleModelController: ObservableObject {
 	Data intergrity
 	- Warning: Do not modify directly
 	*/
-	@Published private var schedules: [Schedule]
+	@Published private(set) var schedules: [Schedule]
 	/**
 	Data intergrity
 	- Warning: Do not modify directly
@@ -34,8 +34,6 @@ class ScheduleModelController: ObservableObject {
 	private let scheduleWidgetKind = "ScheduleWidget"
 	private var autoScheduleSaveCancellable: AnyCancellable?
 	private var autoStickerSaveCancellable: AnyCancellable?
-	
-	// MARK:- CRUD
 	
 	func getSchedules(for dateInt: Int) -> [Schedule] {
 		var schedulesForDay = [Schedule]()
@@ -73,7 +71,8 @@ class ScheduleModelController: ObservableObject {
 	func querySchedulesTitle(by queryString: String) -> [Schedule] {
 		let trimmedString = queryString.lowercased().replacingOccurrences(of: " ", with: "")
 		return schedules.filter {
-			$0.title.contains(trimmedString) || trimmedString.contains($0.title)
+			let trimmedTitle = $0.title.lowercased().replacingOccurrences(of: " ", with: "")
+			return trimmedTitle.contains(trimmedString) || trimmedString.contains(trimmedTitle)
 		}
 	}
 	

@@ -8,7 +8,9 @@
 import UIKit
 import AVFoundation
 
-class ListTaskCell: UITableViewCell, PlaySoundEffect {
+class ListTaskCell: UITableViewCell
+//, PlaySoundEffect
+{
 	
 	var player: AVAudioPlayer!
 	var settingController: SettingController!
@@ -60,7 +62,7 @@ class ListTaskCell: UITableViewCell, PlaySoundEffect {
 			print("Can't find task \n \(self)")
 			return
 		}
-		playSound(character.rawValue)
+//		playSound(character.rawValue)
 		switch character {
 		// Melee character
 		case .barbarian, .gargoyle, .princess, .soldier:
@@ -151,7 +153,7 @@ class ListTaskCell: UITableViewCell, PlaySoundEffect {
 			characterView.loadGif(name: character.attackGif)
 			characterView.animationRepeatCount = 1
 		}
-		playSound(AVAudioPlayer.explosion)
+//		playSound(AVAudioPlayer.explosion)
 		objectView.loadGif(name: "explosion")
 		objectView.animationRepeatCount = 1
 		UIViewPropertyAnimator.runningPropertyAnimator(
@@ -184,7 +186,7 @@ class ListTaskCell: UITableViewCell, PlaySoundEffect {
 		guard let taskToDelete = task else { return }
 		let generator = UIImpactFeedbackGenerator()
 		generator.prepare()
-		playSound( task!.completed ? AVAudioPlayer.coin: AVAudioPlayer.delete )
+//		playSound( task!.completed ? AVAudioPlayer.coin: AVAudioPlayer.delete )
 		UIViewPropertyAnimator.runningPropertyAnimator(
 			withDuration: 0.5,
 			delay: 0,

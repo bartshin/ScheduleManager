@@ -8,7 +8,8 @@
 import UIKit
 import Combine
 
-class ListViewController: UIViewController, ColorBackground {
+class ListViewController: UIViewController //,ColorBackground
+{
     
     // MARK: Controllers
     var settingController: SettingController!
@@ -116,7 +117,7 @@ class ListViewController: UIViewController, ColorBackground {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        initBackground()
+//        initBackground()
         observeModel = taskModelController.$table.sink { [weak weakSelf = self] table in
             if weakSelf != nil, weakSelf!.currentCollection != nil {
                 weakSelf!.tasks = table[weakSelf!.currentCollection!] ?? []
@@ -126,7 +127,7 @@ class ListViewController: UIViewController, ColorBackground {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateBackground()
+//        updateBackground()
         updateList()
     }
     

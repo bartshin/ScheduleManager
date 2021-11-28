@@ -11,15 +11,15 @@ import Combine
 class WeeklyCell: UICollectionViewCell {
     static let reuseID = "TopViewScheduleCell"
     
-    var weeklyCellView: WeeklyCellView {
-        get {
-            weeklyCellHC.rootView
-        }
-        set{
-            weeklyCellHC.rootView = newValue
-        }
-    }
-    var weeklyCellHC = UIHostingController(rootView: WeeklyCellView())
+//    var weeklyCellView: WeeklyCellView {
+//        get {
+//            weeklyCellHC.rootView
+//        }
+//        set{
+//            weeklyCellHC.rootView = newValue
+//        }
+//    }
+//	var weeklyCellHC = UIHostingController(rootView: WeeklyCellView(colorPalette: .basic))
     
     static func size(in frameSize: CGSize) -> CGSize {
         CGSize(width:

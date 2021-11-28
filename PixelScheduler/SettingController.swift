@@ -147,6 +147,7 @@ class SettingController: ObservableObject {
 		}else {
 			self.calendarPaging = .pageCurl
 		}
+//		self.calendarPaging = .scroll
 	}
 	
 }

@@ -317,7 +317,7 @@ fileprivate class ScheduleCell: UITableViewCell {
 }
 
 
-fileprivate class HolidayCell: UITableViewCell, HolidayColor {
+fileprivate class HolidayCell: UITableViewCell {
 	
 	static let cellHeight: CGFloat = 60
 	
@@ -346,7 +346,7 @@ fileprivate class HolidayCell: UITableViewCell, HolidayColor {
 		formatter.dateFormat = "yy. MM. d (EEEE)"
 		dateLabel.text = formatter.string(from: date)
 		titleLabel.text = title
-		titleLabel.textColor = UIColor(getFontColor(for: date, with: holiday))
+//		titleLabel.textColor = UIColor(getFontColor(for: date, with: holiday))
 		setFrame()
 	}
 	

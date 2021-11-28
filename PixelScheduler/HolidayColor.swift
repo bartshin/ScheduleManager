@@ -8,7 +8,7 @@
 import SwiftUI
 
 protocol HolidayColor {
-	var colorPalette: SettingKey.ColorPalette! { get }
+	var colorPalette: SettingKey.ColorPalette { get }
 }
 
 extension HolidayColor {

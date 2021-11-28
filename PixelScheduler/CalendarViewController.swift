@@ -40,7 +40,7 @@ class CalendarViewController: UIViewController {
 	
 	var selectedDate = Date()
 	
-	@IBOutlet weak var characterView: CharacterHelper!
+//	@IBOutlet weak var characterView: CharacterHelper!
 	@IBOutlet weak var titleStackView: UIStackView!
 	@IBOutlet private weak var monthLabel: UILabel!
 	@IBOutlet private weak var datePickerModal: UIView!
@@ -126,7 +126,7 @@ class CalendarViewController: UIViewController {
 		super.viewDidLoad()
 		initCalendars()
 		initPageViewcontroller(for: settingController.calendarPaging == .pageCurl ? .pageCurl: .scroll)
-		characterView.settingController = settingController
+//		characterView.settingController = settingController
 		updateMonthLabel(with: selectedDate)
 		initDatePicker()
 		initSearchBar()
@@ -134,7 +134,7 @@ class CalendarViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		deliverDateToEachCalendar(selectedDate)
-		characterView.load()
+//		characterView.load()
 		applyUISetting()
 		datePicker.locale = Locale(identifier: settingController.dateLanguage.locale)
 		tabBarController?.applyColorScheme(settingController.visualMode)
@@ -143,11 +143,10 @@ class CalendarViewController: UIViewController {
 		super.viewDidAppear(animated)
 		loadingSpinner.isHidden = true
 		if settingController.isFirstOpen {
-			characterView.guide = .firstOpen
-			characterView.showQuikHelp()
+			
+//			characterView.showQuikHelp()
 			settingController.firstOpened()
 		}
-		characterView.guide = .monthlyCalendar
 	}
 	
 	fileprivate func initCalendars() {
@@ -172,7 +171,7 @@ class CalendarViewController: UIViewController {
 		pageViewController = UIPageViewController(transitionStyle: style, navigationOrientation: style == .pageCurl ? .vertical: .horizontal)
 		addChild(pageViewController)
 		pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
-		view.insertSubview(pageViewController.view, belowSubview: characterView)
+//		view.insertSubview(pageViewController.view, belowSubview: characterView)
 		pageViewController.view.topAnchor.constraint(equalTo: weekDayHStack.bottomAnchor).isActive = true
 		pageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 		pageViewController.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
@@ -317,7 +316,7 @@ extension CalendarViewController: UISearchBarDelegate {
 	
 	fileprivate func clearSearchBar(_ searchBar: UISearchBar) {
 		searchBar.text = nil
-		secondCalendar.searchRequest = .empty
+//		secondCalendar.searchRequest = .empty
 		navigationBar.isHidden = true
 		searchController.isActive = false
 	}
@@ -328,8 +327,8 @@ extension CalendarViewController: UISearchResultsUpdating {
 		let searchBar = searchController.searchBar
 		let searchText = searchBar.text == nil || searchBar.text!.isEmpty ? nil : searchBar.text!
 		let priority = searchBar.selectedScopeButtonIndex == 0 ? nil : searchBar.selectedScopeButtonIndex
-		secondCalendar.searchRequest.text = searchText?.lowercased()
-		secondCalendar.searchRequest.priority = priority
+//		secondCalendar.searchRequest.text = searchText?.lowercased()
+//		secondCalendar.searchRequest.priority = priority
 	}
 }
 

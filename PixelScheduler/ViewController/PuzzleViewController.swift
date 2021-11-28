@@ -9,7 +9,9 @@ import UIKit
 import AVFoundation
 import PuzzleMaker
 
-class PuzzleViewController: UIViewController, PlaySoundEffect, ColorBackground {
+class PuzzleViewController: UIViewController
+//, PlaySoundEffect, ColorBackground
+{
     
     // MARK: Controllers
     var settingController: SettingController!
@@ -153,7 +155,7 @@ class PuzzleViewController: UIViewController, PlaySoundEffect, ColorBackground {
     }
     
     private func flipPuzzle(_ puzzlePiece: UIImageView, index: Int) {
-        playSound(AVAudioPlayer.puzzleFlip)
+//        playSound(AVAudioPlayer.puzzleFlip)
         let visibleImage = puzzlePieceImages[index]
         UIView.transition(
             with: puzzlePiece,
@@ -189,7 +191,7 @@ class PuzzleViewController: UIViewController, PlaySoundEffect, ColorBackground {
                 completeStamp.alpha = 1
             } completion: { [weak weakSelf = self] getStamepd in
                 if getStamepd == .end, weakSelf != nil {
-                    weakSelf!.playSound(AVAudioPlayer.coin)
+//                    weakSelf!.playSound(AVAudioPlayer.coin)
                     generator.generateFeedback(for: weakSelf!.settingController.hapticMode)
                 }
             }
@@ -211,7 +213,7 @@ class PuzzleViewController: UIViewController, PlaySoundEffect, ColorBackground {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initBackground()
+//        initBackground()
         doubleTapToZoom = UITapGestureRecognizer(target: self, action: #selector(zoomToMinimunScale))
         doubleTapToZoom!.numberOfTapsRequired = 2
         doubleTapToZoom?.delaysTouchesBegan = true
@@ -222,7 +224,7 @@ class PuzzleViewController: UIViewController, PlaySoundEffect, ColorBackground {
         super.viewWillAppear(animated)
         updatePuzzle()
         applyUI()
-        updateBackground()
+//        updateBackground()
     }
     
     private func setZoomScale() {

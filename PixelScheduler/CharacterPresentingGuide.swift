@@ -51,7 +51,7 @@ enum CharacterPresentingGuide {
     case todoPuzzle
     case editCollection
     
-    var instruction: [(String, NSAttributedString)] {
+    var instructions: [(String, NSAttributedString)] {
         switch self {
         case .firstOpen:
             return  [
@@ -65,7 +65,7 @@ enum CharacterPresentingGuide {
             return [
                 ("일별 일정 보기", UIImage(systemName: "hand.tap")!.makeAttributedString(with: " 원하는 날짜를 눌러 이동할 수 있어요")),
                 ("새로운 일정 추가", UIImage(named: "add_schedule_orange")!.makeAttributedString(with: " 화면 하단  우측의 버튼을 눌러 주세요")),
-                ("이전 달과 다음달 보기", UIImage(systemName: "arrow.left.and.right")!.makeAttributedString(with: " 달력으로 사용중일때는 상하로 스크롤으로 사용중일때는 좌우로 밀어 넘길 수 있어요 설정에서 변경 할 수 있어요")),
+                ("이전 달과 다음달 보기", UIImage(systemName: "arrow.up.and.down.and.arrow.left.and.right")!.makeAttributedString(with: " 달력으로 사용중일때는 상하로 스크롤으로 사용중일때는 좌우로 밀어 넘길 수 있어요 설정에서 변경 할 수 있어요")),
                 ("년도와 월 찾기", UIImage(systemName: "calendar")!.makeAttributedString(with: " 버튼을 클릭하면 쉽게 찾을 수 있어요")),
                 ("일정 필터링 및 검색", UIImage(systemName: "magnifyingglass")!.makeAttributedString(with: "버튼을 눌러 색상을 고르거나 텍스트를 입력해 실시간으로 필터링 할 수 있어요 검색 버튼을 누르면 검색창이 열려요"))
             ]

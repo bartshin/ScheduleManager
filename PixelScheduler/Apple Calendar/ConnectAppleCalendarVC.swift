@@ -10,7 +10,9 @@ import EventKit
 import Combine
 import AVFoundation
 
-class ConnectAppleCalendarVC: UIViewController, PlaySoundEffect {
+class ConnectAppleCalendarVC: UIViewController
+//, PlaySoundEffect
+{
     
     // MARK: Controllers
     var settingController: SettingController!
@@ -54,7 +56,7 @@ class ConnectAppleCalendarVC: UIViewController, PlaySoundEffect {
         }
         loadingSpinner.isHidden = true
         generator.generateFeedback(for: settingController.hapticMode)
-        playSound(AVAudioPlayer.coin)
+//        playSound(AVAudioPlayer.coin)
         navigationController?.popViewController(animated: true)
     }
     

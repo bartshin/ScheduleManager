@@ -5,7 +5,7 @@ struct HolidayGather {
 	private let apiKey = "9c57014c99e72d106d1fe7b23487390294256eb5"
 	private let urlEndpoint = "https://calendarific.com/api/v2/holidays?"
 	
-	struct Holiday: Codable {
+	struct Holiday: Codable, Hashable {
 		let dateInt: Int
 		let title: String
 		let description: String
@@ -17,6 +17,16 @@ struct HolidayGather {
 				return title
 			case .korean:
 				return HolidayDictionay.engToKor(from: title) ?? title
+			}
+		}
+		
+		func getDateString(for language: SettingKey.DateLanguage) -> String {
+			let date = dateInt.toDate!
+			switch language {
+				case .korean:
+					return "\(date.year)년 \(date.month)월 \(date.day)일"
+				case .english:
+					return date.description
 			}
 		}
 		

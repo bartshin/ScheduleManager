@@ -11,7 +11,7 @@ struct DailyScheduleContentsView: View {
 	
 	// MARK: Data
 	var schedule: Schedule
-	var imageProvider: ScrollViewDataSource?
+	var imageProvider: DailyViewDataSource?
 	/// Change left bar color menually for search result
 	var isDone = false
 	
@@ -65,8 +65,9 @@ struct DailyScheduleContentsView: View {
 						palette: colorPalette)
 						.aspectRatio(contentMode: .fit)
 						.frame(width: min(geometry.size.width * 0.5, 80))
-						.offset(y: -50)
+						.position(x: geometry.size.width * 0.8, y: 30)
 				}
+				
 				VStack (alignment: .leading) {
 					scheduleTitleView
 					HStack(spacing: 20) {
@@ -88,7 +89,7 @@ struct DailyScheduleContentsView: View {
 			}
 		}
 	}
-	init(for schedule: Schedule, with pallete: SettingKey.ColorPalette, watch dataSource: ScrollViewDataSource?) {
+	init(for schedule: Schedule, with pallete: SettingKey.ColorPalette, watch dataSource: DailyViewDataSource?) {
 		self.schedule = schedule
 		colorPalette = pallete
 		self.imageProvider = dataSource
@@ -106,7 +107,7 @@ struct DailyScheduleContentsView_Previews: PreviewProvider {
 				time: .spot(Date()),
 				alarm: .once(Date())),
 			with: .basic,
-			watch: ScrollViewDataSource())
+			watch: DailyViewDataSource())
 			.frame(width: 200,
 						 height: 150)
 			.position(x: 200, y: 300)

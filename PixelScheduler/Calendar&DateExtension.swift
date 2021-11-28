@@ -8,7 +8,7 @@ extension Calendar {
 			of: .day,
 			in: .month,
 			for: firstDate)
-		return range!.count
+		return range!.count 
 	}
 	static func firstDateOfMonth(_ yearAndMonth: Int) -> Date {
 		return DateComponents(
@@ -79,7 +79,7 @@ extension Date: Strideable {
 	var monthDayTimeKoreanString: String {
 		let dateFormatter = DateFormatter()
 		dateFormatter.locale = Locale(identifier: "ko")
-		dateFormatter.dateFormat = "M월 d일 h:mm"
+		dateFormatter.dateFormat = "M월 d일 a h:mm"
 		return dateFormatter.string(from: self)
 	}
 	
@@ -116,6 +116,14 @@ extension Date: Strideable {
 		}
 	}
 	
+	func changeDate(to dateInt: Int) -> Date? {
+		var components = Calendar.current.dateComponents([ .calendar, .year, .month, .day, .hour, .minute], from: self)
+		components.year = dateInt/10000
+		components.month = dateInt/100%100
+		components.day = dateInt%100
+		return components.date
+	}
+	
 	func getNext(by component: ComponentType) -> Date{
 		var nextComponent = Calendar.current.dateComponents([.hour, .minute], from: self)
 		
@@ -131,6 +139,7 @@ extension Date: Strideable {
 			matching: nextComponent,
 			matchingPolicy: .nextTime)!
 	}
+
 	enum ComponentType {
 		case day (Int)
 		case weekday (Int)
@@ -144,7 +153,8 @@ extension Int {
 			timeZone: .current,
 			year: self / 10000,
 			month: (self / 100) % 100,
-			day: self % 100).date
+			day: self % 100,
+			hour: 12).date
 	}
 	var toKoreanWeekDay: String? {
 		Calendar.koreanWeekDays[self]

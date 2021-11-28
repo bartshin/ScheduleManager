@@ -9,7 +9,9 @@ import UIKit
 import AuthenticationServices
 import AVFoundation
 
-class SettingViewController: UITableViewController, PlaySoundEffect {
+class SettingViewController: UITableViewController
+//, PlaySoundEffect
+{
 	
 	// MARK:- Controller
 	var scheduleModelController: ScheduleModelController!
@@ -64,15 +66,13 @@ class SettingViewController: UITableViewController, PlaySoundEffect {
 	@IBAction func selectSoundEffect(_ sender: UISegmentedControl) {
 		settingController.changeSoundEffect(to: sender.selectedSegmentIndex == 0 ? .on : .off)
 		if sender.selectedSegmentIndex == 0 {
-			playSound(AVAudioPlayer.coin)
+//			playSound(AVAudioPlayer.coin)
 		}
 	}
 	
 	@IBAction func selectCalendarPaging(_ sender: UISegmentedControl) {
 		settingController.changeCalendarPaging(to: sender.selectedSegmentIndex == 0 ? .pageCurl: .scroll)
-		let alert = UIAlertController(title: "페이징 변경", message: "변경된 내용은 재시작 후에 적용됩니다", preferredStyle: .alert)
-		alert.addAction(UIAlertAction(title: "확인", style: .default))
-		present(alert, animated: true)
+		showAlertForDismiss(title: "페이징 변경", message: "변경된 내용은 재시작 후에 적용됩니다", with: settingController.visualMode)
 	}
 	@objc private func selectHapticMode(sender: UISegmentedControl) {
 		hapticGenerator.prepare()
@@ -108,10 +108,7 @@ class SettingViewController: UITableViewController, PlaySoundEffect {
 		settingController.changeIcloudBackup(to: newState)
 		if newState == .on {
 			func errorHandler(_ error: Error) {
-				let alert = UIAlertController(title: "데이터 복원 실패", message: error.localizedDescription, preferredStyle: .alert)
-				alert.addAction(UIAlertAction(title: "확인",
-																			style: .default))
-				present(alert, animated: true)
+				showAlertForDismiss(title: "데이터 복원 실패", message: error.localizedDescription, with: settingController.visualMode)
 			}
 			let alert = UIAlertController(
 				title: "데이터 복원",
@@ -149,14 +146,9 @@ class SettingViewController: UITableViewController, PlaySoundEffect {
 			}
 		} deniedHandler: { [self] in
 			DispatchQueue.runOnlyMainThread {
-				let alert = UIAlertController(
-					title: "데이터 가져오기 실패",
-					message: "설정에서 사용자의 캘린더 접근을 허용해주세요", preferredStyle: .alert)
-				let dismissAction = UIAlertAction(
-					title: "확인",
-					style: .default)
-				alert.addAction(dismissAction)
-				present(alert, animated: true)
+				showAlertForDismiss(title: "데이터 가져오기 실패",
+														message: "설정에서 사용자의 캘린더 접근을 허용해주세요",
+														with: settingController.visualMode)
 			}
 		}
 	}
@@ -178,16 +170,11 @@ class SettingViewController: UITableViewController, PlaySoundEffect {
 			UIAlertAction(title: "취소", style: .cancel))
 		alertController.addAction(UIAlertAction(
 			title: "지우기",
-			style: .destructive) {_ in
-			if !self.scheduleModelController.removeAllSchedule() {
-				// Fail to remove
-				let alertController = UIAlertController(title: "삭제 실패",
-																								message: "유저 데이터를 지우는데 실패하였습니다",
-																								preferredStyle: .alert)
-				alertController.addAction(
-					UIAlertAction(title: "확인",
-												style: .cancel))
-				self.present(alertController, animated: true)
+			style: .destructive) {[self] _ in
+			if !scheduleModelController.removeAllSchedule() {
+				showAlertForDismiss(title: "삭제 실패",
+														message: "유저 데이터를 지우는데 실패하였습니다",
+														with: settingController.visualMode)
 			}
 		})
 		alertController.applyColorScheme(settingController.visualMode)
@@ -203,16 +190,10 @@ class SettingViewController: UITableViewController, PlaySoundEffect {
 			UIAlertAction(title: "취소", style: .cancel))
 		alertController.addAction(UIAlertAction(
 			title: "지우기",
-			style: .destructive) {_ in
-			if !self.taskModelController.removeAllTaskData(){
-				// Fail to remove
-				let alertController = UIAlertController(title: "삭제 실패",
-																								message: "유저 데이터를 지우는데 실패하였습니다",
-																								preferredStyle: .alert)
-				alertController.addAction(
-					UIAlertAction(title: "확인",
-												style: .cancel))
-				self.present(alertController, animated: true)
+			style: .destructive) {[self] _ in
+			if !taskModelController.removeAllTaskData(){
+				showAlertForDismiss(title: "삭제 실패",
+														message: "유저 데이터를 지우는데 실패하였습니다", with: settingController.visualMode)
 			}
 		})
 		alertController.applyColorScheme(settingController.visualMode)

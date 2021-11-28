@@ -1,6 +1,6 @@
 //
 //  DailyTableVC.swift
-//  Schedule_B
+//  PixelScheduler
 //
 //  Created by Shin on 2/26/21.
 //
@@ -31,7 +31,7 @@ class DailyScrollVC: UIHostingController<DailyScrollView> {
     let contactGather = ContactGather()
     var observeScheduleCancellable: AnyCancellable?
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     private var isContactAvailable = false
     let vabrationGenerator = UIImpactFeedbackGenerator()
@@ -52,7 +52,7 @@ class DailyScrollVC: UIHostingController<DailyScrollView> {
                 }
             }
             
-            if isContactAvailable, !contactMap.isEmpty ,
+            if isContactAvailable, !contactMap.isEmpty,
                let result = try? contactGather.getContacts(
                 by: Array(contactMap.keys) , forImage: true){
                 result.forEach { contact in
@@ -68,7 +68,7 @@ class DailyScrollVC: UIHostingController<DailyScrollView> {
         }
     }
     
-    // MARK:- User intents
+    // MARK: - User intents
     private func tapSchedule(_ schedule: Schedule) {
         performSegue(withIdentifier: SegueID.ShowDetailSegue.rawValue, sender: schedule.id)
     }
@@ -95,7 +95,12 @@ class DailyScrollVC: UIHostingController<DailyScrollView> {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder, rootView: DailyScrollView())
+		super.init(coder: aDecoder, rootView:
+		DailyScrollView(data: DailyViewDataSource(),
+						date: Date(),
+						colorPalette: .basic,
+						visualMode: .system,
+						language: .korean))
     }
     
     enum SegueID: String{

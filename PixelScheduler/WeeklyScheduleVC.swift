@@ -76,7 +76,7 @@ extension WeeklyScheduleVC: UICollectionViewDelegate, UICollectionViewDataSource
 		guard let weeklyCell = weeklyScheduleView.dequeueReusableCell(withReuseIdentifier: WeeklyCell.reuseID, for: indexPath) as? WeeklyCell else {
 			return WeeklyCell()
 		}
-		weeklyCell.weeklyCellView.labelLanguage = settingController.dateLanguage
+//		weeklyCell.weeklyCellView.labelLanguage = settingController.dateLanguage
 		return weeklyCell
 	}
 	
@@ -97,11 +97,11 @@ extension WeeklyScheduleVC: UICollectionViewDelegate, UICollectionViewDataSource
 			assertionFailure("Can't get date-int for selected cell")
 			return
 		}
-		let dateInt = selectedCell.weeklyCellView.date.toInt
-		dateIntChosen = dateInt
-		selectedCell.weeklyCellView.isSelected = true
-		scrollByTap = true
-		scrollToIndex(indexPath.row, animated: true)
+//		let dateInt = selectedCell.weeklyCellView.date.toInt
+//		dateIntChosen = dateInt
+//		selectedCell.weeklyCellView.isSelected = true
+//		scrollByTap = true
+//		scrollToIndex(indexPath.row, animated: true)
 	}
 	
 	func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
@@ -117,23 +117,23 @@ extension WeeklyScheduleVC: UICollectionViewDelegate, UICollectionViewDataSource
 					}) as? WeeklyCell else {
 			return
 		}
-		leftMostCellDate = Calendar.current.date(byAdding: .day, value: -cellCountForPage*pageCount/2, to: visibleLeftCell.weeklyCellView.date)
+//		leftMostCellDate = Calendar.current.date(byAdding: .day, value: -cellCountForPage*pageCount/2, to: visibleLeftCell.weeklyCellView.date)
 		weeklyScheduleView.reloadData()
 		scrollToIndex(centerIndex, animated: false)
 	}
 	
 	fileprivate func drawCell(_ cell: WeeklyCell, for dateInt: Int, calendarView: UICollectionView, with palette: SettingKey.ColorPalette)  {
-		// toss date to cell
-		cell.weeklyCellView.date = dateInt.toDate!
-		cell.weeklyCellView.colorPalette = palette
-		cell.weeklyCellView.schedules = modelController.getSchedules(for: dateInt)
-		cell.weeklyCellView.holiday = modelController.holidayTable[dateInt]
-		// adjust swift ui view
-		cell.weeklyCellHC.view.translatesAutoresizingMaskIntoConstraints = false
-		cell.weeklyCellHC.view.frame = cell.contentView.frame
-		cell.contentView.addSubview(cell.weeklyCellHC.view)
-		cell.layer.borderColor = .init(gray: 0.5, alpha: 0.5)
-		cell.layer.borderWidth = 0.8
-		cell.weeklyCellView.isSelected = dateInt == dateIntChosen
+//		// toss date to cell
+//		cell.weeklyCellView.date = dateInt.toDate!
+//		cell.weeklyCellView.colorPalette = palette
+//		cell.weeklyCellView.schedules = modelController.getSchedules(for: dateInt)
+//		cell.weeklyCellView.holiday = modelController.holidayTable[dateInt]
+//		// adjust swift ui view
+//		cell.weeklyCellHC.view.translatesAutoresizingMaskIntoConstraints = false
+//		cell.weeklyCellHC.view.frame = cell.contentView.frame
+//		cell.contentView.addSubview(cell.weeklyCellHC.view)
+//		cell.layer.borderColor = .init(gray: 0.5, alpha: 0.5)
+//		cell.layer.borderWidth = 0.8
+//		cell.weeklyCellView.isSelected = dateInt == dateIntChosen
 	}
 }

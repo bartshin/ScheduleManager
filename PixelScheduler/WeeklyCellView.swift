@@ -27,10 +27,11 @@ struct WeeklyCellView: View, HolidayColor {
 			self._schedules
 		}
 	}
-	var labelLanguage: SettingKey.DateLanguage = .korean
+	var labelLanguage: SettingKey.DateLanguage
+	
 	
 	// MARK:- View properties
-	var colorPalette: SettingKey.ColorPalette!
+	var colorPalette: SettingKey.ColorPalette
 	
 	fileprivate func calcBarScale(for schedule: Schedule) -> CGFloat{
 		switch schedule.time {
@@ -94,11 +95,14 @@ struct WeeklyCellView: View, HolidayColor {
 		}
 		.background(isSelected ? Color(colorPalette.tertiary).opacity(0.3) : Color(colorPalette.quaternary).opacity(0.3))
 	}
-	init(date: Date = Date(), holiday: HolidayGather.Holiday? = nil, isSelected: Bool = false, schedules: [Schedule] = []) {
+	init(date: Date, holiday: HolidayGather.Holiday?, colorPalette: SettingKey.ColorPalette, isSelected: Bool, schedules: [Schedule], labelLanguage: SettingKey.DateLanguage) {
 		self.date = date
 		self.holiday = holiday
 		self.isSelected = isSelected
+		self.labelLanguage = labelLanguage
+		self.colorPalette = colorPalette
 		self.schedules = schedules
+		
 	}
 }
 
@@ -123,6 +127,7 @@ struct WeeklyCellView_Previews: PreviewProvider {
 		WeeklyCellView(
 			date: Date(),
 			holiday: nil,
+			colorPalette: .basic,
 			isSelected: true,
 			schedules: [
 				Schedule(title: "title",
@@ -148,7 +153,7 @@ struct WeeklyCellView_Previews: PreviewProvider {
 								 priority: 4,
 								 time: .period(start: Calendar.current.date(byAdding: .hour, value: -1, to: Date())!,
 															 end: Date()), alarm: nil)
-			])
+			], labelLanguage: .korean)
 			.frame(
 				width: 200,
 				height: 300,

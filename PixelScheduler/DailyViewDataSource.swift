@@ -1,17 +1,17 @@
 //
 //  ScrollviewData.swift
-//  ScheduleManager
+//  PixelScheduler
 //
 //  Created by Shin on 3/24/21.
 //
 
 import Foundation
-import UIKit
+import SwiftUI
 
-class ScrollViewDataSource: ObservableObject {
+class DailyViewDataSource: ObservableObject {
 	
 	// MARK: Properties
-	var scheduleShowing = [Schedule]() {
+	private var scheduleShowing = [Schedule]() {
 		didSet {
 			schedulesUnique = idsUnique.compactMap { id in
 				scheduleShowing.first{ $0.id == id }
@@ -44,27 +44,15 @@ class ScrollViewDataSource: ObservableObject {
 	var schedulesAllDay = [Schedule]()
 	var schedulesOverlapped = [[Schedule]]()
 	
-	// MARK:- Schedule distribute logic
+	// MARK: - Schedule distribute logic
 	
-	func setNewSchedule(_ newValue: [Schedule], of date: Date) {
-		func findOverlappingIndex(of schedule: Schedule, in scheduleArr: [Schedule]) -> [Int] {
-			var indices = [Int]()
-			let rangeOfSchedule = calcTimeRange(of: schedule, in: date)
-			for (index, scheduleToCheck) in scheduleArr.enumerated() {
-				if schedulesAllDay.contains(scheduleToCheck.id) {
-					continue
-				}
-				if rangeOfSchedule.overlaps(calcTimeRange(of: scheduleToCheck, in: date)) {
-					indices.append(index)
-				}
-			}
-			return indices
-		}
+	func setNewSchedule(_ newSchedules: [Schedule], of date: Date) {
+		
 		var schedulesUnique = [UUID]()
 		var schedulesAllDay = [UUID]()
 		var schedulesOverlapped = [[UUID]]()
 		var overlappedIndices = Set<Int>()
-		for (index, schedule) in newValue.enumerated() {
+		for (index, schedule) in newSchedules.enumerated() {
 			if case .period(let startDate, let endDate) = schedule.time,
 				 (startDate < date.startOfDay) || startDate.isSameDay(with: date),
 				 (endDate - max(date.startOfDay, startDate)) > (TimeInterval.forOneDay - 60 * 60) {
@@ -75,8 +63,17 @@ class ScrollViewDataSource: ObservableObject {
 			if overlappedIndices.contains(index) {
 				continue
 			}
-			let overlappingToSchedule = findOverlappingIndex(of: schedule,
-																											 in: newValue)
+			var overlappingToSchedule = [Int]()
+			let rangeOfSchedule = calcTimeRange(of: schedule, in: date)
+			for (index, scheduleToCheck) in newSchedules.enumerated() {
+				if schedulesAllDay.contains(scheduleToCheck.id) {
+					continue
+				}
+				if rangeOfSchedule.overlaps(calcTimeRange(of: scheduleToCheck, in: date)) {
+					overlappingToSchedule.append(index)
+				}
+			}
+			
 			if overlappingToSchedule.count == 1 {
 				schedulesUnique.append(schedule.id)
 			}else {
@@ -84,14 +81,14 @@ class ScrollViewDataSource: ObservableObject {
 					overlappedIndices.insert($0)
 				}
 				let overlappedSchedules = overlappingToSchedule
-					.compactMap{ newValue[$0].id }
+					.compactMap{ newSchedules[$0].id }
 				schedulesOverlapped.append(overlappedSchedules)
 			}
 		}
 		idsUnique = schedulesUnique
 		idsAllday = schedulesAllDay
 		idsOverlapped = schedulesOverlapped
-		scheduleShowing = newValue
+		scheduleShowing = newSchedules
 	}
 	
 	private func calcTimeRange(of schedule: Schedule, in date: Date) -> ClosedRange<TimeInterval> {

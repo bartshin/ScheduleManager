@@ -16,9 +16,9 @@ class DailyViewController: UIViewController {
 	private(set) var topVC: WeeklyScheduleVC!
 	private(set) var bottomVC: DailyScrollVC!
 	
-	//MARK:- Properties
+	//MARK: - Properties
 	
-	@IBOutlet weak var characterView: CharacterHelper!
+	
 	@Published var dateIntShowing: Int? {
 		didSet {
 			navigationItem.title = dateShowing.getMonthDayString(with: settingController.dateLanguage.locale)
@@ -42,7 +42,7 @@ class DailyViewController: UIViewController {
 	@IBOutlet weak var holiydayBoard: UIImageView!
 	@IBOutlet weak var stickerButton: UIButton!
 	
-	// MARK:- User intents
+	// MARK: - User intents
 	
 	@objc private func tapBackButton() {
 		dismiss(animated: true)
@@ -68,7 +68,7 @@ class DailyViewController: UIViewController {
 	}
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		characterView.settingController = settingController
+//		characterView.settingController = settingController
 		if navigationController?.modalPresentationStyle == .fullScreen {
 			navigationItem.setLeftBarButton(
 				UIBarButtonItem(title: settingController.dateLanguage == .korean ? "닫기": "Close",
@@ -81,10 +81,10 @@ class DailyViewController: UIViewController {
 	}
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		characterView.load()
-		characterView.guide = .weeklyCalendar
-		if navigationController?.modalPresentationStyle == .fullScreen { modifyNavigationBar()
-		}
+//		characterView.load()
+//		characterView.guide = .weeklyCalendar
+//		if navigationController?.modalPresentationStyle == .fullScreen { modifyNavigationBar()
+//		}
 		applyUISetting()
 	}
 	override func viewWillDisappear(_ animated: Bool) {
@@ -121,7 +121,7 @@ class DailyViewController: UIViewController {
 		}
 	}
 	
-	// MARK:- Segue
+	// MARK: - Segue
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == SegueID.TopViewControllerSegue.rawValue{
 			topVC = (segue.destination as! WeeklyScheduleVC)

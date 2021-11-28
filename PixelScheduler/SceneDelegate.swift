@@ -1,5 +1,5 @@
 
-import UIKit
+import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -15,25 +15,35 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
         // Inject Model controller
-        notificationCenter.delegate = self
-        let tabBarController = window?.rootViewController as! UITabBarController
-        if let scheduleVC = tabBarController.viewControllers?.first as? CalendarViewController {
-            scheduleVC.modelController = scheduleModelController
-            scheduleVC.settingController = settingController
-        }
-        if let todoListVC = tabBarController.viewControllers?[1] as? TodoListViewController {
-            todoListVC.scheduleModelController = scheduleModelController
-            todoListVC.settingController = settingController
-            todoListVC.taskModelController = taskModelController
-        }
-        if let settingNavigationVC = tabBarController.viewControllers?[2] as? UINavigationController,
-           let settingVC = settingNavigationVC.visibleViewController as?
-        SettingViewController
-        {
-            settingVC.scheduleModelController = scheduleModelController
-            settingVC.taskModelController = taskModelController
-            settingVC.settingController = settingController
-        }
+		notificationCenter.delegate = self
+		let tabViewController = UIHostingController(
+			rootView: MainTabView()
+				.environmentObject(scheduleModelController)
+				.environmentObject(taskModelController)
+				.environmentObject(settingController)
+		)
+		window?.rootViewController = tabViewController
+		window?.makeKeyAndVisible()
+		
+
+//        let tabBarController = window?.rootViewController as! UITabBarController
+//        if let scheduleVC = tabBarController.viewControllers?.first as? CalendarViewController {
+//            scheduleVC.modelController = scheduleModelController
+//            scheduleVC.settingController = settingController
+//        }
+//        if let todoListVC = tabBarController.viewControllers?[1] as? TodoListViewController {
+//            todoListVC.scheduleModelController = scheduleModelController
+//            todoListVC.settingController = settingController
+//            todoListVC.taskModelController = taskModelController
+//        }
+//        if let settingNavigationVC = tabBarController.viewControllers?[2] as? UINavigationController,
+//           let settingVC = settingNavigationVC.visibleViewController as?
+//        SettingViewController
+//        {
+//            settingVC.scheduleModelController = scheduleModelController
+//            settingVC.taskModelController = taskModelController
+//            settingVC.settingController = settingController
+//        }
    
         do {
             // Get User Schedule
@@ -48,15 +58,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                                                          about: HolidayGather.CountryCode.korea)
         }catch {
             assertionFailure("Fail to restore data \n \(error.localizedDescription)")
-            let alert = UIAlertController(
-                title: "불러오기 실패",
-                message: "데이터가 손상되었거나 시스템 오류가 있습니다", preferredStyle: .alert)
-            let dismissAction = UIAlertAction(
-                title: "확인", style: .default)
-            alert.addAction(dismissAction)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                tabBarController.present(alert, animated: true)
-            }
+//					DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//							tabBarController.showAlertForDismiss(
+//								title: "불러오기 실패",
+//								message: "데이터가 손상되었거나 시스템 오류가 있습니다",
+//						with: self.settingController.visualMode)
+//            }
         }
         if settingController.isFirstOpen {
             taskModelController.createDefaultCollection()
@@ -106,7 +113,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
-     
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {

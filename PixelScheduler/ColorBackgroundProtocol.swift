@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ColorBackground: UIViewController {
-    var settingController: SettingController! { get set }
+    var settingController: SettingController { get set }
     var gradient: CAGradientLayer { get }
     var blurEffect: UIBlurEffect { get }
     var blurEffectView: UIVisualEffectView { get }
@@ -31,7 +31,7 @@ extension ColorBackground {
         blurEffectView.effect = blurEffect
     }
     func initBackground() {
-        
+		
         // Set the size of the layer to be equal to size of the display.
         gradient.frame = view.bounds
         blurEffectView.frame = view.bounds

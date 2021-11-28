@@ -9,7 +9,9 @@ import UIKit
 import Combine
 import AVFoundation
 
-class TaskCollectionVC: UIViewController, PlaySoundEffect {
+class TaskCollectionVC: UIViewController
+//, PlaySoundEffect
+{
     
     // MARK: Controller
     var taskModelController: TaskModelController!
@@ -240,7 +242,7 @@ extension TaskCollectionVC: UITableViewDataSource, UITableViewDelegate{
                 guard let toDelete = weakSelf?.allCollections[indexPath.row] else {
                     return
                 }
-                playSound(AVAudioPlayer.delete)
+//                playSound(AVAudioPlayer.delete)
                 weakSelf?.taskModelController.deleteCollection(toDelete)
             }
             let cancellAction = UIAlertAction(
