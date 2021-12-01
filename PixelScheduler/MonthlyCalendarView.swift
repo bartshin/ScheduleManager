@@ -62,6 +62,7 @@ struct MonthlyCalendarView: View {
 			holiday: scheduleController.holidayTable[day],
 			colorPalette: settingController.palette)
 			.onTapGesture {
+				SoundEffect.playSound(.paper)
 				tapCalendarCell(day)
 			}
 			.opacity(date.month == referenceDate.month ? 1: 0.2)

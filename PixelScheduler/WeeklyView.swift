@@ -68,7 +68,7 @@ struct WeeklyView: View {
 							   colorPalette: settingController.palette,
 							   isSelected: date.toInt == selectedDateInt,
 							   schedules: scheduleController.getSchedules(for: date.toInt),
-							   labelLanguage: settingController.dateLanguage)
+							   labelLanguage: settingController.language)
 					.onTapGesture {
 						withAnimation {
 							selectedDateInt = date.toInt
@@ -109,10 +109,8 @@ struct WeeklyView: View {
 			Image("bulletin_board")
 				.resizable()
 				.frame(width: 150, height: 80)
-			Text(holiday.translateTitle(to: settingController.dateLanguage))
-				.font(settingController.dateLanguage == .korean ?
-					  Font.custom("YANGJIN", size: 18):
-						Font.custom("RatroGaming", size: 18)
+			Text(holiday.translateTitle(to: settingController.language))
+				.font(Font.custom(settingController.language.font, size: 18)
 				)
 		}
 	}
@@ -122,7 +120,7 @@ struct WeeklyView: View {
 						date: selectedDateInt?.toDate,
 						colorPalette: settingController.palette,
 						visualMode: settingController.visualMode,
-						language: settingController.dateLanguage)
+						language: settingController.language)
 			.onChange(of: selectedDateInt) {
 				guard let newDate = $0?.toDate else {
 					return

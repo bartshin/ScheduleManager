@@ -21,34 +21,56 @@ struct CharacterHelperView: View
 	
 	var body: some View {
 		
-		GIFImage(name: character.idleGif)
-			.frame(width: 80, height: 80)
-			.onTapGesture {
-				withAnimation {
-					isShowingQuickHelp = true
+		ZStack {
+			if isShowingQuickHelp {
+				showBackgroundBlur {
+					withAnimation {
+						isShowingQuickHelp = false
+					}
 				}
+				.frame(width: UIScreen.main.bounds.size.width * 1.5,
+					   height: UIScreen.main.bounds.size.height * 1.5)
+				.position(x: UIScreen.main.bounds.size.width/2,
+						  y: UIScreen.main.bounds.size.height/2)
 			}
+			GIFImage(name: character.idleGif)
+				.frame(width: 80, height: 80)
+				.onTapGesture {
+					withAnimation {
+						isShowingQuickHelp = true
+					}
+				}
 			.overlay(
 				Group {
 					if isShowingQuickHelp {
-						QuickHelpVCRepresentable(settingController: settingController,
-												 isPresenting: $isShowingQuickHelp,
-												 guide: guide)
+						QuickHelpVCRepresentable(
+							settingController: settingController,
+							isPresenting: $isShowingQuickHelp,
+							guide: guide)
 							.frame(width: helpWindowSize.width,
-								   height: helpWindowSize.height)
+								   height: helpWindowSize.height * 0.8)
 							.background(
-						Balloon()
-							.size(helpWindowSize)
-							.stroke(.black, lineWidth: 2)
+								backgroundBalloon
+									.offset(y: helpWindowSize.height * -0.1)
 						)
 					}
 				}
-					.position(x: UIScreen.main.bounds.width*0.4,
-							  y: UIScreen.main.bounds.height*0.4)
+					.position(x: UIScreen.main.bounds.size.width*0.4,
+							  y: UIScreen.main.bounds.size.height*0.4)
 			)
+		}
 	}
 	
-	
+	private var backgroundBalloon: some View {
+		Balloon()
+			.size(helpWindowSize)
+			.stroke(.black, lineWidth: 2)
+			.background(
+				Balloon()
+					.size(helpWindowSize)
+					.fill(Color(settingController.palette.tertiary))
+			)
+	}
 }
 
 class QuickHelpVC: UIViewController {
@@ -61,7 +83,7 @@ class QuickHelpVC: UIViewController {
 	static let storyboadID = "QuikHelpVC"
 	private let cellReuseID = "InstructionCell"
 	var guide: CharacterPresentingGuide
-	private var tableView = UITableView()
+	private var tableView = UITableView(frame: .zero, style: .grouped)
 	var dismiss: (() -> Void)
 	
 	
@@ -69,6 +91,7 @@ class QuickHelpVC: UIViewController {
 		super.viewDidLoad()
 		view.addSubview(tableView)
 		tableView.translatesAutoresizingMaskIntoConstraints = false
+		tableView.allowsSelection = false
 		tableView.register(InstructionCell.self, forCellReuseIdentifier: cellReuseID)
 		tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 		tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -78,6 +101,7 @@ class QuickHelpVC: UIViewController {
 		view.backgroundColor = .clear
 		tableView.dataSource = self
 		tableView.delegate = self
+		tableView.rowHeight = UITableView.automaticDimension
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -112,13 +136,13 @@ extension QuickHelpVC: UITableViewDataSource, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseID) as!
 		InstructionCell
-		
 		cell.setGuide(guide, at: indexPath.section, color: settingController.palette.primary)
+		cell.backgroundColor = .clear
 		return cell
 	}
 	
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		20
+		30
 	}
 	
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -134,12 +158,12 @@ extension QuickHelpVC: UITableViewDataSource, UITableViewDelegate {
 		private var guide: CharacterPresentingGuide?
 		private var textView: UITextView
 		private var textColor: UIColor?
+		private var contentHeight: CGFloat = 0
 		
 		func setGuide(_ guide: CharacterPresentingGuide, at index: Int, color: UIColor) {
 			self.guide = guide
 			self.textView.attributedText = guide.instructions[index].1
 			self.textView.textColor = color
-			textView.sizeToFit()
 		}
 		
 		override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -152,9 +176,11 @@ extension QuickHelpVC: UITableViewDataSource, UITableViewDelegate {
 			textView.isSelectable = false
 			super.init(style: style, reuseIdentifier: reuseIdentifier)
 			contentView.addSubview(textView)
+			
 			textView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
 			textView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
 			textView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8).isActive = true
+			textView.heightAnchor.constraint(equalTo: contentView.heightAnchor, constant: -20).isActive = true
 		}
 		
 		required init?(coder: NSCoder) {

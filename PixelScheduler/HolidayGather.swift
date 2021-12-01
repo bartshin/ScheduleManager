@@ -11,7 +11,7 @@ struct HolidayGather {
 		let description: String
 		let type: HolidayType
 		
-		func translateTitle(to language: SettingKey.DateLanguage) -> String {
+		func translateTitle(to language: SettingKey.Language) -> String {
 			switch language {
 			case .english:
 				return title
@@ -20,7 +20,7 @@ struct HolidayGather {
 			}
 		}
 		
-		func getDateString(for language: SettingKey.DateLanguage) -> String {
+		func getDateString(for language: SettingKey.Language) -> String {
 			let date = dateInt.toDate!
 			switch language {
 				case .korean:

@@ -19,8 +19,8 @@ struct CalendarView: View {
 	@State private var weeklyViewDateInt: Int? = nil
 	
 	private let today = Date().toInt
-	private var calendarLanguage: SettingKey.DateLanguage {
-		settingController.dateLanguage
+	private var calendarLanguage: SettingKey.Language {
+		settingController.language
 	}
 	
 	private var weeklyNavigationBinding: Binding<Bool> {
@@ -71,8 +71,6 @@ struct CalendarView: View {
 			Group {
 				if weeklyViewDateInt != nil {
 					WeeklyView(selectedDateInt: $weeklyViewDateInt)
-						.environmentObject(scheduleController)
-						.environmentObject(settingController)
 				}
 			}
 		}
@@ -83,6 +81,7 @@ struct CalendarView: View {
 		ZStack {
 			HStack(spacing: 30) {
 				drawCharacterHelper(in: size)
+					.zIndex(1)
 				dateLabel
 				calendarButton
 				searchButton
@@ -96,7 +95,7 @@ struct CalendarView: View {
 				SearchBarPopup(isPresented: $showingSearchBar,
 							 searchRequest: $searchRequest,
 							   showingResult: $showingSearchResult,
-							   language: settingController.dateLanguage)
+							   language: settingController.language)
 			}
 		}
 	}
@@ -110,7 +109,6 @@ struct CalendarView: View {
 								characterLocation: characterGeometry.frame(in: .global).origin)
 		}
 		 .frame(width: 80, height: 80)
-		 .border(.red, width: 4)
 	}
 	
 	private var dateLabel: some View {
@@ -123,7 +121,7 @@ struct CalendarView: View {
 				Text(String(currentReferenceDate.year))
 			}
 		}
-		.font(.custom(calendarLanguage == .korean ? "YANGJIN": "RetroGaming", fixedSize: 18))
+		.font(.custom(settingController.language.font, fixedSize: 18))
 	}
 	
 	private var searchButton: some View {
@@ -161,11 +159,12 @@ struct CalendarView: View {
 				ForEach(adjacentMonth, id: \.self) { date in
 					VStack(spacing: 10) {
 						drawWeekLabelBar(in: size)
-						MonthlyCalendarView(referenceDate: date,
-											searchRequest: $searchRequest,
-											size: CGSize(width: size.width,
-														 height: size.height * 0.7)) {
-							weeklyViewDateInt = $0
+						MonthlyCalendarView(
+							referenceDate: date,
+							searchRequest: $searchRequest,
+							size: CGSize(width: size.width,
+										 height: size.height * 0.7)) {
+											 weeklyViewDateInt = $0
 						}
 						Spacer()
 					}
@@ -215,18 +214,11 @@ struct CalendarView: View {
 	private func drawWeekLabelBar(in size: CGSize) -> some View {
 		HStack(spacing: 0) {
 				ForEach(0..<7) { weekday in
-					Group {
-						if calendarLanguage == .korean {
-							Text(Calendar.koreanWeekDays[weekday])
-								.font(.custom("YANGJIN", size: 17))
-						}else {
-							Text(Calendar.englishWeekDays[weekday])
-								.font(.custom("RatroGaming", size: 17))
-						}
-					}
-					.frame(width: size.width / 7, height: 30)
-					.foregroundColor(getColorForWeekday(weekday))
-			}
+					Text(calendarLanguage == .korean ? Calendar.koreanWeekDays[weekday]: Calendar.englishWeekDays[weekday])
+						.font(.custom(settingController.language.font, size: 17))
+								.frame(width: size.width / 7, height: 30)
+								.foregroundColor(getColorForWeekday(weekday))
+				}
 		}
 		.background(Color(settingController.palette.tertiary.withAlphaComponent(0.5)))
 	}
@@ -239,7 +231,7 @@ struct CalendarView: View {
 				}
 			}
 			if showingDatePicker {
-				DatePickerPopup(date: $currentReferenceDate, language: settingController.dateLanguage)
+				DatePickerPopup(date: $currentReferenceDate, language: settingController.language)
 					.background(Color(settingController.palette.quaternary.withAlphaComponent(0.5))
 									.cornerRadius(30))
 					.position(x: size.width/2,
@@ -374,7 +366,7 @@ struct CalendarView: View {
 					let previousCalendar = previousViewControllers.first as? MonthlyVC else {
 					return
 				}
-				let monthAlter = currentCalendar.yearAndMonth > previousCalendar.yearAndMonth ? 1: -1
+				let monthAlter = currentCalendar.yearAndMonth > previousCalendar.yearAndMonth ? 1 :  -Int(1)
 				if let newReferenceDate = Calendar.current.date(byAdding: .month, value: monthAlter, to: currentReferenceDate) {
 					setDate(newReferenceDate)
 				}else {

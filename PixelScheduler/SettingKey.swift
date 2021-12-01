@@ -29,7 +29,7 @@ struct SettingKey {
 		case off
 	}
 	
-	enum DateLanguage: String {
+	enum Language: String {
 		case korean
 		case english
 		
@@ -39,6 +39,15 @@ struct SettingKey {
 				return "en_US"
 			case .korean:
 				return "ko_KR"
+			}
+		}
+		
+		var font: String {
+			switch self {
+			case .korean:
+				return "YANGJIN"
+			case .english:
+				return "RetroGaming"
 			}
 		}
 	}

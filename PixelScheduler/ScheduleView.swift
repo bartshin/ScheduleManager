@@ -12,6 +12,7 @@ struct ScheduleView: View {
 	@EnvironmentObject var settingController: SettingController
 	@Binding var referenceDate: Date
 	@State private var isShowingNewScheduleSheet = false
+	@State private var scheduleToEdit: Schedule? = nil
 	
     var body: some View {
 		NavigationView {
@@ -24,18 +25,22 @@ struct ScheduleView: View {
 						isShowingNewScheduleSheet = true
 					} label: {
 						Image("add_schedule_orange")
-							.frame(width: 80, height: 80)
+							.resizable()
+							.frame(width: 50, height: 50)
 					}
 					.position(x: geometry.size.width * 0.9,
 							  y: geometry.size.height * 0.9)
 					.sheet(isPresented: $isShowingNewScheduleSheet) {
-						AddSchduleView(scheduleToModify: nil)
-							.environmentObject(scheduleController)
-							.environmentObject(settingController)
+						EditScheduleView(selectedDate: Date())
+					}
+					.sheet(item: $scheduleToEdit) { schedule in
+						EditScheduleView(scheduleToEdit: schedule)
 					}
 				}
 			}
 		}
+		.environmentObject(scheduleController)
+		.environmentObject(settingController)
     }
 	
 }

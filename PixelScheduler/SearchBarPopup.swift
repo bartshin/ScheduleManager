@@ -12,7 +12,7 @@ struct SearchBarPopup: View {
 	@Binding var isPresented: Bool
 	@Binding var searchRequest: (text: String, priority: Int)
 	@Binding var showingResult: Bool
-	let language: SettingKey.DateLanguage
+	let language: SettingKey.Language
 	
     var body: some View {
 		VStack {
@@ -53,7 +53,7 @@ struct SearchBarPopup: View {
 		Picker("Priority", selection: $searchRequest.priority) {
 			Text("All").tag(0)
 			ForEach(0..<5, id: \.self) { index in
-				Text(UIColor.Button.allCases[index].rawValue)
+				Text(Color.PriorityButton.allCases[index].rawValue)
 					.tag(index + 1)
 			}
 		}

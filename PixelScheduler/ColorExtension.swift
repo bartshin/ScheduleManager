@@ -31,14 +31,6 @@ extension UIColor {
         }
         return UIColor(named: "priority\(priority)_background")!
     }
-    
-    enum Button: String, CaseIterable {
-        case red = "🔴"
-        case orange = "🟠"
-        case green = "🟡"
-        case blue = "🟢"
-        case black = "🔵"
-    }
 }
 extension Color {
     
@@ -48,4 +40,21 @@ extension Color {
     static func backgroundByPriority(_ priority: Int) -> Color {
         return Color(UIColor.backgroundByPriority(priority))
     }
+	
+	enum PriorityButton: String, CaseIterable {
+		case red = "🔴"
+		case orange = "🟠"
+		case green = "🟡"
+		case blue = "🟢"
+		case black = "🔵"
+		
+		static func by(_ priority: Int) -> String {
+			guard priority > 0,
+				  priority < 6 else {
+					  assertionFailure()
+					  return ""
+				  }
+			return Self.allCases[priority - 1].rawValue
+		}
+	}
 }

@@ -86,7 +86,7 @@ class DailyScrollVC: UIHostingController<DailyScrollView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         rootView.tapSchedule = tapSchedule
-        rootView.labelLanguage = settingController.dateLanguage
+        rootView.labelLanguage = settingController.language
         contactGather.requestPermission {
             self.isContactAvailable = true
         } deniedHandler: {

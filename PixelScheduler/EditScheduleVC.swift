@@ -109,7 +109,7 @@ class EditScheduleVC: UITableViewController
 	@IBOutlet weak var contactButton: UIButton!
 	
 	
-	// MARK:- User intents
+	// MARK: - User intents
 	
 	@IBAction private func changeDateSegment(_ sender: UISegmentedControl) {
 		changeDateType(segment: sender)
@@ -221,7 +221,7 @@ class EditScheduleVC: UITableViewController
 			 let dateSelectVC = segue.destination as? DateSelectVC {
 			self.dateSelectVC = dateSelectVC
 			dateSelectVC.recievedDate = recievedDate
-			dateSelectVC.dateLanguage = settingController.dateLanguage
+			dateSelectVC.dateLanguage = settingController.language
 		}else if segue.identifier == SegueID.ShowLocationSelectorSegue.rawValue ,
 						 let locationSeletorVC = segue.destination as? LocationSelectorVC{
 			locationSeletorVC.modelController = modelController
@@ -253,7 +253,7 @@ class EditScheduleVC: UITableViewController
 		if toEdit != nil {
 			drawEditingSchedule(toEdit!)
 		}
-		alarmTimePicker.locale = Locale(identifier: settingController.dateLanguage.locale)
+		alarmTimePicker.locale = Locale(identifier: settingController.language.locale)
 		dateSelectVC.spotDatePicker.addTarget(self, action: #selector(changeAlarmDate(_:)), for: .valueChanged)
 		dateSelectVC.startDatePicker.addTarget(self, action: #selector(changeAlarmDate(_:)), for: .valueChanged)
 	}

@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 import AVFoundation
 
-class MonthlyVC: UIViewController, PlaySoundEffect, ColorBackground {
+class MonthlyVC: UIViewController, ColorBackground {
 	
 	// MARK: Controller
 	var settingController: SettingController
@@ -250,7 +250,7 @@ extension MonthlyVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
 		if let dateToShow = squaresInCalendarView[indexPath.row]{
 			showDailyViewSegue(dateToShow)
 			hapticGenerator.generateFeedback(for: settingController.hapticMode)
-			playSound(AVAudioPlayer.paper)
+			SoundEffect.playSound(.paper)
 		}
 	}
 	

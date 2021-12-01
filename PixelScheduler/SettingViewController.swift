@@ -90,7 +90,7 @@ class SettingViewController: UITableViewController
 	}
 	
 	@IBAction func selectDateLanguage(_ sender: UISegmentedControl) {
-		let selectedLanguage: SettingKey.DateLanguage
+		let selectedLanguage: SettingKey.Language
 		switch sender.selectedSegmentIndex {
 		case 0:
 			selectedLanguage = .korean
@@ -249,7 +249,7 @@ class SettingViewController: UITableViewController
 		copyrightCell.addGestureRecognizer(
 			UITapGestureRecognizer(
 				target: self, action: #selector(tapCopyrightCell)))
-		dateLanguageLabel.text = settingController.dateLanguage == .english ? "캘린더 언어": "Date language"
+		dateLanguageLabel.text = settingController.language == .english ? "캘린더 언어": "Date language"
 		initSelectors()
 	}
 	override func viewWillAppear(_ animated: Bool) {
@@ -308,7 +308,7 @@ class SettingViewController: UITableViewController
 		}
 		soundEffectSelector.selectedSegmentIndex = settingController.soundEffect == .on ? 0: 1
 		icloudBackupSelector.selectedSegmentIndex = settingController.icloudBackup == .on ? 0: 1
-		labelLanguageSelector.selectedSegmentIndex =  settingController.dateLanguage == .korean ? 0: 1
+		labelLanguageSelector.selectedSegmentIndex =  settingController.language == .korean ? 0: 1
 		calendarPagingSelector.selectedSegmentIndex =
 			settingController.calendarPaging == .pageCurl ? 0: 1
 		visualModeSelector.addTarget(self, action: #selector(selectVisualMode(sender:)), for: .valueChanged)

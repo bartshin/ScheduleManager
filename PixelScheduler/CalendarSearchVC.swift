@@ -226,12 +226,12 @@ extension CalendarSearchVC: UITableViewDelegate, UITableViewDataSource {
 			let schedule = filteredSchedules[indexPath.row]
 			scheduleCell.config(schedule: schedule,
 									palette: settingController.palette,
-									dateLanguage: settingController.dateLanguage, markCompleted: schedule.isDone(for: findDateInt(for: schedule)))
+									dateLanguage: settingController.language, markCompleted: schedule.isDone(for: findDateInt(for: schedule)))
 			cell = scheduleCell
 		}else if indexPath.section == 1, !searchedHolidays.isEmpty {
 			let identifier = String(describing: HolidayCell.self)
 			let holidayCell = tableView.dequeueReusableCell(withIdentifier: identifier) as? HolidayCell ?? HolidayCell(style: .default, reuseIdentifier: identifier)
-			holidayCell.config(by: searchedHolidays[indexPath.row], palette: settingController.palette, language: settingController.dateLanguage)
+			holidayCell.config(by: searchedHolidays[indexPath.row], palette: settingController.palette, language: settingController.language)
 			cell = holidayCell
 		}else  {
 			cell = UITableViewCell(style: .default, reuseIdentifier: nil)
@@ -273,12 +273,12 @@ fileprivate class ScheduleCell: UITableViewCell {
 	// Swift UI
 	private var hoistingController: UIHostingController<DailyScheduleContentsView>?
 	private let dateLabel = UILabel()
-	private var dateLanguage: SettingKey.DateLanguage!
+	private var dateLanguage: SettingKey.Language!
 	private let dateLabelHeight: CGFloat = 20
 	private let leftMargin: CGFloat = 10
 	
 	func config(schedule: Schedule, palette: SettingKey.ColorPalette,
-							dateLanguage: SettingKey.DateLanguage, markCompleted: Bool) {
+							dateLanguage: SettingKey.Language, markCompleted: Bool) {
 		hoistingController = UIHostingController(rootView: DailyScheduleContentsView(for: schedule, with: palette, watch: nil))
 		self.dateLanguage = dateLanguage
 		if markCompleted {
@@ -328,7 +328,7 @@ fileprivate class HolidayCell: UITableViewCell {
 	private let leftMargin: CGFloat = 10
 	var colorPalette: SettingKey.ColorPalette!
 	
-	func config(by holiday: HolidayGather.Holiday, palette: SettingKey.ColorPalette, language: SettingKey.DateLanguage) {
+	func config(by holiday: HolidayGather.Holiday, palette: SettingKey.ColorPalette, language: SettingKey.Language) {
 		guard let date = holiday.dateInt.toDate else {
 			assertionFailure("Date of holiday is not convertible \(holiday)")
 			return

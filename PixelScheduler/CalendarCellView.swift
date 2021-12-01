@@ -13,7 +13,7 @@ struct CalendarCellView: View, HolidayColor {
 	@Binding var searchRequest: (text: String, priority: Int)
 	var holiday: HolidayGather.Holiday?
 	var colorPalette: SettingKey.ColorPalette
-	var labelLanguage: SettingKey.DateLanguage = .korean
+	var labelLanguage: SettingKey.Language = .korean
 	var hapticMode: SettingKey.HapticMode = .off
 	
 	private var filteredSchedules: Array<Schedule>.SubSequence {

@@ -76,7 +76,7 @@ class ScheduleModelController: ObservableObject {
 		}
 	}
 	
-	func queryHoliday(by queryString: String, for language: SettingKey.DateLanguage) -> [HolidayGather.Holiday] {
+	func queryHoliday(by queryString: String, for language: SettingKey.Language) -> [HolidayGather.Holiday] {
 		let trimmedString = queryString.lowercased().replacingOccurrences(of: " ", with: "")
 		switch language {
 		case .english:

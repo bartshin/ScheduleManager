@@ -27,7 +27,7 @@ struct WeeklyCellView: View, HolidayColor {
 			self._schedules
 		}
 	}
-	var labelLanguage: SettingKey.DateLanguage
+	var labelLanguage: SettingKey.Language
 	
 	
 	// MARK:- View properties
@@ -95,7 +95,7 @@ struct WeeklyCellView: View, HolidayColor {
 		}
 		.background(isSelected ? Color(colorPalette.tertiary).opacity(0.3) : Color(colorPalette.quaternary).opacity(0.3))
 	}
-	init(date: Date, holiday: HolidayGather.Holiday?, colorPalette: SettingKey.ColorPalette, isSelected: Bool, schedules: [Schedule], labelLanguage: SettingKey.DateLanguage) {
+	init(date: Date, holiday: HolidayGather.Holiday?, colorPalette: SettingKey.ColorPalette, isSelected: Bool, schedules: [Schedule], labelLanguage: SettingKey.Language) {
 		self.date = date
 		self.holiday = holiday
 		self.isSelected = isSelected

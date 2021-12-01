@@ -14,7 +14,7 @@ struct DailyTableBaseLine: View {
     private let lineHeight: CGFloat
     private let lineRange = Range(1...24)
     private let lineColor: Color
-    private let labelLanguage: SettingKey.DateLanguage
+    private let labelLanguage: SettingKey.Language
     
     private func getTimeLabel(of ordinalNumber: Int) -> String{
         var hour: String
@@ -55,7 +55,7 @@ struct DailyTableBaseLine: View {
             Spacer(minLength: 60)
         }
     }
-    init(width: CGFloat, lineHeight: CGFloat, color: Color, labelLanguage: SettingKey.DateLanguage) {
+    init(width: CGFloat, lineHeight: CGFloat, color: Color, labelLanguage: SettingKey.Language) {
         lineWidth = width
         self.lineHeight = lineHeight
         lineColor = color

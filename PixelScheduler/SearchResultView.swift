@@ -68,7 +68,7 @@ struct SearchResultView: View, HolidayColor {
 	
 	private var scheduleHeader: some View {
 		Group {
-			if settingController.dateLanguage == .korean {
+			if settingController.language == .korean {
 				Text("\(searchRequest.text)로 찾은 스케쥴")
 			}else {
 				Text("Scheduls found by \(searchRequest.text)")
@@ -78,7 +78,7 @@ struct SearchResultView: View, HolidayColor {
 	
 	private var holidayHeader: some View {
 		Group {
-			if settingController.dateLanguage == .korean {
+			if settingController.language == .korean {
 				Text("\(searchRequest.text)로 찾은 휴일")
 			}else {
 				Text("Holidays found by \(searchRequest.text)")
@@ -88,7 +88,7 @@ struct SearchResultView: View, HolidayColor {
 	
 	private var emptyResultPlaceHolder: some View {
 		Group {
-			if settingController.dateLanguage == .korean {
+			if settingController.language == .korean {
 				Text("\(searchRequest.text)의 검색 결과가 없습니다")
 			}else {
 				Text("\(searchRequest.text) is not found")
@@ -100,15 +100,15 @@ struct SearchResultView: View, HolidayColor {
 		VStack {
 			Text(schedule.title)
 				.font(.title2)
-			Text(schedule.time.getDescription(for: settingController.dateLanguage))
+			Text(schedule.time.getDescription(for: settingController.language))
 		}
 	}
 	
 	private func drawRow(for holiday: HolidayGather.Holiday) -> some View {
 		VStack {
-			Text(holiday.translateTitle(to: settingController.dateLanguage))
+			Text(holiday.translateTitle(to: settingController.language))
 				.font(.title2)
-			Text(holiday.getDateString(for: settingController.dateLanguage))
+			Text(holiday.getDateString(for: settingController.language))
 		}
 	}
 }

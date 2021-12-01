@@ -91,8 +91,8 @@ class CalendarViewController: UIViewController {
 	
 	fileprivate func updateMonthLabel(with date: Date)  {
 		let formatter = DateFormatter()
-		formatter.locale = Locale(identifier: settingController.dateLanguage.locale)
-		formatter.dateFormat = settingController.dateLanguage == .english ? "MMM YYYY": "MMM YYYY년"
+		formatter.locale = Locale(identifier: settingController.language.locale)
+		formatter.dateFormat = settingController.language == .english ? "MMM YYYY": "MMM YYYY년"
 		monthLabel.text = formatter.string(from: date)
 	}
 	
@@ -136,7 +136,7 @@ class CalendarViewController: UIViewController {
 		deliverDateToEachCalendar(selectedDate)
 //		characterView.load()
 		applyUISetting()
-		datePicker.locale = Locale(identifier: settingController.dateLanguage.locale)
+		datePicker.locale = Locale(identifier: settingController.language.locale)
 		tabBarController?.applyColorScheme(settingController.visualMode)
 	}
 	override func viewDidAppear(_ animated: Bool) {
@@ -220,7 +220,7 @@ class CalendarViewController: UIViewController {
 	fileprivate func updateWeekLabels() {
 		for (index, label) in weekDayHStack.arrangedSubviews.enumerated() {
 			let label = label as! UILabel
-			label.text = settingController.dateLanguage == .english ? Calendar.englishWeekDays[index]: Calendar.koreanWeekDays[index]
+			label.text = settingController.language == .english ? Calendar.englishWeekDays[index]: Calendar.koreanWeekDays[index]
 		}
 	}
 	
@@ -244,7 +244,7 @@ class CalendarViewController: UIViewController {
 			searchTextField.backgroundColor = UIColor(white: 0.9, alpha: 0.5)
 			searchTextField.attributedPlaceholder = NSAttributedString(string: searchTextField.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black])
 		}
-		searchBar.scopeButtonTitles = ["All"] +  UIColor.Button.allCases.map { $0.rawValue }
+//		searchBar.scopeButtonTitles = ["All"] +  UIColor.Button.allCases.map { $0.rawValue }
 		searchBar.showsScopeBar = true
 	}
 	

@@ -55,54 +55,54 @@ class ListViewController: UIViewController //,ColorBackground
     }
     
     func presentEditTaskAlert(with taskToEdit: Task? = nil) {
-        let alertTitle: String
-        let inputText: String?
-        let confirmButtonTitle: String
-        if let taskToEdit = taskToEdit {
-            alertTitle = "항목 바꾸기"
-            inputText = taskToEdit.text
-            confirmButtonTitle = "변경"
-        }else {
-            alertTitle = "새 항목 추가"
-            inputText = nil
-            confirmButtonTitle = "추가"
-        }
-        
-        let editAlert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .actionSheet)
-        let contentVC = CustomAlertViewController(
-            message: "", segmentSelection: UIColor.Button.allCases.map { $0.rawValue },
-            inputPlaceHolder: "제목을 입력하세요")
-        contentVC.textInput!.text = inputText
-        
-        contentVC.drawCustomView(in: editAlert)
-        contentVC.textInput!.addTarget(self, action: #selector(textInputDidChange(_:)), for: .editingChanged)
-        contentVC.textInput!.delegate = self
-        contentVC.segmentedSwitch!.selectedSegmentIndex = taskToEdit != nil ? taskToEdit!.priority - 1 : 2
-        editAlert.applyColorScheme(settingController.visualMode)
-        let confirmAction = UIAlertAction(
-            title: confirmButtonTitle,
-            style: .default) { [self] action in
-            guard let title = contentVC.textInput?.text,
-            let index = contentVC.segmentedSwitch?.selectedSegmentIndex,
-            let collection = currentCollection else { return }
-            let userInputTask: Task = Task(text: title, priority: index + 1)
-            if taskToEdit != nil {
-                taskModelController.changeTask(from: taskToEdit!, to: userInputTask, in: collection)
-            }else {
-                taskModelController.addNewTask(userInputTask, in: collection)
-            }
-        }
-        self.actionNotAllowEmpty = confirmAction
-        if taskToEdit == nil {
-            confirmAction.isEnabled = false
-        }
-        
-        let cancelAction = UIAlertAction(
-            title: "취소",
-            style: .default)
-        editAlert.addAction(confirmAction)
-        editAlert.addAction(cancelAction)
-        present(editAlert, animated: true)
+//        let alertTitle: String
+//        let inputText: String?
+//        let confirmButtonTitle: String
+//        if let taskToEdit = taskToEdit {
+//            alertTitle = "항목 바꾸기"
+//            inputText = taskToEdit.text
+//            confirmButtonTitle = "변경"
+//        }else {
+//            alertTitle = "새 항목 추가"
+//            inputText = nil
+//            confirmButtonTitle = "추가"
+//        }
+//        
+//        let editAlert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .actionSheet)
+//        let contentVC = CustomAlertViewController(
+//            message: "", segmentSelection: UIColor.Button.allCases.map { $0.rawValue },
+//            inputPlaceHolder: "제목을 입력하세요")
+//        contentVC.textInput!.text = inputText
+//
+//        contentVC.drawCustomView(in: editAlert)
+//        contentVC.textInput!.addTarget(self, action: #selector(textInputDidChange(_:)), for: .editingChanged)
+//        contentVC.textInput!.delegate = self
+//        contentVC.segmentedSwitch!.selectedSegmentIndex = taskToEdit != nil ? taskToEdit!.priority - 1 : 2
+//        editAlert.applyColorScheme(settingController.visualMode)
+//        let confirmAction = UIAlertAction(
+//            title: confirmButtonTitle,
+//            style: .default) { [self] action in
+//            guard let title = contentVC.textInput?.text,
+//            let index = contentVC.segmentedSwitch?.selectedSegmentIndex,
+//            let collection = currentCollection else { return }
+//            let userInputTask: Task = Task(text: title, priority: index + 1)
+//            if taskToEdit != nil {
+//                taskModelController.changeTask(from: taskToEdit!, to: userInputTask, in: collection)
+//            }else {
+//                taskModelController.addNewTask(userInputTask, in: collection)
+//            }
+//        }
+//        self.actionNotAllowEmpty = confirmAction
+//        if taskToEdit == nil {
+//            confirmAction.isEnabled = false
+//        }
+//
+//        let cancelAction = UIAlertAction(
+//            title: "취소",
+//            style: .default)
+//        editAlert.addAction(confirmAction)
+//        editAlert.addAction(cancelAction)
+//        present(editAlert, animated: true)
     }
     
     private func deleteTask(_ task: Task) {

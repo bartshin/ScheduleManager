@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DatePickerPopup: View {
 	@Binding var date: Date
-	let language: SettingKey.DateLanguage
+	let language: SettingKey.Language
 	
     var body: some View {
 		DatePicker("", selection: $date, displayedComponents: .date)

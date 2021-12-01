@@ -21,7 +21,7 @@ class DailyViewController: UIViewController {
 	
 	@Published var dateIntShowing: Int? {
 		didSet {
-			navigationItem.title = dateShowing.getMonthDayString(with: settingController.dateLanguage.locale)
+			navigationItem.title = dateShowing.getMonthDayString(with: settingController.language.locale)
 			self.stickerShowing = modelController.stickerTable[dateIntShowing!]
 			if holiydayLabel != nil, holiydayBoard != nil {
 				updateHoliyday()
@@ -71,7 +71,7 @@ class DailyViewController: UIViewController {
 //		characterView.settingController = settingController
 		if navigationController?.modalPresentationStyle == .fullScreen {
 			navigationItem.setLeftBarButton(
-				UIBarButtonItem(title: settingController.dateLanguage == .korean ? "닫기": "Close",
+				UIBarButtonItem(title: settingController.language == .korean ? "닫기": "Close",
 												style: .plain,
 												target: self,
 												action: #selector(tapBackButton)),
@@ -112,7 +112,7 @@ class DailyViewController: UIViewController {
 	private func updateHoliyday() {
 		if let holiday = modelController.holidayTable[dateIntShowing!] {
 			holiydayLabel.isHidden = false
-			let title = holiday.translateTitle(to: settingController.dateLanguage)
+			let title = holiday.translateTitle(to: settingController.language)
 			holiydayLabel.text = title
 			holiydayBoard.isHidden = false
 		}else {

@@ -11,7 +11,7 @@ struct UserConfig {
 	
 	let character: SettingKey.Character
 	let palette: SettingKey.ColorPalette
-	let dateLanguage: SettingKey.DateLanguage
+	let dateLanguage: SettingKey.Language
 	
 	init() {
 		if let storedCharacter = UserDefaults.getPreference(for: .character) {
@@ -25,7 +25,7 @@ struct UserConfig {
 			self.palette = .basic
 		}
 		if let storedLanguage = UserDefaults.getPreference(for: .dateLanguage) {
-			self.dateLanguage = SettingKey.DateLanguage(rawValue: storedLanguage)!
+			self.dateLanguage = SettingKey.Language(rawValue: storedLanguage)!
 		}else {
 			self.dateLanguage = .korean
 		}

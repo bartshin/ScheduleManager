@@ -15,7 +15,7 @@ struct DailyScrollView: View, DailyScrollViewProtocol {
 	@ObservedObject var dataSource: DailyViewDataSource
 	private var isToday: Bool
 	var tapSchedule: ((Schedule) -> Void)
-	var labelLanguage: SettingKey.DateLanguage
+	var labelLanguage: SettingKey.Language
 	
 	// MARK: - View Properties
 	
@@ -173,7 +173,7 @@ struct DailyScrollView: View, DailyScrollViewProtocol {
 									 endPoint: .bottom)
 	}
 	
-	init(data: DailyViewDataSource, date: Date?, colorPalette: SettingKey.ColorPalette, visualMode: SettingKey.VisualMode, language: SettingKey.DateLanguage) {
+	init(data: DailyViewDataSource, date: Date?, colorPalette: SettingKey.ColorPalette, visualMode: SettingKey.VisualMode, language: SettingKey.Language) {
 		self.date = date
 		self.isToday = date != nil ? date!.isSameDay(with: Date()) : false
 		self.dataSource = data

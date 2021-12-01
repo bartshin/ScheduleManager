@@ -54,7 +54,7 @@ struct Schedule: Codable, Identifiable {
 		case cycle (since: Date, for: CycleFactor, every: [Int])
 		case period (start: Date, end: Date)
 		
-		func getDescription(for language: SettingKey.DateLanguage = .korean) -> String {
+		func getDescription(for language: SettingKey.Language = .korean) -> String {
 			let dateFormatter = DateFormatter()
 			dateFormatter.locale = .init(identifier: language.locale)
 			dateFormatter.dateFormat = "yy. MM. d a h: mm"
@@ -184,7 +184,7 @@ extension Schedule: Comparable {
 	}
 }
 
-// MARK:- JSON Encoding
+// MARK: - JSON Encoding
 
 extension Schedule.Location {
 	private enum CodingKeys: String, CodingKey {

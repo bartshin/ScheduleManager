@@ -9,13 +9,13 @@ import NaturalLanguage
 
 struct LanguageDetector {
 	
-	static func detect(for string: String) -> SettingKey.DateLanguage? {
+	static func detect(for string: String) -> SettingKey.Language? {
 		let recognizer = NLLanguageRecognizer()
 		recognizer.processString(string)
 		guard let languageCode = recognizer.dominantLanguage?.rawValue,
 					let detectedLanguage = Locale.current.localizedString(forIdentifier: languageCode) else {
 			return nil
 		}
-		return SettingKey.DateLanguage(rawValue: detectedLanguage.lowercased())
+		return SettingKey.Language(rawValue: detectedLanguage.lowercased())
 	}
 }

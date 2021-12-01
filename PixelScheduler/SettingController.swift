@@ -15,7 +15,7 @@ class SettingController: ObservableObject {
 	private(set) var hapticMode: SettingKey.HapticMode
 	private(set) var character: SettingKey.Character
 	private(set) var soundEffect: SettingKey.SoundEffect
-	private(set) var dateLanguage: SettingKey.DateLanguage
+	private(set) var language: SettingKey.Language
 	private(set) var isFirstOpen: Bool
 	private(set) var icloudBackup: SettingKey.ICloudBackup
 	private(set) var calendarPaging: SettingKey.CalendarPaging
@@ -57,8 +57,8 @@ class SettingController: ObservableObject {
 		UserDefaults.setPreference(for: .character, value: newCharacter.rawValue)
 	}
 	
-	func changeDateLanguage(to newLanguage: SettingKey.DateLanguage) {
-		self.dateLanguage = newLanguage
+	func changeDateLanguage(to newLanguage: SettingKey.Language) {
+		self.language = newLanguage
 		UserDefaults.setPreference(for: .dateLanguage, value: newLanguage.rawValue)
 	}
 	
@@ -114,9 +114,9 @@ class SettingController: ObservableObject {
 			self.collectionBookmark = nil
 		}
 		if let dateLanguageSaved = UserDefaults.getPreference(for: .dateLanguage) {
-			self.dateLanguage = SettingKey.DateLanguage(rawValue: dateLanguageSaved)!
+			self.language = SettingKey.Language(rawValue: dateLanguageSaved)!
 		}else {
-			self.dateLanguage = .korean
+			self.language = .korean
 		}
 		if let characterSaved = UserDefaults.getPreference(for: .character) {
 			self.character = SettingKey.Character(rawValue: characterSaved)!
