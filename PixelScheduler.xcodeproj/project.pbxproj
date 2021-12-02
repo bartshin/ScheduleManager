@@ -49,7 +49,6 @@
 		89BE6877266E33AB00A45D6D /* Schedule.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89BE6876266E33AB00A45D6D /* Schedule.storyboard */; };
 		89CBC57E27409A290063CDA1 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CBC57D27409A290063CDA1 /* SearchResultView.swift */; };
 		89CCC3E22755211600AD912C /* EditScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CCC3E12755211600AD912C /* EditScheduleView.swift */; };
-		89CE6217274F0C67009B082B /* AddSchduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CE6216274F0C67009B082B /* AddSchduleView.swift */; };
 		89D69BE92671C438005B747C /* CalendarSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D69BE82671C438005B747C /* CalendarSearchVC.swift */; };
 		89D84256266E357600B8CA38 /* Todo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89D84255266E357600B8CA38 /* Todo.storyboard */; };
 		89D84259266E36A900B8CA38 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89D84258266E36A900B8CA38 /* Setting.storyboard */; };
@@ -340,7 +339,6 @@
 		89CB42B826734E68001A4F33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		89CBC57D27409A290063CDA1 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		89CCC3E12755211600AD912C /* EditScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScheduleView.swift; sourceTree = "<group>"; };
-		89CE6216274F0C67009B082B /* AddSchduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSchduleView.swift; sourceTree = "<group>"; };
 		89D69BE82671C438005B747C /* CalendarSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSearchVC.swift; sourceTree = "<group>"; };
 		89D84255266E357600B8CA38 /* Todo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Todo.storyboard; sourceTree = "<group>"; };
 		89D84258266E36A900B8CA38 /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
@@ -592,7 +590,6 @@
 				89CCC3E12755211600AD912C /* EditScheduleView.swift */,
 				89E5A5A22749C2B1008C23F7 /* WeeklyView.swift */,
 				89E3577E27486DC000D7F0F5 /* ScheduleView.swift */,
-				89CE6216274F0C67009B082B /* AddSchduleView.swift */,
 				89E3577D27486DA800D7F0F5 /* Components */,
 				CC0B3DAA25EB752800896FED /* DailyScrollView */,
 			);
@@ -1353,7 +1350,6 @@
 				CC99BC3125E4DBD200F2CCC7 /* CalendarViewController.swift in Sources */,
 				CCEFB64425E68193008B14AC /* WeeklyScheduleVC.swift in Sources */,
 				CC57A6982624625400BF5154 /* ContactGather.swift in Sources */,
-				89CE6217274F0C67009B082B /* AddSchduleView.swift in Sources */,
 				8982DA4F2670CCBA00CAFAE9 /* HolidayDictionary.swift in Sources */,
 				CC99BC5825E4DCF200F2CCC7 /* ViewControllerExtension.swift in Sources */,
 				CCBDC9E925E90695003D0C75 /* ScheduleExtension.swift in Sources */,

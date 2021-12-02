@@ -18,6 +18,7 @@ struct EditScheduleView: View {
 	@State private var scheduleDate: Schedule.DateType
 	/// Currently date type UI showing
 	@State private var showingDateType: DateType
+	@StateObject private var cycleSelections =  CyclePickerView.Selected()
 	private let selectedDate: Date?
 	
     var body: some View {
@@ -32,7 +33,9 @@ struct EditScheduleView: View {
 				priorityPicker
 					.padding(.vertical, 20)
 					.padding(.horizontal, 50)
+				Divider()
 				dateTypePicker
+					.padding(.top, 20)
 				datePicker
 				Divider()
 			}
@@ -83,6 +86,14 @@ struct EditScheduleView: View {
 			}
 			else if showingDateType == .period {
 				periodDatePicker
+			}
+			else {
+				CyclePickerView(
+					selected: cycleSelections,
+					language: settingController.language,
+					segmentType: showingDateType == .weeklyCycle ? .weekly: .monthly)
+					.padding(.vertical, 20)
+					.fixedSize(horizontal: false, vertical: true)
 			}
 		}
 	}
@@ -148,10 +159,6 @@ struct EditScheduleView: View {
 		.padding(.horizontal, 40)
 		.padding(.vertical, 20)
 	}
-	
-//	private var weeklyCyclePicker: some View {
-//		
-//	}
 	
 	private var navigationTitle: String {
 		if scheduleToEdit != nil {

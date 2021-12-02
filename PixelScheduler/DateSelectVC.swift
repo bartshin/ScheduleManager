@@ -10,7 +10,9 @@ import SwiftUI
 class DateSelectVC: UIViewController {
 	
 	// MARK: Controller
-	let cyclePicker = UIHostingController(rootView: CyclePickerView(language: .korean, currentSegmentType: .weekly))
+	let cyclePicker = UIHostingController(rootView: CyclePickerView(
+		selected: .init(),
+		language: .korean, segmentType: .weekly))
 	var recievedDate: Date?
 	var recievedEndDate: Date?
 	var recievedCycle: (Schedule.CycleFactor, [Int])?
@@ -34,10 +36,10 @@ class DateSelectVC: UIViewController {
 			cyclePickerView.isHidden = viewIndexPresenting != 2 && viewIndexPresenting != 3
 			if viewIndexPresenting == 2 {
 				// Weekly cycle
-				cyclePicker.rootView.currentSegmentType = .weekly
+//				cyclePicker.rootView.currentSegmentType = .weekly
 			}else if viewIndexPresenting == 3 {
 				// Monthly cycle
-				cyclePicker.rootView.currentSegmentType = .monthly
+//				cyclePicker.rootView.currentSegmentType = .monthly
 			}
 		}
 	}
