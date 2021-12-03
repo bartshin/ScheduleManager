@@ -392,7 +392,7 @@ class EditScheduleVC: UITableViewController
 	}
 }
 
-// MARK:- Delegate
+// MARK: - Delegate
 
 extension EditScheduleVC: UITextFieldDelegate{
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {

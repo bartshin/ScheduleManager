@@ -9,17 +9,71 @@ import SwiftUI
 
 struct EditScheduleView: View {
 	
-	private let scheduleToEdit: Schedule?
+	private enum DateType: Int, CaseIterable, Identifiable {
+		
+		var id: Int {
+			self.rawValue
+		}
+		case spot
+		case period
+		case weeklyCycle
+		case monthlyCycle
+		
+		func getDescription(for language: SettingKey.Language) -> String {
+			switch self {
+			case .spot:
+				return language == .korean ? "시점": "Pick moment"
+			case .weeklyCycle:
+				return language == .korean ? "매주 반복": "Repeat every week"
+			case .monthlyCycle:
+				return language == .korean ? "매달 반복": "Repeat every month"
+			case .period:
+				return language == .korean ? "기간": "Pick period"
+			}
+		}
+	}
+	
 	@EnvironmentObject var scheduleController: ScheduleModelController
 	@EnvironmentObject var settingController: SettingController
+	private let scheduleToEdit: Schedule?
 	@State private var scheduleTitle: String
 	@State private var priority: Int
 	/// Actual date picked for schedule
 	@State private var scheduleDate: Schedule.DateType
 	/// Currently date type UI showing
 	@State private var showingDateType: DateType
-	@StateObject private var cycleSelections =  CyclePickerView.Selected()
+	@StateObject private var cycleSelections = CyclePickerView.Selected()
 	private let selectedDate: Date?
+	@State private var alarm: Schedule.Alarm?
+	
+	init(scheduleToEdit: Schedule, selectedDate: Date? = nil) {
+		self.scheduleToEdit = scheduleToEdit
+		_scheduleTitle = .init(initialValue: scheduleToEdit.title)
+		_priority = .init(initialValue: scheduleToEdit.priority)
+		let dateType: DateType
+		switch scheduleToEdit.time {
+		case .spot(_):
+			dateType = .spot
+		case .cycle(_, let fator, _):
+			dateType = fator == .weekday ? .weeklyCycle: .monthlyCycle
+		case .period(_, _):
+			dateType = .period
+		}
+		_scheduleDate = .init(initialValue: scheduleToEdit.time)
+		_showingDateType = .init(initialValue: dateType)
+		_alarm = .init(initialValue: scheduleToEdit.alarm)
+		self.selectedDate = selectedDate
+	}
+	
+	init(selectedDate: Date) {
+		self.scheduleToEdit = nil
+		self.selectedDate = selectedDate
+		_scheduleTitle = .init(initialValue: "")
+		_priority = .init(initialValue: 1)
+		_scheduleDate = .init(initialValue: .spot(selectedDate))
+		_showingDateType = .init(initialValue: .spot)
+		_alarm = .init(initialValue: nil)
+	}
 	
     var body: some View {
 		GeometryReader{ geometry in
@@ -38,6 +92,10 @@ struct EditScheduleView: View {
 					.padding(.top, 20)
 				datePicker
 				Divider()
+				alarmPicker
+					.padding(.top, 20)
+				Divider()
+				contactPicker
 			}
 		}
 		.navigationTitle(navigationTitle)
@@ -68,7 +126,13 @@ struct EditScheduleView: View {
 	}
 	
 	private var dateTypePicker: some View {
-		Picker("Schedule date type", selection: $showingDateType) {
+		Picker("Schedule date type", selection: .init(get: {
+			showingDateType
+		}, set: { newValue in
+			withAnimation {
+				showingDateType = newValue
+			}
+		})) {
 			ForEach(DateType.allCases) { type in
 				Text(type.getDescription(for: settingController.language))
 					.font(.custom(settingController.language.font, size: 15))
@@ -80,12 +144,15 @@ struct EditScheduleView: View {
 	}
 	
 	private var datePicker: some View {
-		Group {
+		let transition: AnyTransition = .asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)).combined(with: .opacity)
+		return Group {
 			if showingDateType == .spot {
 				spotDatePicker
+					.transition(transition)
 			}
 			else if showingDateType == .period {
 				periodDatePicker
+					.transition(transition)
 			}
 			else {
 				CyclePickerView(
@@ -94,6 +161,7 @@ struct EditScheduleView: View {
 					segmentType: showingDateType == .weeklyCycle ? .weekly: .monthly)
 					.padding(.vertical, 20)
 					.fixedSize(horizontal: false, vertical: true)
+					.transition(transition)
 			}
 		}
 	}
@@ -160,6 +228,67 @@ struct EditScheduleView: View {
 		.padding(.vertical, 20)
 	}
 	
+	private var alarmPicker: some View {
+		HStack(spacing: 20) {
+			Button {
+				if alarm != nil {
+					alarm = nil
+				}else {
+					switch scheduleDate {
+					case .spot(let date), .period(let date, _):
+						alarm = .once(date)
+					case .cycle(let date, _, _):
+						alarm = .periodic(date)
+					}
+				}
+			} label: {
+				let buttonColor: Color = alarm == nil ? .gray: .pink
+				HStack {
+					Image(systemName: "alarm")
+						.resizable()
+						.renderingMode(.template)
+						.frame(width: 30, height: 30)
+					Text(settingController.language == .korean ? "알람": "Alarm")
+						.font(.title)
+				}
+				.foregroundColor(buttonColor)
+				.padding(5)
+				.overlay(RoundedRectangle(cornerRadius: 10)
+									.stroke(buttonColor, lineWidth: 3)
+				)
+			}
+			DatePicker(selection: .init(get: {
+				if let alarmSet = alarm {
+					switch alarmSet {
+					case .periodic(let date):
+						return date
+					case .once(let date):
+						return date
+					}
+				}else {
+					return selectedDate ?? Date()
+				}
+			}, set: { newDate in
+				switch scheduleDate {
+				case .spot(let date), .period(let date, _):
+					alarm = .once(date)
+				case .cycle(let date, _, _):
+					alarm = .periodic(date)
+				}
+			}), displayedComponents: [.hourAndMinute], label: {})
+				.datePickerStyle(.wheel)
+				.frame(width: 250, height: 80)
+				.fixedSize()
+				.clipped()
+		}
+	}
+	
+	private var contactPicker: some View {
+		HStack {
+			
+		}
+	}
+	
 	private var navigationTitle: String {
 		if scheduleToEdit != nil {
 			return settingController.language == .korean ? "스케쥴 수정": "Edit Schedule"
@@ -167,58 +296,13 @@ struct EditScheduleView: View {
 			return settingController.language == .korean ? "스케쥴 추가": "New Schedule"
 		}
 	}
-	
-	init(scheduleToEdit: Schedule, selectedDate: Date? = nil) {
-		self.scheduleToEdit = scheduleToEdit
-		_scheduleTitle = .init(initialValue: scheduleToEdit.title)
-		_priority = .init(initialValue: scheduleToEdit.priority)
-		let dateType: DateType
-		switch scheduleToEdit.time {
-		case .spot(_):
-			dateType = .spot
-		case .cycle(_, let fator, _):
-			dateType = fator == .weekday ? .weeklyCycle: .monthlyCycle
-		case .period(_, _):
-			dateType = .period
-		}
-		_scheduleDate = .init(initialValue: scheduleToEdit.time)
-		_showingDateType = .init(initialValue: dateType)
-		self.selectedDate = selectedDate
-	}
-	
-	init(selectedDate: Date) {
-		self.scheduleToEdit = nil
-		self.selectedDate = selectedDate
-		_scheduleTitle = .init(initialValue: "")
-		_priority = .init(initialValue: 1)
-		_scheduleDate = .init(initialValue: .spot(selectedDate))
-		_showingDateType = .init(initialValue: .spot)
-	}
-	
-	private enum DateType: Int, CaseIterable, Identifiable {
-		
-		var id: Int {
-			self.rawValue
-		}
-		case spot
-		case period
-		case weeklyCycle
-		case monthlyCycle
-		
-		func getDescription(for language: SettingKey.Language) -> String {
-			switch self {
-			case .spot:
-				return language == .korean ? "시점": "Pick moment"
-			case .weeklyCycle:
-				return language == .korean ? "매주 반복": "Repeat every week"
-			case .monthlyCycle:
-				return language == .korean ? "매달 반복": "Repeat every month"
-			case .period:
-				return language == .korean ? "기간": "Pick period"
-			}
-		}
-	}
 }
+
+
+
+
+
+
 
 struct AddScheduleView_Previews: PreviewProvider {
     static var previews: some View {

@@ -142,7 +142,7 @@ struct MultiSegmentView_Previews: PreviewProvider {
 		CyclePickerView(selected: CyclePickerView.Selected(),
 						language: .korean,
 						segmentType: .monthly)
-			.frame(width: 350, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+			.frame(width: 350, height: 50)
 	}
 }
 
