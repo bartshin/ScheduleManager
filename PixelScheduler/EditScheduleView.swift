@@ -45,6 +45,8 @@ struct EditScheduleView: View {
 	@StateObject private var cycleSelections = CyclePickerView.Selected()
 	private let selectedDate: Date?
 	@State private var alarm: Schedule.Alarm?
+	@State private var contact: Schedule.Contact?
+	@State private var isShowingContactPicker = false
 	
 	init(scheduleToEdit: Schedule, selectedDate: Date? = nil) {
 		self.scheduleToEdit = scheduleToEdit
@@ -93,9 +95,14 @@ struct EditScheduleView: View {
 				datePicker
 				Divider()
 				alarmPicker
-					.padding(.top, 20)
+					.padding(.vertical, 20)
 				Divider()
 				contactPicker
+					.sheet(isPresented: $isShowingContactPicker) {
+						ContactPickerRepresentable { contact in
+							print(contact)
+						}
+					}
 			}
 		}
 		.navigationTitle(navigationTitle)
@@ -249,7 +256,7 @@ struct EditScheduleView: View {
 						.renderingMode(.template)
 						.frame(width: 30, height: 30)
 					Text(settingController.language == .korean ? "알람": "Alarm")
-						.font(.title)
+						.font(.title2)
 				}
 				.foregroundColor(buttonColor)
 				.padding(5)
@@ -257,35 +264,62 @@ struct EditScheduleView: View {
 									.stroke(buttonColor, lineWidth: 3)
 				)
 			}
-			DatePicker(selection: .init(get: {
-				if let alarmSet = alarm {
-					switch alarmSet {
-					case .periodic(let date):
-						return date
-					case .once(let date):
-						return date
+			if alarm != nil {
+				DatePicker(selection: .init(get: {
+					if let alarmSet = alarm {
+						switch alarmSet {
+							case .periodic(let date):
+								return date
+							case .once(let date):
+								return date
+						}
+					}else {
+						return selectedDate ?? Date()
 					}
-				}else {
-					return selectedDate ?? Date()
-				}
-			}, set: { newDate in
-				switch scheduleDate {
-				case .spot(let date), .period(let date, _):
-					alarm = .once(date)
-				case .cycle(let date, _, _):
-					alarm = .periodic(date)
-				}
-			}), displayedComponents: [.hourAndMinute], label: {})
-				.datePickerStyle(.wheel)
-				.frame(width: 250, height: 80)
-				.fixedSize()
-				.clipped()
+				}, set: { newDate in
+					switch scheduleDate {
+						case .spot(let date), .period(let date, _):
+							alarm = .once(date)
+						case .cycle(let date, _, _):
+							alarm = .periodic(date)
+					}
+				}), displayedComponents: [.hourAndMinute], label: {})
+					.datePickerStyle(.wheel)
+					.frame(width: 250, height: 80)
+					.fixedSize()
+					.clipped()
+			}else {
+				Text(settingController.language == .korean ? "알람을 켜주세요": "Alarm is off")
+					.font(.title2)
+			}
 		}
 	}
 	
 	private var contactPicker: some View {
 		HStack {
-			
+			Button {
+				if contact == nil {
+					isShowingContactPicker = true
+				}else {
+					withAnimation {
+						contact = nil
+					}
+				}
+			} label: {
+				let buttonColor: Color = contact == nil ? .gray: .blue
+				HStack {
+					Image(systemName: "person.crop.circle")
+						.resizable()
+						.frame(width: 30, height: 30)
+					Text(settingController.language == .korean ? "연락처": "Contact")
+				}
+				.foregroundColor(buttonColor)
+				.padding(5)
+				.overlay(RoundedRectangle(cornerRadius: 10)
+							.stroke(buttonColor, lineWidth: 3)
+				)
+			}
+
 		}
 	}
 	
