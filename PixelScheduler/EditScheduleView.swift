@@ -353,7 +353,8 @@ struct EditScheduleView: View {
 	
 	private var locationPicker: some View {
 		Group {
-			
+			LocationPickerView()
+				.frame(height: 350)
 			Divider()
 		}
 	}

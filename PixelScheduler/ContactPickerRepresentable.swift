@@ -18,7 +18,6 @@ struct ContactPickerRepresentable: UIViewControllerRepresentable {
 	}
 	
 	func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-		
 	}
 	
 	func makeUIViewController(context: Context) -> some UIViewController {
