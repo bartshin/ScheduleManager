@@ -31,6 +31,8 @@
 		891C9C8A267467B400267393 /* ShowAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891C9C89267467B400267393 /* ShowAlert.swift */; };
 		891D97E627375771000B3261 /* MonthlyCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891D97E527375771000B3261 /* MonthlyCalendarView.swift */; };
 		8934605F273F3F1C0067FDCF /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8934605E273F3F1C0067FDCF /* SheetView.swift */; };
+		893B72A5275AEB4A00CFDB00 /* LocationPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893B72A4275AEB4A00CFDB00 /* LocationPickerView.swift */; };
+		893B72A9275AEC8600CFDB00 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893B72A8275AEC8600CFDB00 /* LocationManager.swift */; };
 		8941B41227583EAA00B3940E /* CyclePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD1B38125EBD2FD003DDA88 /* CyclePickerView.swift */; };
 		89476D8B266F4BBA00CD352B /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89476D8A266F4BBA00CD352B /* PaddingLabel.swift */; };
 		8982A85C273977260048DF32 /* PuzzleMaker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8982A859273975A50048DF32 /* PuzzleMaker.framework */; };
@@ -324,6 +326,8 @@
 		891C9C89267467B400267393 /* ShowAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlert.swift; sourceTree = "<group>"; };
 		891D97E527375771000B3261 /* MonthlyCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarView.swift; sourceTree = "<group>"; };
 		8934605E273F3F1C0067FDCF /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
+		893B72A4275AEB4A00CFDB00 /* LocationPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerView.swift; sourceTree = "<group>"; };
+		893B72A8275AEC8600CFDB00 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		89476D8A266F4BBA00CD352B /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		8982A853273975A50048DF32 /* PuzzleMaker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PuzzleMaker.xcodeproj; path = "PuzzleMaker-master/PuzzleMaker.xcodeproj"; sourceTree = "<group>"; };
 		8982DA4B2670B4C900CAFAE9 /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
@@ -689,6 +693,7 @@
 				CC19D0D92630A16D000C262A /* Sticker.swift */,
 				8982DA4E2670CCBA00CAFAE9 /* HolidayDictionary.swift */,
 				CC57A6972624625400BF5154 /* ContactGather.swift */,
+				893B72A8275AEC8600CFDB00 /* LocationManager.swift */,
 				1C3A761225E4D72400415F32 /* Schedule.swift */,
 				1C3A761525E4D74900415F32 /* HolidayGather.swift */,
 			);
@@ -710,6 +715,7 @@
 			children = (
 				1C3A760925E4D69E00415F32 /* CalendarCellView.swift */,
 				89D82BFD2759F4D4001A673A /* ContactPickerRepresentable.swift */,
+				893B72A4275AEB4A00CFDB00 /* LocationPickerView.swift */,
 				8919D7A1273CFD8000CB7CB0 /* DatePickerPopup.swift */,
 				898F357A2750BF2600BBB45A /* Balloon.swift */,
 				89CBC57D27409A290063CDA1 /* SearchResultView.swift */,
@@ -1383,6 +1389,7 @@
 				8919D7A2273CFD8000CB7CB0 /* DatePickerPopup.swift in Sources */,
 				CCC0E3C925E583D400146770 /* ExternalCalendarEventCell.swift in Sources */,
 				1C3A761325E4D72400415F32 /* Schedule.swift in Sources */,
+				893B72A5275AEB4A00CFDB00 /* LocationPickerView.swift in Sources */,
 				CC21E2B5260C788F00195716 /* CustomAlertViewController.swift in Sources */,
 				CCCBC3E8261DD5B000B17A39 /* ConnectAppleCalendarVC.swift in Sources */,
 				CCF7605226158E2A00DDED25 /* CharacterPresentingGuide.swift in Sources */,
@@ -1391,6 +1398,7 @@
 				CC242A9E260C620B0034EA9E /* Task.swift in Sources */,
 				8982DA5D2671257B00CAFAE9 /* SettingKey.swift in Sources */,
 				8941B41227583EAA00B3940E /* CyclePickerView.swift in Sources */,
+				893B72A9275AEC8600CFDB00 /* LocationManager.swift in Sources */,
 				CCF36B28262AA5AD00FED509 /* UserDefaultsExtension.swift in Sources */,
 				890B25D12734B05600FC4FEA /* MainTabView.swift in Sources */,
 				CC891EA02613084B000D881F /* SelectCharacterCell.swift in Sources */,

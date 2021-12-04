@@ -64,6 +64,7 @@ struct EditScheduleView: View {
 		_scheduleDate = .init(initialValue: scheduleToEdit.time)
 		_showingDateType = .init(initialValue: dateType)
 		_alarm = .init(initialValue: scheduleToEdit.alarm)
+		_contact = .init(initialValue: scheduleToEdit.contact)
 		self.selectedDate = selectedDate
 	}
 	
@@ -74,39 +75,40 @@ struct EditScheduleView: View {
 		_priority = .init(initialValue: 1)
 		_scheduleDate = .init(initialValue: .spot(selectedDate))
 		_showingDateType = .init(initialValue: .spot)
+		_contact = .init(initialValue: nil)
 		_alarm = .init(initialValue: nil)
 	}
 	
     var body: some View {
 		GeometryReader{ geometry in
-			VStack(spacing: 0) {
-				HStack {
-					drawCharacter(in: geometry.size)
-					titleInput
-					Spacer(minLength: 50)
-				}
-				Divider()
-				priorityPicker
-					.padding(.vertical, 20)
-					.padding(.horizontal, 50)
-				Divider()
-				dateTypePicker
-					.padding(.top, 20)
-				datePicker
-				Divider()
-				alarmPicker
-					.padding(.vertical, 20)
-				Divider()
-				contactPicker
-					.sheet(isPresented: $isShowingContactPicker) {
-						ContactPickerRepresentable { contact in
-							print(contact)
+			ScrollView(.vertical, showsIndicators: false) {
+				VStack(spacing: 20) {
+					drawTitleBar(in: geometry.size)
+					priorityPicker
+					dateTypePicker
+					datePicker
+					alarmPicker
+					contactPicker
+						.sheet(isPresented: $isShowingContactPicker) {
+							ContactPickerRepresentable { contact = $0 }
 						}
-					}
+					locationPicker
+				}
 			}
 		}
 		.navigationTitle(navigationTitle)
     }
+	
+	private func drawTitleBar(in size: CGSize) -> some View {
+		Group {
+			HStack {
+				drawCharacter(in: size)
+				titleInput
+				Spacer(minLength: 50)
+			}
+			Divider()
+		}
+	}
 	
 	private func drawCharacter(in size: CGSize) -> some View {
 		CharacterHelperView(
@@ -123,31 +125,38 @@ struct EditScheduleView: View {
 	}
 	
 	private var priorityPicker: some View {
-		Picker("Schedule Priority", selection: $priority) {
-			ForEach(1..<6) { priority in
-				Text(Color.PriorityButton.by(priority))
-					.tag(priority)
+		Group {
+			Picker("Schedule Priority", selection: $priority) {
+				ForEach(1..<6) { priority in
+					Text(Color.PriorityButton.by(priority))
+						.tag(priority)
+				}
 			}
+			.pickerStyle(.segmented)
+			.padding(.horizontal, 50)
+			Divider()
 		}
-		.pickerStyle(.segmented)
 	}
 	
 	private var dateTypePicker: some View {
-		Picker("Schedule date type", selection: .init(get: {
-			showingDateType
-		}, set: { newValue in
-			withAnimation {
-				showingDateType = newValue
+		Group {
+			Picker("Schedule date type", selection: .init(get: {
+				showingDateType
+			}, set: { newValue in
+				withAnimation {
+					showingDateType = newValue
+				}
+			})) {
+				ForEach(DateType.allCases) { type in
+					Text(type.getDescription(for: settingController.language))
+						.font(.custom(settingController.language.font, size: 15))
+						.tag(type)
+				}
 			}
-		})) {
-			ForEach(DateType.allCases) { type in
-				Text(type.getDescription(for: settingController.language))
-					.font(.custom(settingController.language.font, size: 15))
-					.tag(type)
-			}
+			.pickerStyle(.segmented)
+			.padding(.horizontal, 40)
+			Divider()
 		}
-		.pickerStyle(.segmented)
-		.padding(.horizontal, 40)
 	}
 	
 	private var datePicker: some View {
@@ -170,6 +179,7 @@ struct EditScheduleView: View {
 					.fixedSize(horizontal: false, vertical: true)
 					.transition(transition)
 			}
+			Divider()
 		}
 	}
 	
@@ -236,90 +246,115 @@ struct EditScheduleView: View {
 	}
 	
 	private var alarmPicker: some View {
-		HStack(spacing: 20) {
-			Button {
-				if alarm != nil {
-					alarm = nil
-				}else {
-					switch scheduleDate {
-					case .spot(let date), .period(let date, _):
-						alarm = .once(date)
-					case .cycle(let date, _, _):
-						alarm = .periodic(date)
-					}
-				}
-			} label: {
-				let buttonColor: Color = alarm == nil ? .gray: .pink
-				HStack {
-					Image(systemName: "alarm")
-						.resizable()
-						.renderingMode(.template)
-						.frame(width: 30, height: 30)
-					Text(settingController.language == .korean ? "알람": "Alarm")
-						.font(.title2)
-				}
-				.foregroundColor(buttonColor)
-				.padding(5)
-				.overlay(RoundedRectangle(cornerRadius: 10)
-									.stroke(buttonColor, lineWidth: 3)
-				)
-			}
-			if alarm != nil {
-				DatePicker(selection: .init(get: {
-					if let alarmSet = alarm {
-						switch alarmSet {
-							case .periodic(let date):
-								return date
-							case .once(let date):
-								return date
-						}
+		Group {
+			HStack(spacing: 20) {
+				Button {
+					if alarm != nil {
+						alarm = nil
 					}else {
-						return selectedDate ?? Date()
-					}
-				}, set: { newDate in
-					switch scheduleDate {
+						switch scheduleDate {
 						case .spot(let date), .period(let date, _):
 							alarm = .once(date)
 						case .cycle(let date, _, _):
 							alarm = .periodic(date)
+						}
 					}
-				}), displayedComponents: [.hourAndMinute], label: {})
-					.datePickerStyle(.wheel)
-					.frame(width: 250, height: 80)
-					.fixedSize()
-					.clipped()
-			}else {
-				Text(settingController.language == .korean ? "알람을 켜주세요": "Alarm is off")
-					.font(.title2)
+				} label: {
+					let buttonColor: Color = alarm == nil ? .gray: .pink
+					HStack {
+						Image(systemName: "alarm")
+							.resizable()
+							.renderingMode(.template)
+							.frame(width: 30, height: 30)
+						Text(settingController.language == .korean ? "알람": "Alarm")
+					}
+					.foregroundColor(buttonColor)
+					.padding(5)
+					.overlay(RoundedRectangle(cornerRadius: 10)
+										.stroke(buttonColor, lineWidth: 3)
+					)
+				}
+				if alarm != nil {
+					DatePicker(selection: .init(get: {
+						if let alarmSet = alarm {
+							switch alarmSet {
+							case .periodic(let date):
+								return date
+							case .once(let date):
+								return date
+							}
+						}else {
+							return selectedDate ?? Date()
+						}
+					}, set: { newDate in
+						switch scheduleDate {
+						case .spot(let date), .period(let date, _):
+							alarm = .once(date)
+						case .cycle(let date, _, _):
+							alarm = .periodic(date)
+						}
+					}), displayedComponents: [.hourAndMinute], label: {})
+						.datePickerStyle(.wheel)
+						.frame(width: 200, height: 80)
+						.fixedSize()
+						.clipped()
+				}else {
+					Text(settingController.language == .korean ? "알람을 켜주세요": "Alarm is off")
+				}
+				Spacer()
 			}
+			.font(.title2)
+			.padding(.leading, 30)
+			Divider()
 		}
 	}
 	
 	private var contactPicker: some View {
-		HStack {
-			Button {
-				if contact == nil {
-					isShowingContactPicker = true
-				}else {
-					withAnimation {
-						contact = nil
+		Group {
+			HStack(spacing: 20) {
+				Button {
+					if contact == nil {
+						isShowingContactPicker = true
+					}else {
+						withAnimation {
+							contact = nil
+						}
 					}
+				} label: {
+					let buttonColor: Color = contact == nil ? .gray: .blue
+					HStack {
+						Image(systemName: "person.crop.circle")
+							.resizable()
+							.frame(width: 30, height: 30)
+						Text(settingController.language == .korean ? "연락처": "Contact")
+					}
+					.foregroundColor(buttonColor)
+					.padding(5)
+					.overlay(RoundedRectangle(cornerRadius: 10)
+										.stroke(buttonColor, lineWidth: 3)
+					)
 				}
-			} label: {
-				let buttonColor: Color = contact == nil ? .gray: .blue
-				HStack {
-					Image(systemName: "person.crop.circle")
-						.resizable()
-						.frame(width: 30, height: 30)
-					Text(settingController.language == .korean ? "연락처": "Contact")
+				if let contact = contact {
+					VStack {
+						Text(contact.name)
+						Text(contact.phoneNumber)
+							.font(.caption)
+					}
+				}else {
+					Text(settingController.language == .korean ? "연락처가 없습니다": "No contact")
 				}
-				.foregroundColor(buttonColor)
-				.padding(5)
-				.overlay(RoundedRectangle(cornerRadius: 10)
-							.stroke(buttonColor, lineWidth: 3)
-				)
+				Spacer()
 			}
-
+			.font(.title2)
+			.padding(.leading, 30)
+			Divider()
+		}
+	}
+	
+	private var locationPicker: some View {
+		Group {
+			
+			Divider()
 		}
 	}
 	
