@@ -106,13 +106,22 @@ struct Schedule: Codable, Identifiable {
 		case googleCalendar(calendarID: String, uid: String)
 		case appleCalendar(uid: String)
 	}
-	struct Location: Codable {
+	
+	struct Location: Codable, Identifiable, Equatable {
+		static func == (lhs: Schedule.Location, rhs: Schedule.Location) -> Bool {
+			lhs.title == rhs.title && lhs.coordinates.latitude == rhs.coordinates.latitude && lhs.coordinates.longitude == rhs.coordinates.longitude
+		}
+		
 		static let dummyCoordinates = CLLocationCoordinate2D(
 			latitude: 40.750556, longitude: -73.993611)
+		var id: String {
+			"\(title) - \(address) - \(coordinates)"
+		}
 		let title: String
 		let address: String
 		let coordinates: CLLocationCoordinate2D
 	}
+	
 	struct Contact: Codable {
 		let name: String
 		let phoneNumber: String
