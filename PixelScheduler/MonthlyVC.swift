@@ -18,7 +18,7 @@ class MonthlyVC: UIViewController, ColorBackground {
 	// MARK: - Properties
 	
 	private var observeScheduleCancellable: AnyCancellable?
-	var showDailyViewSegue: (Int) -> Void
+	var showDailyView: (Int) -> Void
 	private let today = Date()
 	var yearAndMonth: Int! = nil{
 		didSet{
@@ -31,7 +31,6 @@ class MonthlyVC: UIViewController, ColorBackground {
 	private var calendarView: UICollectionView!
 	let hapticGenerator = UIImpactFeedbackGenerator()
 	var squaresInCalendarView = [Int?]()
-	var player: AVAudioPlayer!
 	let gradient = CAGradientLayer()
 	let blurEffect = UIBlurEffect()
 	var backgroundView: UIView!
@@ -39,7 +38,7 @@ class MonthlyVC: UIViewController, ColorBackground {
 	private var droppingCell: UIView?
 	
 	func updateCalendar() {
-		guard yearAndMonth > 190001 && yearAndMonth < 20500101 else {
+		guard yearAndMonth > 190001 && yearAndMonth < 21000101 else {
 			assertionFailure("Attemp to update calendar with invaild year")
 			return
 		}
@@ -110,7 +109,7 @@ class MonthlyVC: UIViewController, ColorBackground {
 		self.modelController = scheduleController
 		self.settingController = settingController
 		self.searchRequest = searchRequest
-		self.showDailyViewSegue = tapCell
+		self.showDailyView = tapCell
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -122,7 +121,8 @@ class MonthlyVC: UIViewController, ColorBackground {
 extension MonthlyVC: UIDropInteractionDelegate {
 	
 	func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
-		session.canLoadObjects(ofClass: String.self)
+		session.canLoadObjects(ofClass: String.self) &&
+		session.localDragSession != nil
 	}
 	
 	func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
@@ -149,9 +149,21 @@ extension MonthlyVC: UIDropInteractionDelegate {
 			return
 		}
 		_ = session.loadObjects(ofClass: String.self) { [weak weakSelf = self] object in
-			if let scheduleId = object.first,
-				 let uuid = UUID(uuidString: scheduleId) {
-				weakSelf?.moveSchedule(uuid, to: cell.tag)
+			guard let json = object.first?.data(using: .utf8),
+						let dict = json.toJsonDictionary() as? [String: String],
+			let itemType = dict["itemType"] else {
+				return
+						}
+			if itemType == "schedule",
+				 let id = dict["id"],
+			let scheduleId = UUID(uuidString: id){
+				weakSelf?.moveSchedule(scheduleId, to: cell.tag)
+			}
+			else if itemType == "sticker",
+							let id = dict["id"]
+			{
+				let sticker = Sticker(from: id)
+				weakSelf?.modelController.setSticker(sticker, to: cell.tag)
 			}
 		}
 	}
@@ -165,31 +177,10 @@ extension MonthlyVC: UIDropInteractionDelegate {
 			assertionFailure("Dropped scheuld is not exist \(scheduleId)")
 			return
 		}
-		var newTime: Schedule.DateType?
-		if case let .spot(originalDate) = schedule.time,
-			 let newDate = originalDate.changeDate(to: dateInt) {
-			newTime = .spot(newDate)
-		}else if case let .period(startDate, endDate) = schedule.time,
-						 let newStartDate = startDate.changeDate(to: dateInt),
-						 let newEndDate = endDate.changeDate(to: dateInt){
-			newTime = .period(start: newStartDate, end: newEndDate)
-			
-		}
-		guard newTime != nil else {
-			assertionFailure("Fail to create new date \(schedule)")
-			return
-		}
-		var newSchedule = Schedule(title: schedule.title,
-															 description: schedule.description,
-															 priority: schedule.priority,
-															 time: newTime!,
-															 alarm: schedule.alarm,
-															 storeAt: schedule.origin,
-															 with: schedule.id,
-															 location: schedule.location,
-															 contact: schedule.contact)
-		newSchedule.isAlarmOn = schedule.isAlarmOn
-		newSchedule.copyCompleteHistory(from: schedule)
+		
+		let newTime = schedule.time.setDate(dateInt: dateInt)
+		let newSchedule = schedule.modify(time: newTime)
+
 		if !modelController.replaceSchedule(schedule, to: newSchedule, alarmCharacter: settingController.character) {
 			showAlertForDismiss(title: "드래그 오류",
 													message: "일정을 옮기는데 실패했습니다. 해당 일정을 직접 수정해 주세요",
@@ -248,7 +239,7 @@ extension MonthlyVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		hapticGenerator.prepare()
 		if let dateToShow = squaresInCalendarView[indexPath.row]{
-			showDailyViewSegue(dateToShow)
+			showDailyView(dateToShow)
 			hapticGenerator.generateFeedback(for: settingController.hapticMode)
 			SoundEffect.playSound(.paper)
 		}

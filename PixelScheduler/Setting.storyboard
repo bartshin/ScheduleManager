@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Q8r-Bo-YvU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Q8r-Bo-YvU">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -36,7 +36,7 @@
         <!--Setting-->
         <scene sceneID="iaL-Pk-mkB">
             <objects>
-                <tableViewController id="Cmk-GC-b9O" userLabel="Setting" customClass="SettingViewController" customModule="PixelScheduler" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SettingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Cmk-GC-b9O" userLabel="Setting" customClass="SettingViewController" customModule="PixelScheduler" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="sjV-TZ-OTR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -551,7 +551,7 @@
                                 </constraints>
                             </pickerView>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="92" translatesAutoresizingMaskIntoConstraints="NO" id="VUF-hj-MnW">
-                                <rect key="frame" x="30" y="268" width="354" height="30"/>
+                                <rect key="frame" x="29.5" y="268" width="355" height="30"/>
                                 <subviews>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="02C-aw-qmk">
                                         <rect key="frame" x="0.0" y="0.0" width="51" height="30"/>
@@ -566,7 +566,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8rf-24-6HZ">
-                                        <rect key="frame" x="324.5" y="0.0" width="29.5" height="30"/>
+                                        <rect key="frame" x="324.5" y="0.0" width="30.5" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                         <state key="normal">
                                             <imageReference key="image" image="tray.and.arrow.down" catalog="system" symbolScale="large"/>
@@ -604,7 +604,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i6E-BU-cvD">
-                                                    <rect key="frame" x="350.5" y="9.5" width="23.5" height="24.5"/>
+                                                    <rect key="frame" x="349.5" y="8.5" width="24.5" height="26.5"/>
                                                     <color key="tintColor" systemColor="systemPinkColor"/>
                                                     <state key="normal">
                                                         <imageReference key="image" image="alarm" catalog="system" symbolScale="large"/>
@@ -992,7 +992,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYy-5i-Jfq">
-                                                    <rect key="frame" x="352" y="13" width="25" height="24"/>
+                                                    <rect key="frame" x="351" y="12" width="26" height="26"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <state key="normal">
                                                         <imageReference key="image" image="plus.circle" catalog="system" symbolScale="large"/>
@@ -1060,7 +1060,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s3h-Q5-pzF">
-                                                    <rect key="frame" x="354.5" y="10" width="29.5" height="30"/>
+                                                    <rect key="frame" x="353.5" y="9.5" width="30.5" height="31.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                     <state key="normal">
                                                         <color key="titleColor" systemColor="labelColor"/>
@@ -1123,7 +1123,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sYu-wn-HLT">
-                                                                        <rect key="frame" x="350.5" y="9.5" width="23.5" height="24.5"/>
+                                                                        <rect key="frame" x="349.5" y="8.5" width="24.5" height="26.5"/>
                                                                         <color key="tintColor" systemColor="systemPinkColor"/>
                                                                         <state key="normal">
                                                                             <imageReference key="image" image="alarm" catalog="system" symbolScale="large"/>
@@ -1211,7 +1211,7 @@
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
                             </textView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="qQ6-1d-yh5">
-                                <rect key="frame" x="129.5" y="816" width="155.5" height="26"/>
+                                <rect key="frame" x="149.5" y="816" width="115.5" height="26"/>
                                 <color key="pageIndicatorTintColor" white="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="currentPageIndicatorTintColor" name="AccentColor"/>
                             </pageControl>
@@ -1303,7 +1303,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <string key="text">puzzle (https://github.com/PGSSoft/PuzzleMaker)
-icalendar (https://github.com/tbartelmess/swift-ical)</string>
+icalendar (https://github.com/tbartelmess/swift-ical) notepad (https://github.com/ruddfawcett/Notepad) markdown textview (https://github.com/frankrausch/AttributedStringStyledMarkdown)</string>
                                                     <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1332,9 +1332,9 @@ icalendar (https://github.com/tbartelmess/swift-ical)</string>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="57b-la-S6u">
                                                     <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                    <string key="text">character (https://mobilegamegraphics.com/product )
+                                                    <mutableString key="text">character (https://mobilegamegraphics.com/product )
 puzzle ( https://www.freepik.com/stockgiu)
-puzzle (https://craftpix.net) puzzle (https://opengameart.org) object (https://www.clipartkey.com/upic/5540/)</string>
+puzzle2 (https://craftpix.net) background ( https://bevouliin.com ) puzzle frame1( https://www.turbosquid.com/ko/3d-models/free-max-mode-frame/719036 ) puzzle frame2 (https://sketchfab.com/3d-models/4-97209f977a9e44079dbeba5942ebb700) puzzle piece ( https://www.thingiverse.com/thing:2838001 ) puzzle sheaves (https://www.freepik.com/racool-studio) puzzle list (https://crevassestudio.gumroad.com)</mutableString>
                                                     <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1365,8 +1365,8 @@ puzzle (https://craftpix.net) puzzle (https://opengameart.org) object (https
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <string key="text">stamp: Designed by flacticon (https://www.freepik.com/blog/author/flaticon/) puzzle (https://github.com/paomedia/small-n-flat, https://icon-library.com/png/79671.html)
 calendar (https://www.iconfinder.com/dooder)
-location (https://freeiconshop.com)
-pencil (https://dribbble.com/laurareen)</string>
+location (https://freeiconshop.com) pin (https://www.stockio.com/free-icon/stationery-push-pin)
+pencil (https://dribbble.com/laurareen) sword (https://www.flaticon.com/free-icons/sword)</string>
                                                     <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1395,7 +1395,7 @@ pencil (https://dribbble.com/laurareen)</string>
                                                 <textView clipsSubviews="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" maximumZoomScale="2" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Rpm-o0-3bZ">
                                                     <rect key="frame" x="0.0" y="0.0" width="374" height="120"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                    <string key="text">puzzle flip (https://freesound.org/people/f4ngy)
+                                                    <mutableString key="text">puzzle flip (https://freesound.org/people/f4ngy)
 close (https://freesound.org/people/manuelaurreaf) delte ( https://freesound.org/people/gynation/sounds/82377) write (https://freesound.org/people/newagesoup/sounds/377844)
 open (https://freesound.org/people/mitchanary)
 paper (https://freesound.org/people/nsstudios)
@@ -1404,7 +1404,7 @@ explosion (https://freesound.org/people/MicrosoftSam/sounds/384113/)
 barbarian (https://freesound.org/people/theuncertainman)
 dragon (https://freesound.org/people/qubodup)
 wizard (https://freesound.org/people/Aleks41)
-soldier (https://freesound.org/people/theuncertainman)</string>
+soldier (https://freesound.org/people/theuncertainman) pin (https://freesound.org/people/CGEffex/sounds/93837) jump (https://freesound.org/people/cabled_mess/sounds/350898) fall (https://freesound.org/people/suntemple/sounds/253173) puzzle complete (https://freesound.org/people/MakoFox/sounds/126422) teleport (https://freesound.org/people/Sergenious/sounds/55853)</mutableString>
                                                     <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

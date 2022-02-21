@@ -11,7 +11,7 @@ struct SearchBarPopup: View {
 	
 	@Binding var isPresented: Bool
 	@Binding var searchRequest: (text: String, priority: Int)
-	@Binding var showingResult: Bool
+	let changeShowingResult: (Bool) -> Void
 	let language: SettingKey.Language
 	
     var body: some View {
@@ -20,9 +20,7 @@ struct SearchBarPopup: View {
 				Image(systemName: "magnifyingglass")
 				TextField("Search", text: $searchRequest.text, onCommit: {
 					if !searchRequest.text.isEmpty {
-						withAnimation {
-							showingResult = true
-						}
+						changeShowingResult(true)
 					}
 				})
 					.disableAutocorrection(true)
@@ -30,7 +28,7 @@ struct SearchBarPopup: View {
 					withAnimation {
 						isPresented = false
 						searchRequest = (text: "", priority: 0)
-						showingResult = false
+						changeShowingResult(false)
 					}
 				} label: {
 					Image(systemName: "xmark.circle")
@@ -42,6 +40,7 @@ struct SearchBarPopup: View {
 				RoundedRectangle(cornerRadius: 20)
 					.stroke(Color.black)
 			)
+			.padding(.leading, 40)
 			priorityPicker
 		}
 		.padding(.horizontal, 30)
@@ -61,11 +60,3 @@ struct SearchBarPopup: View {
 	}
 }
 
-struct SearchBarPopup_Previews: PreviewProvider {
-    static var previews: some View {
-		SearchBarPopup(isPresented: .constant(true),
-					   searchRequest: .constant(("Search", 0)),
-					   showingResult: .constant(true),
-					   language: .korean)
-    }
-}

@@ -1,6 +1,6 @@
 //
 //  UserDataContainer.swift
-//  ScheduleManager
+//  PixelScheduler
 //
 //  Created by Shin on 3/25/21.
 //

@@ -116,7 +116,7 @@ struct TaskWidgetView: View {
 	
 	init(entry: TaskEntry) {
 		self.collection = entry.collection
-		self.tasksNotCompleted = entry.tasks.filter({ !$0.completed })
+		self.tasksNotCompleted = entry.tasks.filter({ !$0.isCompleted })
 		progress = ((entry.tasks.count - tasksNotCompleted.count) , entry.tasks.count)
 		config = UserConfig()
 	}
@@ -127,7 +127,7 @@ struct TaskWidgetView_Previews: PreviewProvider {
 	static var previews: some View {
 		TaskWidgetView(entry: TaskEntry(
 										date: Date(),
-										collection: .listCollection,
+										collection: .listCollectionDummy,
 										tasks: Task.shopingList ))
 			.previewContext(WidgetPreviewContext(family: .systemMedium))
 	}

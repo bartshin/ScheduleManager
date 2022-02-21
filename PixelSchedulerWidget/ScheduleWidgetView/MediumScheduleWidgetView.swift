@@ -38,6 +38,7 @@ struct MediumScheduleWidgetView: View {
 	}
 	
 	private var scheduleTableView: some View {
+		
 		VStack {
 			if let nextSchedule = scheduleUpComming {
 				Link(destination: CustomWidgetURL.create(

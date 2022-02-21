@@ -9,12 +9,20 @@ class ScheduleModelController: ObservableObject {
 	Data intergrity
 	- Warning: Do not modify directly
 	*/
-	@Published private(set) var schedules: [Schedule]
+	@Published private(set) var schedules: Set<Schedule>
 	/**
 	Data intergrity
 	- Warning: Do not modify directly
 	*/
 	@Published private(set) var stickerTable: [Int: Sticker]
+	
+	#if DEBUG
+	static var dummyController: ScheduleModelController {
+		let controller = ScheduleModelController()
+		_ = controller.addNewSchedule(.dummy, alarmCharacter: .soldier)
+		return controller
+	}
+	#endif
 	
 	typealias Table = [Int: [Schedule]]
 	typealias HolidayTable = [Int: HolidayGather.Holiday]
@@ -108,6 +116,7 @@ class ScheduleModelController: ObservableObject {
 	/// - Note: Check permission in notification controller before add alarm
 	/// - Returns: Return false when try to add  alarm without permission
 	func addNewSchedule(_ newSchedule: Schedule, alarmCharacter: SettingKey.Character) -> Bool{
+		#if !DEBUG
 		if newSchedule.alarm != nil {
 			if notificationContoller.authorizationStatus == .authorized {
 				notificationContoller.setAlarm(of: newSchedule, character: alarmCharacter)
@@ -115,18 +124,19 @@ class ScheduleModelController: ObservableObject {
 				return false
 			}
 		}
-		schedules.append(newSchedule)
+		#endif
+		schedules.insert(newSchedule)
 		enrollToTable(newSchedule)
 		objectWillChange.send()
 		return true
 	}
 	func deleteSchedule(_ scheduleToDelete: Schedule) {
-		guard let indexToDelete = schedules.firstIndex(of: scheduleToDelete )else {
+		guard schedules.contains(scheduleToDelete) else {
 			assertionFailure("Delete fail schedule not exist:\n \(scheduleToDelete)")
 			return
 		}
 		delistInTable(scheduleToDelete)
-		schedules.remove(at: indexToDelete)
+		schedules.remove(scheduleToDelete)
 		if scheduleToDelete.alarm != nil {
 			notificationContoller.removeAlarm(of: scheduleToDelete)
 		}
@@ -135,7 +145,7 @@ class ScheduleModelController: ObservableObject {
 	func replaceSchedule(_ oldSchedule: Schedule, to newSchedule: Schedule,
 											 alarmCharacter: SettingKey.Character) -> Bool {
 		guard oldSchedule.id == newSchedule.id ,
-					let foundIndex = schedules.firstIndex(of: oldSchedule) else {
+					schedules.contains(oldSchedule) else {
 			assertionFailure("schedule replace failed by data missing")
 			return false
 		}
@@ -152,7 +162,8 @@ class ScheduleModelController: ObservableObject {
 		delistInTable(oldSchedule)
 		enrollToTable(newSchedule)
 		
-		schedules[foundIndex] = newSchedule
+		schedules.remove(oldSchedule)
+		schedules.insert(newSchedule)
 		objectWillChange.send()
 		return true
 	}
@@ -232,9 +243,15 @@ class ScheduleModelController: ObservableObject {
 		}
 	}
 	
-	func setSticker(_ sticker: Sticker?, to dateInt: Int) -> Sticker? {
+	func moveSticker(_ sticker: Sticker, from sourceDateInt: Int, to destinationDateInt: Int) {
+		stickerTable[sourceDateInt] = nil
+		stickerTable[destinationDateInt] = sticker
+		objectWillChange.send()
+	}
+	
+	func setSticker(_ sticker: Sticker?, to dateInt: Int) {
 		stickerTable[dateInt] = sticker
-		return sticker
+		objectWillChange.send()
 	}
 	
 	struct CycleTable {
@@ -279,7 +296,7 @@ extension ScheduleModelController: UserDataContainer {
 		
 		if checkFileExist(for: scheduleDataFileName, usingICloud: false) {
 			do {
-				let fileData = try restore(filename: scheduleDataFileName, as:  [Schedule].self)
+				let fileData = try restore(filename: scheduleDataFileName, as:  Set<Schedule>.self)
 				schedules = fileData
 				schedules.forEach() { enrollToTable($0) }
 				
@@ -377,7 +394,7 @@ extension ScheduleModelController: UserDataContainer {
 	func restoreBackup() throws {
 		if checkFileExist(for: scheduleDataFileName, usingICloud: true) || checkFileExist(for: stickerDataFileName, usingICloud: true) {
 			do {
-				schedules = try restoreBackup(filename: scheduleDataFileName, as: [Schedule].self)
+				schedules = try restoreBackup(filename: scheduleDataFileName, as: Set<Schedule>.self)
 				schedules.forEach { enrollToTable($0) }
 				stickerTable = try restoreBackup(filename: stickerDataFileName, as: [Int: Sticker].self)
 			}catch {
@@ -389,7 +406,7 @@ extension ScheduleModelController: UserDataContainer {
 	}
 }
 
-// MARK:- Schedule table
+// MARK: - Schedule table
 extension Dictionary where Key == Int, Value == [Schedule] {
 	mutating func append(_ value: Schedule, to key: Int) {
 		if self[key] == nil{

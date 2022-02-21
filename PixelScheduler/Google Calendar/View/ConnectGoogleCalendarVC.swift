@@ -1,6 +1,6 @@
 //
 //  ConnectGoogleCalendarVC.swift
-//  Schedule_B
+//  PixelScheduler
 //
 //  Created by Shin on 2/22/21.
 //

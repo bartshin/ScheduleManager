@@ -13,10 +13,10 @@ fileprivate struct Handle : View {
 
 struct SheetView<Content: View> : View {
 	@GestureState private var dragState = DragState.inactive
-	@State private var cardState = CardState.middle
-	@Binding var isPresented: Bool
+	@Binding var cardState: CardState
 	let handleColor: Color?
 	let backgroundColor: Color?
+	let cardStatesAvailable: Set<CardState>
 	private func calcSheetYPosition(in size: CGSize) -> CGFloat {
 		cardState.position * size.height + dragState.translation.height
 	}
@@ -24,16 +24,21 @@ struct SheetView<Content: View> : View {
 	var content: () -> Content
 	var body: some View {
 		GeometryReader { geometry in
-			if isPresented {
+			if cardState != .hide {
 				VStack {
 					Handle(backgroundColor: handleColor)
+						.onTapGesture {
+							withAnimation(.interpolatingSpring(stiffness: 300.0, damping: 30.0)) {
+								cardState = cardState.getNext(in: cardStatesAvailable)
+							}
+						}
 					self.content()
 				}
 				.frame(width: geometry.size.width,
-					   height: geometry.size.height - calcSheetYPosition(in: geometry.size))
+							 height: geometry.size.height - calcSheetYPosition(in: geometry.size))
 				.background(backgroundColor ?? .white)
 				.cornerRadius(20.0)
-				.shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.13), radius: 10.0)
+				.shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.13), radius: 10.0, x: 0, y: -10)
 				.offset(y: calcSheetYPosition(in: geometry.size))
 				.animation(dragState.isDragging ? nil : .interpolatingSpring(stiffness: 300.0, damping: 30.0))
 				.gesture(drag(in: geometry.size))
@@ -60,16 +65,11 @@ struct SheetView<Content: View> : View {
 					stateAbove = .middle
 					stateBelow = .hide
 				}
-							
+				
 				if verticalDirection > 0 {
-					self.cardState = stateBelow
+					self.cardState = cardStatesAvailable.contains(stateBelow) ? stateBelow: .hide
 				} else if verticalDirection < 0 {
-					self.cardState = stateAbove
-				}
-				if cardState == .hide {
-					withAnimation {
-						isPresented = false
-					}
+					self.cardState = cardStatesAvailable.contains(stateAbove) ? stateAbove: .middle
 				}
 			}
 	}
@@ -78,13 +78,27 @@ struct SheetView<Content: View> : View {
 		case top
 		case middle
 		case hide
+		case suspened
 		
 		var position: CGFloat {
 			switch self {
-				case .top:
-					return 0.1
-				case .middle, .hide:
-					return 0.5
+			case .top:
+				return 0.1
+			case .middle, .hide:
+				return 0.5
+			case .suspened:
+				return 0.9
+			}
+		}
+		
+		func getNext(in states: Set<CardState>) -> CardState {
+			switch self {
+			case .top:
+				return states.contains(.middle) ? .middle: .hide
+			case .middle:
+				return states.contains(.top) ? .top : .hide
+			case .hide, .suspened:
+				return states.contains(.middle) ? .middle : .top
 			}
 		}
 	}
@@ -95,19 +109,19 @@ struct SheetView<Content: View> : View {
 		
 		var translation: CGSize {
 			switch self {
-				case .inactive:
-					return .zero
-				case .dragging(let translation):
-					return translation
+			case .inactive:
+				return .zero
+			case .dragging(let translation):
+				return translation
 			}
 		}
 		
 		var isDragging: Bool {
 			switch self {
-				case .inactive:
-					return false
-				case .dragging:
-					return true
+			case .inactive:
+				return false
+			case .dragging:
+				return true
 			}
 		}
 	}

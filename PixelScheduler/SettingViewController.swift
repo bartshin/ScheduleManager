@@ -1,6 +1,6 @@
 //
 //  SettingViewController.swift
-//  Schedule_B
+//  PixelScheduler
 //
 //  Created by Shin on 2/17/21.
 //
@@ -13,12 +13,12 @@ class SettingViewController: UITableViewController
 //, PlaySoundEffect
 {
 	
-	// MARK:- Controller
+	// MARK: - Controller
 	var scheduleModelController: ScheduleModelController!
 	var taskModelController: TaskModelController!
 	var settingController: SettingController!
 	
-	// MARK:- Properties
+	// MARK: - Properties
 	
 	@IBOutlet private weak var deleteScheduleDataCell: UITableViewCell!
 	@IBOutlet private weak var connectGoogleCalendarCell: UITableViewCell!
@@ -46,7 +46,7 @@ class SettingViewController: UITableViewController
 	var player: AVAudioPlayer!
 	
 	
-	// MARK:- User intents
+	// MARK: - User intents
 	
 	@objc private func selectVisualMode(sender: UISegmentedControl) {
 		let selectedMode: SettingKey.VisualMode
@@ -72,7 +72,6 @@ class SettingViewController: UITableViewController
 	
 	@IBAction func selectCalendarPaging(_ sender: UISegmentedControl) {
 		settingController.changeCalendarPaging(to: sender.selectedSegmentIndex == 0 ? .pageCurl: .scroll)
-		showAlertForDismiss(title: "페이징 변경", message: "변경된 내용은 재시작 후에 적용됩니다", with: settingController.visualMode)
 	}
 	@objc private func selectHapticMode(sender: UISegmentedControl) {
 		hapticGenerator.prepare()

@@ -1,6 +1,6 @@
 //
 //  Loopable.swift
-//  Schedule_B
+//  PixelScheduler
 //
 //  Created by Shin on 2/23/21.
 //

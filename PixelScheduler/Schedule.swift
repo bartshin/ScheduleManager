@@ -3,24 +3,73 @@
 import Foundation
 import MapKit
 
-struct Schedule: Codable, Identifiable {
+struct Schedule: Identifiable {
 	
-	let title: String
-	let description: String
-	let time: DateType
-	let alarm: Alarm?
+	fileprivate(set) var title: String
+	fileprivate(set) var description: String
+	fileprivate(set) var time: DateType
+	fileprivate(set) var alarm: Alarm?
 	var isAlarmOn: Bool
-	let priority: Int
-	let id: UUID
-	let location: Location?
+	fileprivate(set) var priority: Int
+	fileprivate(set) var id: UUID
+	fileprivate(set) var location: Location?
 	/// Device or External ( Apple, Google )
-	let origin: Origin
-	private var isDoneForOneDay = false
-	private var daysCompleted = Set<Int>()
+	fileprivate(set) var origin: Origin
+	fileprivate var isDoneForOneDay = false
+	fileprivate var daysCompleted = Set<Int>()
 	var contact: Contact?
 	
 	var idForNotification: String {
 		"ScheduleNotification:" + id.uuidString
+	}
+	
+	init(title: String,
+			 description: String,
+			 priority: Int,
+			 time: DateType,
+			 alarm: Alarm?,
+			 storeAt storedLocation: Origin = .localDevice,
+			 with id: UUID? = nil,
+			 location: Location? = nil,
+			 contact: Contact? = nil){
+		self.title = title
+		self.description = description
+		self.priority = priority
+		self.time = time
+		if alarm != nil {
+			if case .periodic(_) = alarm! {
+				guard case .cycle = time else {
+					preconditionFailure("Invalid periodic alarm for non-cycle schedule")
+				}
+			}
+		}
+		self.alarm = alarm
+		self.origin = storedLocation
+		self.isAlarmOn = alarm != nil
+		if id != nil {
+			self.id = id!
+		}else {
+			self.id = UUID()
+		}
+		self.contact = contact
+		self.location = location
+	}
+	
+	func modify(title: String? = nil, description: String? = nil, priority: Int? = nil, time: DateType? = nil, alarm: Alarm? = nil, storedAt origin: Origin? = nil, location: Location? = nil, contact: Contact? = nil) -> Schedule {
+		var newSchedule = Schedule(
+			title: title ?? self.title,
+			description: description ?? self.description,
+			priority: priority ?? self.priority,
+			time: time ?? self.time,
+			alarm: alarm ?? self.alarm,
+			storeAt: origin ?? self.origin,
+			with: self.id,
+			location: location ?? self.location,
+			contact: contact ?? self.contact)
+		newSchedule.isDoneForOneDay = self.isDoneForOneDay
+		newSchedule.daysCompleted = self.daysCompleted
+		newSchedule.isAlarmOn = self.isAlarmOn
+		return newSchedule
 	}
 	
 	func isDone(for dateInt: Int) -> Bool {
@@ -44,15 +93,44 @@ struct Schedule: Codable, Identifiable {
 			}
 		}
 	}
-	mutating func copyCompleteHistory(from schedule: Schedule) {
-		daysCompleted = schedule.daysCompleted
-		isDoneForOneDay = schedule.isDoneForOneDay
-	}
 	
 	enum DateType: Codable {
 		case spot (Date)
 		case cycle (since: Date, for: CycleFactor, every: [Int])
 		case period (start: Date, end: Date)
+		
+		var isMovable: Bool {
+			switch self {
+			case.spot(_):
+				return true
+			case .period(let startDate, let endDate):
+				return startDate.isSameDay(with: endDate)
+			case .cycle(_, _, _):
+				return false
+			}
+		}
+		
+		func setDate(dateInt: Int) -> DateType {
+			switch self {
+			case .spot(let date):
+				guard let newDate = date.changeDate(to: dateInt) else {
+					assertionFailure()
+					return self
+				}
+				return .spot(newDate)
+			case .period(let startDate, let endDate):
+				guard startDate.isSameDay(with: endDate),
+							let newStartDate = startDate.changeDate(to: dateInt),
+							let newEndDate = endDate.changeDate(to: dateInt) else {
+					assertionFailure()
+					return self
+				}
+				return .period(start: newStartDate, end: newEndDate)
+			default:
+				assertionFailure()
+				return self
+			}
+		}
 		
 		func getDescription(for language: SettingKey.Language = .korean) -> String {
 			let dateFormatter = DateFormatter()
@@ -99,6 +177,15 @@ struct Schedule: Codable, Identifiable {
 	enum Alarm: Equatable, Codable{
 		case once (Date)
 		case periodic (Date)
+		
+		var date: Date {
+			switch self {
+			case .once(let date):
+				return date
+			case .periodic(let date):
+				return date
+			}
+		}
 	}
 	
 	enum Origin: Codable, Equatable {
@@ -120,6 +207,12 @@ struct Schedule: Codable, Identifiable {
 		let title: String
 		let address: String
 		let coordinates: CLLocationCoordinate2D
+		
+		func calcDistance(to location: Location) -> Double {
+			let departure = CLLocation(latitude: coordinates.latitude, longitude: coordinates.longitude)
+			let destination = CLLocation(latitude: location.coordinates.latitude, longitude: location.coordinates.longitude)
+			return destination.distance(from: departure)
+		}
 	}
 	
 	struct Contact: Codable {
@@ -128,37 +221,19 @@ struct Schedule: Codable, Identifiable {
 		let contactID: String
 	}
 	
-	init(title: String,
-			 description: String,
-			 priority: Int,
-			 time: DateType,
-			 alarm: Alarm?,
-			 storeAt storedLocation: Origin = .localDevice,
-			 with id: UUID? = nil,
-			 location: Location? = nil,
-			 contact: Contact? = nil){
-		self.title = title
-		self.description = description
-		self.priority = priority
-		self.time = time
-		if alarm != nil {
-			if case .periodic(_) = alarm! {
-				guard case .cycle = time else {
-					preconditionFailure("Invalid periodic alarm for non-cycle schedule")
-				}
-			}
-		}
-		self.alarm = alarm
-		self.origin = storedLocation
-		self.isAlarmOn = alarm != nil
-		if id != nil {
-			self.id = id!
-		}else {
-			self.id = UUID()
-		}
-		self.contact = contact
-		self.location = location
-	}
+	#if DEBUG
+	static let dummy: Schedule = Schedule(
+		title: "출국 수속",
+		description: "10번 게이트 출발전 짐부터 부치기",
+		priority: 1,
+		time: .spot(Date()),
+		//		time: .period(start: Date().advanced(by: 3 * 60 * 60), end: Date()),
+		alarm: .once(Date().advanced(by: -3000)),
+		storeAt: .localDevice,
+		with: nil,
+		location: .init(title: "인천공항", address: "인천광역시 중구 공항로 272", coordinates: .init(latitude: 37.463333, longitude: 126.440002)),
+		contact: .init(name: "엄마", phoneNumber: "01089908893", contactID: "1"))
+	#endif
 }
 
 extension Schedule: Comparable {
@@ -193,7 +268,15 @@ extension Schedule: Comparable {
 	}
 }
 
+extension Schedule: Hashable {
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(id)
+	}
+}
+
 // MARK: - JSON Encoding
+
+extension Schedule: Codable { }
 
 extension Schedule.Location {
 	private enum CodingKeys: String, CodingKey {

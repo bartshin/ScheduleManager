@@ -1,13 +1,13 @@
 //
-//  DailyTableCurrentTimeLine.swift
-//  Schedule_B
+//  DailyViewTimeLine.swift
+//  PixelScheduler
 //
 //  Created by Shin on 2/28/21.
 //
 
 import SwiftUI
 
-struct DailyTableCurrentTimeLine: View {
+struct DailyViewTimeLine: View {
     private let width: CGFloat
     
     var body: some View {

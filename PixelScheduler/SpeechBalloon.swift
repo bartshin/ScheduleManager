@@ -1,6 +1,6 @@
 //
 //  SpeechBalloon.swift
-//  ScheduleManager
+//  PixelScheduler
 //
 //  Created by Shin on 3/31/21.
 //

@@ -8,69 +8,192 @@
 import SwiftUI
 import AVFoundation
 
-struct CharacterHelperView: View
-//, PlaySoundEffect
+struct CharacterHelperView<AB1: View, AB2: View>: View
 {
 	@EnvironmentObject var settingController: SettingController
-	@State private var isShowingQuickHelp = false
-	let character: SettingKey.Character
-	let guide: CharacterPresentingGuide
-	let helpWindowSize: CGSize
-	let characterLocation: CGPoint
+	
+	private var showQuickHelpTrigger: Binding<Bool>?
+	private let character: SettingKey.Character
+	private var alert: Binding<CharacterAlert<AB1, AB2>?>?
+	private let guide: CharacterPresentingGuide
+	private let helpWindowSize: CGSize
+	private let balloonStartPosition: CGPoint
 	var player: AVAudioPlayer!
+	
+	@State private var isShowingQuickHelp: Bool = false
+	
+	private func setShowingQuickHelp(_ newValue: Bool) {
+		if let showQuickHelpTrigger = showQuickHelpTrigger {
+			showQuickHelpTrigger.wrappedValue = newValue
+		}
+		withAnimation {
+			isShowingQuickHelp = newValue
+		}
+	}
+	
+	var isShowingAlert: Bool {
+		alert?.wrappedValue != nil
+	}
+	
+	
+	init(character: SettingKey.Character, guide: CharacterPresentingGuide,
+			 alertToPresent: Binding<CharacterAlert<AB1, AB2>?>? = nil, helpWindowSize: CGSize, balloonStartPosition: CGPoint) {
+		self.character = character
+		self.guide = guide
+		self.helpWindowSize = helpWindowSize
+		self.balloonStartPosition = balloonStartPosition
+		self.alert = alertToPresent
+		self.showQuickHelpTrigger = nil
+	}
+	
+	/// Create hidden view just show alert
+	init(character: SettingKey.Character, guide: CharacterPresentingGuide,
+			 showingQuickHelp: Binding<Bool>,
+			 alertToPresent: Binding<CharacterAlert<AB1, AB2>?>? = nil, helpWindowSize: CGSize, balloonStartPosition: CGPoint) {
+		self.character = character
+		self.guide = guide
+		self.helpWindowSize = helpWindowSize
+		self.balloonStartPosition = balloonStartPosition
+		self.alert = alertToPresent
+		showQuickHelpTrigger = showingQuickHelp
+	}
 	
 	var body: some View {
 		
 		ZStack {
-			if isShowingQuickHelp {
+			if isShowingQuickHelp || isShowingAlert {
 				showBackgroundBlur {
-					withAnimation {
-						isShowingQuickHelp = false
+					if isShowingQuickHelp {
+						setShowingQuickHelp(false)
 					}
 				}
-				.frame(width: UIScreen.main.bounds.size.width * 1.5,
-					   height: UIScreen.main.bounds.size.height * 1.5)
+				.frame(width: UIScreen.main.bounds.size.width * 2,
+					   height: UIScreen.main.bounds.size.height * 2)
 				.position(x: UIScreen.main.bounds.size.width/2,
 						  y: UIScreen.main.bounds.size.height/2)
+
 			}
-			GIFImage(name: character.idleGif)
-				.frame(width: 80, height: 80)
-				.onTapGesture {
-					withAnimation {
-						isShowingQuickHelp = true
-					}
+			Group {
+				if let showQuickHelpTrigger = showQuickHelpTrigger {
+					characterGif
+						.onChange(of: showQuickHelpTrigger.wrappedValue) { isShowing in
+							if isShowing, isShowingAlert {
+								showQuickHelpTrigger.wrappedValue = false
+								return
+							}
+							withAnimation {
+								isShowingQuickHelp = isShowing
+							}
+						}
+				}else {
+					characterGif
 				}
-			.overlay(
-				Group {
-					if isShowingQuickHelp {
-						QuickHelpVCRepresentable(
-							settingController: settingController,
-							isPresenting: $isShowingQuickHelp,
-							guide: guide)
-							.frame(width: helpWindowSize.width,
-								   height: helpWindowSize.height * 0.8)
-							.background(
-								backgroundBalloon
-									.offset(y: helpWindowSize.height * -0.1)
-						)
+			}
+			
+				.overlay(
+					Group {
+						if isShowingQuickHelp {
+							quickHelpView
+						}
+						else if let alert = alert?.wrappedValue{
+							drawAlertWindow(alert)
+						}
 					}
-				}
-					.position(x: UIScreen.main.bounds.size.width*0.4,
-							  y: UIScreen.main.bounds.size.height*0.4)
-			)
+						.position(x: UIScreen.main.bounds.size.width*0.4,
+											y: UIScreen.main.bounds.size.height*0.4)
+				)
 		}
 	}
 	
-	private var backgroundBalloon: some View {
+	private var characterGif: some View {
+		GIFImage(name: character.idleGif)
+			.frame(width: 80, height: 80)
+			.opacity(showQuickHelpTrigger != nil ? 0: 1)
+			.onTapGesture {
+				withAnimation {
+					if !isShowingAlert {
+						setShowingQuickHelp(true)
+					}
+				}
+			}
+	}
+	
+	private var quickHelpView: some View {
+		QuickHelpVCRepresentable(
+			settingController: settingController,
+			isPresenting: .init(get: {
+				isShowingQuickHelp
+			}, set: {
+				setShowingQuickHelp($0)
+			}),
+			guide: guide)
+			.frame(width: helpWindowSize.width,
+						 height: helpWindowSize.height * 0.8)
+			.background(
+				drawBackgroundBalloon(size: helpWindowSize)
+					.offset(y: helpWindowSize.height * -0.1)
+					.scaleEffect(CGSize(width: 1.1, height: 1))
+			)
+			.position(x: balloonStartPosition.x,
+								y: balloonStartPosition.y)
+	}
+	
+	private func drawBackgroundBalloon(size: CGSize) -> some View {
 		Balloon()
-			.size(helpWindowSize)
+			.size(size)
 			.stroke(.black, lineWidth: 2)
 			.background(
 				Balloon()
-					.size(helpWindowSize)
-					.fill(Color(settingController.palette.tertiary))
+					.size(size)
+					.fill(Color(settingController.palette.quaternary))
 			)
 	}
+	
+	private var alertWindowSize: CGSize {
+		CGSize(width: UIScreen.main.bounds.size.width * 0.6,
+					 height: UIScreen.main.bounds.size.height * 0.5)
+	}
+	
+	private func drawAlertWindow(_ alert: CharacterAlert<AB1, AB2>) -> some View {
+		VStack {
+			Text(alert.title)
+				.font(.title3)
+				.foregroundColor(Color(settingController.palette.primary))
+				.frame(height: alertWindowSize.height * 0.1)
+			Divider()
+				.frame(height: 2)
+				.background(Color.black)
+				.padding(.bottom, 20)
+				.offset(x: -2)
+			Text(alert.message)
+				.font(.body)
+				.foregroundColor(Color(settingController.palette.secondary))
+			Spacer()
+			HStack(spacing: 20) {
+				Button(action: {
+					alert.primaryAction()
+					self.alert?.wrappedValue = nil
+				},
+							 label: alert.primaryLabel)
+				if let secondaryAction = alert.secondaryAction,
+					 let secondaryLabel = alert.secondaryLabel {
+					Button(action: {
+						secondaryAction()
+						self.alert?.wrappedValue = nil
+					},
+								 label: secondaryLabel)
+				}
+			}
+		}
+		.padding(.horizontal, 15)
+		.padding(.vertical, 40)
+		.frame(width: alertWindowSize.width,
+					 height: alertWindowSize.height)
+		.background(
+			drawBackgroundBalloon(size: alertWindowSize)
+		)
+	}
+	
 }
 
 class QuickHelpVC: UIViewController {
@@ -92,6 +215,7 @@ class QuickHelpVC: UIViewController {
 		view.addSubview(tableView)
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		tableView.allowsSelection = false
+		tableView.showsVerticalScrollIndicator = false
 		tableView.register(InstructionCell.self, forCellReuseIdentifier: cellReuseID)
 		tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 		tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -206,7 +330,6 @@ struct QuickHelpVCRepresentable: UIViewControllerRepresentable {
 	}
 	
 	func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-		print("There is something to update for Quickhelp view")
 	}
 	
 	
@@ -216,5 +339,34 @@ struct QuickHelpVCRepresentable: UIViewControllerRepresentable {
 		self.settingController = settingController
 		self.isPresenting = isPresenting
 		self.guide = guide
+	}
+}
+
+struct CharacterAlert<BV1: View, BV2: View> {
+	
+	let title: String
+	let message: String
+	
+	let primaryAction: () -> Void
+	let primaryLabel: () -> BV1
+	let secondaryAction: (() -> Void)?
+	let secondaryLabel: (() -> BV2)?
+	
+	init(title: String, message: String, action: @escaping() -> Void, @ViewBuilder label: @escaping () -> BV1) {
+		self.title = title
+		self.message = message
+		self.primaryAction = action
+		self.primaryLabel = label
+		self.secondaryAction = nil
+		self.secondaryLabel = nil
+	}
+	
+	init(title: String, message: String, primaryAction: @escaping () -> Void, @ViewBuilder primaryLabel: @escaping () -> BV1, secondaryAction: @escaping () -> Void, @ViewBuilder secondaryLabel: @escaping () -> BV2) {
+		self.title = title
+		self.message = message
+		self.primaryAction = primaryAction
+		self.primaryLabel = primaryLabel
+		self.secondaryAction = secondaryAction
+		self.secondaryLabel = secondaryLabel
 	}
 }

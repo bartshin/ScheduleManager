@@ -11,23 +11,7 @@ import SwiftUI
 class DailyViewDataSource: ObservableObject {
 	
 	// MARK: Properties
-	private var scheduleShowing = [Schedule]() {
-		didSet {
-			schedulesUnique = idsUnique.compactMap { id in
-				scheduleShowing.first{ $0.id == id }
-			}
-			schedulesAllDay = idsAllday.compactMap { id in
-				scheduleShowing.first{ $0.id == id }
-			}
-			schedulesOverlapped =
-				idsOverlapped.compactMap { ids in
-					ids.compactMap { id in
-						scheduleShowing.first { $0.id == id }
-					}
-				}
-			objectWillChange.send()
-		}
-	}
+	
 	var profileImages = [UUID: UIImage]() {
 		didSet {
 			if !profileImages.isEmpty {
@@ -36,29 +20,52 @@ class DailyViewDataSource: ObservableObject {
 		}
 	}
 	
-	var idsUnique = [UUID]()
-	var idsAllday = [UUID]()
-	var idsOverlapped = [[UUID]]()
-	
-	var schedulesUnique = [Schedule]()
-	var schedulesAllDay = [Schedule]()
-	var schedulesOverlapped = [[Schedule]]()
+	private(set) var firstScheduleOfDay: (id: Schedule.ID, date: Date?)?
+	private(set) var idsUnique = [UUID]()
+	private(set) var idsAllday = [UUID]()
+	private(set) var idsOverlapped = [[UUID]]()
 	
 	// MARK: - Schedule distribute logic
 	
 	func setNewSchedule(_ newSchedules: [Schedule], of date: Date) {
-		
+		firstScheduleOfDay = nil
+		var newSchedules = newSchedules
 		var schedulesUnique = [UUID]()
 		var schedulesAllDay = [UUID]()
 		var schedulesOverlapped = [[UUID]]()
 		var overlappedIndices = Set<Int>()
-		for (index, schedule) in newSchedules.enumerated() {
+		
+		// Remove all day schedules
+		
+		newSchedules.forEach { schedule in
 			if case .period(let startDate, let endDate) = schedule.time,
 				 (startDate < date.startOfDay) || startDate.isSameDay(with: date),
 				 (endDate - max(date.startOfDay, startDate)) > (TimeInterval.forOneDay - 60 * 60) {
 				// More than 23 hour for day
 				schedulesAllDay.append(schedule.id)
-				continue
+				newSchedules.remove(at: newSchedules.firstIndex(of: schedule)!)
+				firstScheduleOfDay = (id: schedule.id, date: nil)
+			}
+		}
+		
+		for (index, schedule) in newSchedules.enumerated() {
+			let scheduleDate: Date
+			switch schedule.time {
+			case .spot(let date):
+				scheduleDate = date
+			case .period(let date, _):
+				scheduleDate = date
+			case .cycle(let defaultDate, _, _):
+				scheduleDate = Calendar.current.date(bySettingHour: defaultDate.hour, minute: defaultDate.minute, second: 0, of: date)!
+			}
+			if schedulesAllDay.isEmpty {
+				if firstScheduleOfDay == nil {
+					firstScheduleOfDay = (id: schedule.id, date: scheduleDate)
+				}
+				else if let firstSchduleDate = firstScheduleOfDay?.date,
+								firstSchduleDate > scheduleDate {
+					firstScheduleOfDay = (id: schedule.id, date: scheduleDate)
+				}
 			}
 			if overlappedIndices.contains(index) {
 				continue
@@ -66,9 +73,7 @@ class DailyViewDataSource: ObservableObject {
 			var overlappingToSchedule = [Int]()
 			let rangeOfSchedule = calcTimeRange(of: schedule, in: date)
 			for (index, scheduleToCheck) in newSchedules.enumerated() {
-				if schedulesAllDay.contains(scheduleToCheck.id) {
-					continue
-				}
+				
 				if rangeOfSchedule.overlaps(calcTimeRange(of: scheduleToCheck, in: date)) {
 					overlappingToSchedule.append(index)
 				}
@@ -78,17 +83,20 @@ class DailyViewDataSource: ObservableObject {
 				schedulesUnique.append(schedule.id)
 			}else {
 				overlappingToSchedule.forEach {
-					overlappedIndices.insert($0)
+						overlappedIndices.insert($0)
 				}
 				let overlappedSchedules = overlappingToSchedule
-					.compactMap{ newSchedules[$0].id }
+					.compactMap{
+						newSchedules[$0].id
+					}
 				schedulesOverlapped.append(overlappedSchedules)
 			}
 		}
 		idsUnique = schedulesUnique
 		idsAllday = schedulesAllDay
 		idsOverlapped = schedulesOverlapped
-		scheduleShowing = newSchedules
+			
+		objectWillChange.send()
 	}
 	
 	private func calcTimeRange(of schedule: Schedule, in date: Date) -> ClosedRange<TimeInterval> {

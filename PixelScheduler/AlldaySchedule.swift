@@ -1,74 +1,65 @@
 //
-//  DailyCellAlldaySchedulView.swift
-//  Schedule_B
+//  DailyViewAlldaySchedule.swift
+//  PixelScheduler
 //
 //  Created by Shin on 2/27/21.
 //
 
 import SwiftUI
 
-struct DailyTableAlldaySchedule: View {
-    
-    private let schedules: [Schedule]
-    @ObservedObject var dataSource: DailyViewDataSource
-    private let tapSchedule: (Schedule) -> Void
-    private let colorPalette: SettingKey.ColorPalette
-    private let size: CGSize
-    private var titleColor: Color {
-        Color(colorPalette.primary)
-    }
-    private var descriptionColor: Color {
-        Color(colorPalette.secondary)
-    }
-    var body: some View {
-        VStack {
-            Text("All day schedule")
-                .font(.custom("RetroGaming", size: 16))
-                .bold()
-                .foregroundColor(Color(colorPalette.primary))
-                .padding(.top, 10)
-            ForEach(schedules){ schedule in
-                VStack(alignment: .leading) {
-                    Text(schedule.title)
-                        .font(.custom("YANGJIN", fixedSize: 14))
-                        .baselineOffset(7)
-                        .foregroundColor(titleColor)
-                    Text(schedule.description)
-                        .font(.caption)
-                        .offset(x: 10)
-                        .foregroundColor(descriptionColor)
-                }
-                .padding(.bottom, 5)
-                .offset(x: 5)
-                .onTapGesture {
-                    tapSchedule(schedule)
-                }
-            }
-            .frame(maxWidth: size.width,
-                   maxHeight: size.height * 0.7)
-            .padding()
-        }
-        .background(Color(colorPalette.quaternary.withAlphaComponent(0.7)))
-        .cornerRadius(10)
-        .overlay(RoundedRectangle(cornerRadius: 0)
-                    .opacity(0)
-                    .border(Color(colorPalette.primary), width: 5)
-                    .cornerRadius(10)
-                    .frame(width: size.width,
-                           height: size.height)
-        )
-        
-    }
-    init(schedules: [Schedule], with palette: SettingKey.ColorPalette,
-         in size: CGSize,
-         watch dataSource: DailyViewDataSource,
-         tapScheduleHandeler: @escaping (Schedule) -> Void) {
-        self.schedules = schedules
-        self.dataSource = dataSource
-        self.colorPalette = palette
-        self.size = size 
-        self.tapSchedule = tapScheduleHandeler
-    }
+struct DailyViewAlldaySchedule: View {
+	
+	@EnvironmentObject var scheduleController: ScheduleModelController
+	private let scheduleIds: [Schedule.ID]
+	private var schedules: [Schedule] {
+		scheduleIds.compactMap(scheduleController.getSchedule(by:))
+	}
+	@ObservedObject var dataSource: DailyViewDataSource
+	private let tapSchedule: (Schedule) -> Void
+	private let colorPalette: SettingKey.ColorPalette
+	private let size: CGSize
+	private var titleColor: Color {
+		Color(colorPalette.primary)
+	}
+	var body: some View {
+		VStack {
+			Text("All day schedule")
+				.bold()
+				.withCustomFont(size: .title3, for: .english)
+				.foregroundColor(Color(colorPalette.primary))
+			ForEach(schedules){ schedule in
+				Text(schedule.title)
+					.font(.body)
+					.baselineOffset(5)
+					.foregroundColor(Color.byPriority(schedule.priority))
+					.offset(x: 5)
+					.onTapGesture {
+						tapSchedule(schedule)
+					}
+			}
+			.padding(5)
+		}
+		.frame(maxWidth: size.width,
+					 maxHeight: size.height * 0.7)
+		.cornerRadius(10)
+		.background(RoundedRectangle(cornerRadius: 0)
+									.fill(Color(colorPalette.quaternary.withAlphaComponent(0.7)))
+									.border(Color(colorPalette.primary), width: 5)
+									.cornerRadius(10)
+									.frame(width: size.width,
+												 height: size.height)
+		)
+	}
+	init(scheduleIds: [Schedule.ID], with palette: SettingKey.ColorPalette,
+			 in size: CGSize,
+			 watch dataSource: DailyViewDataSource,
+			 tapScheduleHandeler: @escaping (Schedule) -> Void) {
+		self.scheduleIds = scheduleIds
+		self.dataSource = dataSource
+		self.colorPalette = palette
+		self.size = size
+		self.tapSchedule = tapScheduleHandeler
+	}
 }
 
 

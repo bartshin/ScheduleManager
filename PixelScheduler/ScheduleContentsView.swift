@@ -1,6 +1,6 @@
 //
 //  DailyCellContentsView.swift
-//  Schedule_B
+//  PixelScheduler
 //
 //  Created by Shin on 2/27/21.
 //
@@ -31,9 +31,8 @@ struct DailyScheduleContentsView: View {
 	
 	fileprivate var scheduleTitleView: some View {
 		Text(schedule.title)
-			.font(schedule.title.count > 10 ?
-							.custom("YANGJIN", size: 12)
-							: .custom("YANGJIN", size: 15))
+			.font(schedule.title.count > 10 ? .body
+							: .subheadline)
 			.baselineOffset(10)
 			.bold()
 			.lineLimit(1)
@@ -65,7 +64,7 @@ struct DailyScheduleContentsView: View {
 						palette: colorPalette)
 						.aspectRatio(contentMode: .fit)
 						.frame(width: min(geometry.size.width * 0.5, 80))
-						.position(x: geometry.size.width * 0.8, y: 30)
+						.position(x: geometry.size.width * -0.1, y: 30)
 				}
 				
 				VStack (alignment: .leading) {

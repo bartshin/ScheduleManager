@@ -1,6 +1,6 @@
 //
 //  SettingController.swift
-//  ScheduleManager
+//  PixelScheduler
 //
 //  Created by Shin on 3/6/21.
 //
@@ -10,18 +10,28 @@ import SwiftUI
 
 class SettingController: ObservableObject {
 	
-	private(set) var palette: SettingKey.ColorPalette
-	private(set) var visualMode: SettingKey.VisualMode
-	private(set) var hapticMode: SettingKey.HapticMode
-	private(set) var character: SettingKey.Character
-	private(set) var soundEffect: SettingKey.SoundEffect
-	private(set) var language: SettingKey.Language
+	@Published private(set) var palette: SettingKey.ColorPalette
+	@Published private(set) var visualMode: SettingKey.VisualMode
+	@Published private(set) var hapticMode: SettingKey.HapticMode
+	@Published private(set) var character: SettingKey.Character
+	@Published private(set) var soundEffect: SettingKey.SoundEffect
+	@Published private(set) var language: SettingKey.Language
+	@Published private(set) var calendarPaging: SettingKey.CalendarPaging
 	private(set) var isFirstOpen: Bool
 	private(set) var icloudBackup: SettingKey.ICloudBackup
-	private(set) var calendarPaging: SettingKey.CalendarPaging
 	@Published private(set) var isPurchased: Bool
 	private let purchasedUserDefaultKey = "Purchased"
 	var collectionBookmark: String?
+	
+	func openSystemSetting() {
+		guard let url = URL(string: UIApplication.openSettingsURLString  + Bundle.main.bundleIdentifier!),
+					UIApplication.shared.canOpenURL(url) else {
+						assertionFailure("Not able to open App privacy settings")
+						return
+					}
+		
+		UIApplication.shared.open(url, options: [:])
+	}
 	
 	func changePalette(to newPalette: SettingKey.ColorPalette) {
 		self.palette = newPalette
@@ -40,6 +50,7 @@ class SettingController: ObservableObject {
 	
 	func changeSoundEffect(to newMode: SettingKey.SoundEffect) {
 		self.soundEffect = newMode
+		SoundEffect.isOn = newMode == .on
 		UserDefaults.setPreference(for: .soundEffect, value: newMode.rawValue)
 	}
 	
@@ -108,6 +119,7 @@ class SettingController: ObservableObject {
 		}else {
 			self.soundEffect = .on
 		}
+		
 		if let bookmark = UserDefaults.getPreference(for: .collectionBookmark) {
 			self.collectionBookmark = bookmark
 		}else {
@@ -147,7 +159,7 @@ class SettingController: ObservableObject {
 		}else {
 			self.calendarPaging = .pageCurl
 		}
-//		self.calendarPaging = .scroll
+		SoundEffect.isOn = soundEffect == .on
 	}
 	
 }

@@ -105,7 +105,8 @@ class ConnectAppleCalendarVC: UIViewController
             description += "canceled event"
         }
         var alarm: Schedule.Alarm? = nil
-        if event.hasAlarms {
+        if event.hasAlarms,
+					 event.alarms?.first != nil{
             let timeOffset = event.alarms![0].relativeOffset
             let alarmDate = event.startDate + timeOffset
             alarm = .once(alarmDate)

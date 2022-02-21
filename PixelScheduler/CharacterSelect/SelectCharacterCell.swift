@@ -1,6 +1,6 @@
 //
 //  CharacterSelectCell.swift
-//  ScheduleManager
+//  PixelScheduler
 //
 //  Created by Shin on 3/30/21.
 //

@@ -38,6 +38,20 @@ class LocationManager: NSObject, ObservableObject {
 		}
 	}
 	
+	static func showLocationInAppleMap(for schedule: Schedule) {
+		guard let location = schedule.location else {
+			return
+		}
+		let mapAnnotation = ScheduleAnnotaion(
+			title: location.title,
+			address: location.address,
+			priority: schedule.priority,
+			coordinate: location.coordinates)
+		let launchOptions = [
+			MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
+		mapAnnotation.mapItem?.openInMaps(launchOptions: launchOptions)
+	}
+	
 	private func getCityInfomation(near location: CLLocation?) {
 		guard let location = location else {
 			return

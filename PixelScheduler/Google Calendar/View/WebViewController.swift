@@ -1,6 +1,6 @@
 //
 //  webViewController.swift
-//  Schedule_B
+//  PixelScheduler
 //
 //  Created by Shin on 2/20/21.
 //

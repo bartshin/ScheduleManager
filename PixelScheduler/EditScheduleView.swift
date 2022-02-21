@@ -22,19 +22,20 @@ struct EditScheduleView: View {
 		func getDescription(for language: SettingKey.Language) -> String {
 			switch self {
 			case .spot:
-				return language == .korean ? "시점": "Pick moment"
+				return language == .korean ? "시점": "Moment"
 			case .weeklyCycle:
-				return language == .korean ? "매주 반복": "Repeat every week"
+				return language == .korean ? "매주 반복": "Weekly"
 			case .monthlyCycle:
-				return language == .korean ? "매달 반복": "Repeat every month"
+				return language == .korean ? "매달 반복": "Monthly"
 			case .period:
-				return language == .korean ? "기간": "Pick period"
+				return language == .korean ? "기간": "Period"
 			}
 		}
 	}
 	
 	@EnvironmentObject var scheduleController: ScheduleModelController
 	@EnvironmentObject var settingController: SettingController
+	@Environment(\.presentationMode) var presentationMode
 	private let scheduleToEdit: Schedule?
 	@State private var scheduleTitle: String
 	@State private var priority: Int
@@ -46,7 +47,11 @@ struct EditScheduleView: View {
 	private let selectedDate: Date?
 	@State private var alarm: Schedule.Alarm?
 	@State private var contact: Schedule.Contact?
+	@State private var selectedLocation: Schedule.Location?
 	@State private var isShowingContactPicker = false
+	@State private var isShowingLocationPicker: Bool
+	@State private var description: String
+	@State private var alertMessage: CharacterAlert<Text, Text>?
 	
 	init(scheduleToEdit: Schedule, selectedDate: Date? = nil) {
 		self.scheduleToEdit = scheduleToEdit
@@ -66,6 +71,9 @@ struct EditScheduleView: View {
 		_alarm = .init(initialValue: scheduleToEdit.alarm)
 		_contact = .init(initialValue: scheduleToEdit.contact)
 		self.selectedDate = selectedDate
+		_isShowingLocationPicker = .init(initialValue: false)
+		_selectedLocation = .init(initialValue: scheduleToEdit.location)
+		_description = .init(initialValue: scheduleToEdit.description)
 	}
 	
 	init(selectedDate: Date) {
@@ -77,51 +85,194 @@ struct EditScheduleView: View {
 		_showingDateType = .init(initialValue: .spot)
 		_contact = .init(initialValue: nil)
 		_alarm = .init(initialValue: nil)
+		_isShowingLocationPicker = .init(initialValue: false)
+		_selectedLocation = .init(initialValue: nil)
+		_description = .init(initialValue: String())
 	}
 	
-    var body: some View {
+	var body: some View {
 		GeometryReader{ geometry in
-			ScrollView(.vertical, showsIndicators: false) {
-				VStack(spacing: 20) {
-					drawTitleBar(in: geometry.size)
-					priorityPicker
-					dateTypePicker
-					datePicker
-					alarmPicker
-					contactPicker
-						.sheet(isPresented: $isShowingContactPicker) {
-							ContactPickerRepresentable { contact = $0 }
+			ScrollViewReader{ scrollView in
+				ScrollView(.vertical, showsIndicators: false) {
+					ZStack{
+						Color(settingController.palette.quaternary.withAlphaComponent(0.2))
+							.onTapGesture(perform: hideKeyboard)
+						VStack(spacing: 20) {
+							navigationBar
+							drawTitleInput(in: geometry.size)
+							priorityPicker
+							dateTypePicker
+							datePicker
+							alarmPicker
+							contactPicker
+								.sheet(isPresented: $isShowingContactPicker) {
+									ContactPickerRepresentable { contact = $0 }
+								}
+							drawLocationBar(scrollView: scrollView)
+							drawDescriptionInput(scrollView: scrollView)
+							if #available(iOS 15.0, *) {
+								Spacer()
+									.frame(height: 50)
+									.id("descriptionInputKeyboardArea")
+							}
 						}
-					locationPicker
+					}
 				}
 			}
 		}
 		.navigationTitle(navigationTitle)
-    }
+	}
 	
-	private func drawTitleBar(in size: CGSize) -> some View {
-		Group {
+	private var navigationBar: some View {
+		VStack {
 			HStack {
-				drawCharacter(in: size)
-				titleInput
-				Spacer(minLength: 50)
+				Button {
+					presentationMode.wrappedValue.dismiss()
+				} label: {
+					Image(systemName: "xmark")
+						.foregroundColor(.pink)
+				}
+				Spacer()
+				switch settingController.language {
+				case .korean:
+					Text(scheduleToEdit == nil ? "새로운 스케쥴": "스케쥴 수정")
+				case .english:
+					Text(scheduleToEdit == nil ? "New Schedule": "Edit Schedule")
+				}
+				Spacer()
+				Button {
+					hideKeyboard()
+					if checkValidate() {
+						let schedule = Schedule(title: scheduleTitle,
+																		description: description,
+																		priority: priority,
+																		time: scheduleDate,
+																		alarm: alarm,
+																		storeAt: .localDevice,
+																		with: scheduleToEdit?.id,
+																		location: selectedLocation,
+																		contact: contact)
+						let isSuccess: Bool
+						if let scheduleToReplace = scheduleToEdit {
+							isSuccess = scheduleController.replaceSchedule(scheduleToReplace, to: schedule, alarmCharacter: settingController.character)
+						}else {
+							isSuccess = scheduleController.addNewSchedule(schedule, alarmCharacter: settingController.character)
+						}
+						if !isSuccess {
+							showAlarmAlertMessage()
+						}else {
+							presentationMode.wrappedValue.dismiss()
+						}
+					}
+				} label: {
+					Image(systemName: "checkmark")
+						.foregroundColor(.blue)
+				}
 			}
-			Divider()
+			.padding()
+			.background(Color(settingController.palette.tertiary.withAlphaComponent(0.3)))
 		}
 	}
 	
-	private func drawCharacter(in size: CGSize) -> some View {
-		CharacterHelperView(
-			character: settingController.character,
-			guide: .editSchedule,
-			helpWindowSize: CGSize(width: size.width * 0.8, height: size.height * 0.6),
-			characterLocation: CGPoint(x: size.width * 0.1,
-									   y: size.height * 0.1))
+	private func checkValidate() -> Bool {
+		if let message = getValidateAlertMessage() {
+			
+			switch settingController.language {
+			case .english:
+				alertMessage = .init(
+					title: scheduleToEdit == nil ? "Fail to create schedule": "Fail to edit schedule", message: message,
+					action: {},
+					label: {
+						Text("Confirm")
+							.font(.title3)
+							.foregroundColor(.blue)
+					})
+			case .korean:
+				alertMessage = .init(
+					title: scheduleToEdit == nil ? "스케쥴 만들기 실패": "스케쥴 수정 실패",
+					message: message,
+					action: {},
+					label: {
+						Text("확인")
+							.font(.title3)
+							.foregroundColor(.blue)
+					})
+			}
+			
+			return false
+		}else {
+			return true
+		}
 	}
 	
-	private var titleInput: some View {
-		TextField(settingController.language == .korean ? "제목을 입력하세요": "Schedule Title", text: $scheduleTitle)
-			.textFieldStyle(.roundedBorder)
+	private func getValidateAlertMessage() -> String? {
+		if scheduleTitle.isEmpty {
+			switch settingController.language {
+			case .korean:
+				return "스케쥴 제목을 입력해주세요"
+			case .english:
+				return "Please input title of schedule"
+			}
+		}
+		else {
+			return nil
+		}
+	}
+	
+	private func showAlarmAlertMessage() {
+		withAnimation {
+			switch settingController.language {
+			case .english:
+				alertMessage = CharacterAlert(
+					title: "Fail to register alarm",
+					message: "You need to authorize PixelScheduler for notification",
+					primaryAction: settingController.openSystemSetting, primaryLabel: {
+						Text("Go to setting")
+							.foregroundColor(.blue)
+					}, secondaryAction: {}, secondaryLabel: {
+						Text("Cancel")
+							.foregroundColor(.secondary)
+					})
+			case .korean:
+				alertMessage = CharacterAlert(
+					title: "알람 설정 실패",
+					message: "픽셀 스케쥴러에게 알람을 설정할 권한이 없습니다",
+					primaryAction: settingController.openSystemSetting, primaryLabel: {
+						Text("설정으로")
+							.foregroundColor(.blue)
+					}, secondaryAction: {}, secondaryLabel: {
+						Text("취소")
+							.foregroundColor(.secondary)
+					})
+			}
+		}
+	}
+	
+	private func drawTitleInput(in size: CGSize) -> some View {
+		VStack {
+			HStack {
+				drawCharacter(in: size)
+					.frame(width: 80, height: 80)
+					.zIndex(1)
+				TextField(settingController.language == .korean ? "제목을 입력하세요": "Schedule Title", text: $scheduleTitle)
+					.textFieldStyle(.roundedBorder)
+					.frame(maxWidth: 200)
+				Spacer()
+					.frame(width: 50)
+			}
+			.zIndex(1)
+			Divider()
+		}
+		.zIndex(1)
+	}
+	
+	private func drawCharacter(in size: CGSize) -> some View {
+		CharacterHelperView<Text, Text>(
+			character: settingController.character,
+			guide: .editSchedule,
+			alertToPresent: $alertMessage ,
+			helpWindowSize: CGSize(width: size.width * 0.8, height: size.height * 0.8),
+			balloonStartPosition: CGPoint(x: 50, y: 100))
 	}
 	
 	private var priorityPicker: some View {
@@ -149,26 +300,45 @@ struct EditScheduleView: View {
 			})) {
 				ForEach(DateType.allCases) { type in
 					Text(type.getDescription(for: settingController.language))
-						.font(.custom(settingController.language.font, size: 15))
+						.withCustomFont(size: .caption, for: settingController.language)
 						.tag(type)
 				}
 			}
 			.pickerStyle(.segmented)
 			.padding(.horizontal, 40)
-			Divider()
 		}
 	}
 	
+	@State private var previousDateType: DateType = .spot
+	
+	private var datePickerTransition: AnyTransition {
+		let insertionDirection: Edge
+		switch showingDateType {
+		case .spot:
+			insertionDirection = .leading
+		case .period:
+			insertionDirection = previousDateType == .spot ? .trailing: .leading
+		case .weeklyCycle:
+			insertionDirection = previousDateType == .monthlyCycle ? .leading: .trailing
+		case .monthlyCycle:
+			insertionDirection = .trailing
+		}
+		// Avoiding update state during updating view
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+			previousDateType = showingDateType
+		}
+		return .asymmetric(insertion: .move(edge: insertionDirection), removal: .opacity)
+	}
+	
 	private var datePicker: some View {
-		let transition: AnyTransition = .asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)).combined(with: .opacity)
-		return Group {
+		Group {
 			if showingDateType == .spot {
 				spotDatePicker
-					.transition(transition)
+					.transition(datePickerTransition)
 			}
 			else if showingDateType == .period {
 				periodDatePicker
-					.transition(transition)
+					.transition(datePickerTransition)
 			}
 			else {
 				CyclePickerView(
@@ -177,7 +347,7 @@ struct EditScheduleView: View {
 					segmentType: showingDateType == .weeklyCycle ? .weekly: .monthly)
 					.padding(.vertical, 20)
 					.fixedSize(horizontal: false, vertical: true)
-					.transition(transition)
+					.transition(datePickerTransition)
 			}
 			Divider()
 		}
@@ -223,7 +393,7 @@ struct EditScheduleView: View {
 				startDate
 			}, set: { newDate in
 				if case .period(_, let scheduleEndDate) = scheduleDate,
-				scheduleEndDate > newDate{
+					 scheduleEndDate > newDate{
 					scheduleDate = .period(start: newDate, end: scheduleEndDate)
 				} else {
 					scheduleDate = .period(start: newDate, end: Calendar.current.date(byAdding: .day, value: 1, to: newDate)!)
@@ -288,10 +458,10 @@ struct EditScheduleView: View {
 						}
 					}, set: { newDate in
 						switch scheduleDate {
-						case .spot(let date), .period(let date, _):
-							alarm = .once(date)
-						case .cycle(let date, _, _):
-							alarm = .periodic(date)
+						case .spot(_), .period(_, _):
+							alarm = .once(newDate)
+						case .cycle(_, _, _):
+							alarm = .periodic(newDate)
 						}
 					}), displayedComponents: [.hourAndMinute], label: {})
 						.datePickerStyle(.wheel)
@@ -300,6 +470,8 @@ struct EditScheduleView: View {
 						.clipped()
 				}else {
 					Text(settingController.language == .korean ? "알람을 켜주세요": "Alarm is off")
+						.font(.body)
+						.foregroundColor(.gray)
 				}
 				Spacer()
 			}
@@ -342,6 +514,8 @@ struct EditScheduleView: View {
 					}
 				}else {
 					Text(settingController.language == .korean ? "연락처가 없습니다": "No contact")
+						.font(.body)
+						.foregroundColor(.gray)
 				}
 				Spacer()
 			}
@@ -351,11 +525,99 @@ struct EditScheduleView: View {
 		}
 	}
 	
-	private var locationPicker: some View {
+	private func drawLocationBar(scrollView: ScrollViewProxy) -> some View {
 		Group {
-			LocationPickerView(location: scheduleToEdit?.location)
-				.frame(height: 350)
+			if isShowingLocationPicker {
+				LocationPickerView(
+					isPresenting: $isShowingLocationPicker,
+					location: scheduleToEdit?.location,
+					selectLocation: { location in
+						self.selectedLocation = location
+					})
+					.frame(height: 350)
+			}else {
+				drawLocationLabel(scrollView: scrollView)
+			}
 			Divider()
+				.id("LocationBarDivider")
+		}
+	}
+	
+	private func drawLocationLabel(scrollView: ScrollViewProxy) -> some View {
+		HStack(spacing: 20) {
+			Button {
+				if selectedLocation == nil {
+					withAnimation {
+						isShowingLocationPicker = true
+						scrollView.scrollTo("LocationBarDivider", anchor: nil)
+					}
+				}else {
+					selectedLocation = nil
+				}
+			} label: {
+				let buttonColor: Color = selectedLocation == nil ? .gray: .green
+				HStack {
+					Image(systemName: "location.fill")
+						.resizable()
+						.frame(width: 30, height: 30)
+					Text(settingController.language == .korean ? "위치": "Location")
+				}
+				.foregroundColor(buttonColor)
+				.padding(5)
+				.overlay(RoundedRectangle(cornerRadius: 10)
+									.stroke(buttonColor, lineWidth: 3)
+				)
+			}
+			if let selectedLocation = selectedLocation {
+				VStack {
+					Text(selectedLocation.title)
+						.font(.title)
+						.foregroundColor(Color(settingController.palette.primary))
+					Text(selectedLocation.address)
+						.font(.caption)
+						.foregroundColor(Color(settingController.palette.secondary))
+				}
+			}else {
+				Text(settingController.language == .korean ? "위치가 없습니다": "No location is selected")
+					.font(.body)
+					.foregroundColor(.gray)
+			}
+			Spacer()
+		}
+		.padding(.leading, 30)
+	}
+	
+	@available (iOS 15.0, *)
+	@FocusState private var isTypingDescription: Bool
+	
+	private func drawDescriptionInput(scrollView: ScrollViewProxy) -> some View {
+		let editor = TextEditor(text: $description)
+			.foregroundColor(.primary)
+			.frame(minHeight: 100)
+			.background(
+				RoundedRectangle(cornerRadius: 20)
+					.stroke(Color.secondary)
+			)
+			.padding(.horizontal)
+			.onAppear {
+				UITextView.appearance().backgroundColor = .clear
+			}
+		return Group {
+			if #available(iOS 15.0, *) {
+				editor
+					.focused($isTypingDescription)
+					.onChange(of: isTypingDescription) {
+						if $0 {
+							DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+								withAnimation(.spring()) {
+									scrollView.scrollTo("descriptionInputKeyboardArea", anchor: nil)
+								}
+							}
+						}
+					}
+			} else {
+				editor
+			}
 		}
 	}
 	
@@ -368,16 +630,10 @@ struct EditScheduleView: View {
 	}
 }
 
-
-
-
-
-
-
-struct AddScheduleView_Previews: PreviewProvider {
-    static var previews: some View {
+struct EditScheduleView_Previews: PreviewProvider {
+	static var previews: some View {
 		EditScheduleView(selectedDate: Date())
 			.environmentObject(ScheduleModelController())
 			.environmentObject(SettingController())
-    }
+	}
 }

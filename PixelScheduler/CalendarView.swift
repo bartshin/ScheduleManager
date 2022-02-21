@@ -9,14 +9,16 @@ import SwiftUI
 
 struct CalendarView: View {
 	
+	@EnvironmentObject var states: ViewStates
 	@EnvironmentObject var scheduleController: ScheduleModelController
 	@EnvironmentObject var settingController: SettingController
-	@Binding var currentReferenceDate: Date
+
 	@State private var showingDatePicker = false
 	@State private var showingSearchBar = false
-	@State private var showingSearchResult = false
+	@State private var searchSheetState: SheetView<SearchResultView>.CardState = .hide
 	@State private var searchRequest = (text: "", priority: 0)
-	@State private var weeklyViewDateInt: Int? = nil
+	@GestureState var dateLabelScrollX: CGFloat = 0
+
 	
 	private let today = Date().toInt
 	private var calendarLanguage: SettingKey.Language {
@@ -25,22 +27,28 @@ struct CalendarView: View {
 	
 	private var weeklyNavigationBinding: Binding<Bool> {
 		.init(get: {
-			weeklyViewDateInt != nil
+			states.weeklyViewDateInt != nil
 		}, set: { active in
 			if !active {
-				weeklyViewDateInt = nil
+				states.presentingScheduleId = nil
+				states.weeklyViewDateInt = nil
 			}
 		})
 	}
 	
-    var body: some View {
+	init(states: EnvironmentObject<ViewStates>) {
+		_states = states
+		_adjacentMonth = .init(initialValue: (-6...6).reduce(into: []) { array, addedMonth in
+			array.append(Calendar.current.date(byAdding: .month, value: addedMonth, to: states.wrappedValue.scheduleViewDate)!)
+		})
+	}
+	
+	var body: some View {
 		GeometryReader { geometry in
 			ZStack {
 				weeklyViewNavigationLink
 				VStack {
 					drawTopBar(in: geometry.size)
-						.fixedSize(horizontal: false, vertical: true)
-						.zIndex(1)
 					if settingController.calendarPaging == .scroll{
 						drawCalendarScrollView(in: geometry.size)
 					}else {
@@ -49,28 +57,44 @@ struct CalendarView: View {
 					Spacer()
 				}
 				showDatePickerPopup(in: geometry.size)
-				SheetView(isPresented: $showingSearchResult,
-						  handleColor: Color(settingController.palette.primary),
-						  backgroundColor: Color(settingController.palette.quaternary)) {
-					SearchResultView(searchRequest: $searchRequest)
-				}
-				.onChange(of: showingSearchResult) {
-					if !$0 {
-						withAnimation {
-							showingSearchBar = false
-							searchRequest = (text: "", priority: 0)
-						}
+				if searchSheetState == .top {
+					showBackgroundBlur {
+						searchSheetState = .hide
 					}
 				}
+				SheetView(cardState: $searchSheetState,
+									handleColor: Color(settingController.palette.primary),
+									backgroundColor: Color(settingController.palette.quaternary), cardStatesAvailable: [.hide, .middle, .top]) {
+					SearchResultView(
+						searchRequest: $searchRequest,
+						selectSchedule: { schedule in
+						 hideKeyboard()
+							withAnimation {
+								states.presentingScheduleId = schedule.id
+							}
+						},
+						selectDate: { date in
+							states.weeklyViewDateInt = date.toInt
+						})
+				}
+									.onChange(of: searchSheetState) {
+										if $0 == .hide {
+											withAnimation {
+												showingSearchBar = false
+												searchRequest = (text: "", priority: 0)
+											}
+										}
+									}
+				showScheduleDetailIfPresenting(in: geometry.size)
 			}
 		}
-    }
+	}
 	
 	private var weeklyViewNavigationLink: some View {
 		NavigationLink("Weekly schedule", isActive: weeklyNavigationBinding) {
 			Group {
-				if weeklyViewDateInt != nil {
-					WeeklyView(selectedDateInt: $weeklyViewDateInt)
+				if states.weeklyViewDateInt != nil {
+					WeeklyView(selectedDateInt: $states.weeklyViewDateInt)
 				}
 			}
 		}
@@ -80,48 +104,92 @@ struct CalendarView: View {
 	private func drawTopBar(in size: CGSize) -> some View {
 		ZStack {
 			HStack(spacing: 30) {
-				drawCharacterHelper(in: size)
-					.zIndex(1)
+				Spacer()
+					.frame(width: 30)
 				dateLabel
+					.zIndex(1)
 				calendarButton
 				searchButton
 			}
+			.frame(height: 60)
 			if showingSearchBar {
-				showBackgroundBlur {
-					showingSearchBar = false
-					showingSearchResult = false
-					searchRequest = (text: "", priority: 0)
+				Group {
+					showBackgroundBlur {
+						showingSearchBar = false
+					}
+					SearchBarPopup(isPresented: $showingSearchBar,
+												 searchRequest: $searchRequest,
+												 changeShowingResult: { isShowing in
+						withAnimation(.interpolatingSpring(stiffness: 300.0, damping: 30.0)) {
+							searchSheetState = isShowing ? .middle: .hide
+						}
+					},
+												 language: settingController.language)
 				}
-				SearchBarPopup(isPresented: $showingSearchBar,
-							 searchRequest: $searchRequest,
-							   showingResult: $showingSearchResult,
-							   language: settingController.language)
+				.frame(height: size.height * 0.2)
 			}
 		}
-	}
-	
-	private func drawCharacterHelper(in size: CGSize) -> some View {
-		 GeometryReader { characterGeometry in
-			CharacterHelperView(character: settingController.character,
-								guide: .monthlyCalendar,
-								helpWindowSize: CGSize(width: size.width * 0.9,
-													   height: size.height * 0.7),
-								characterLocation: characterGeometry.frame(in: .global).origin)
-		}
-		 .frame(width: 80, height: 80)
 	}
 	
 	private var dateLabel: some View {
-		HStack {
-			if calendarLanguage == .korean {
-				Text(String(currentReferenceDate.year) + "년")
-				Text(String(currentReferenceDate.month) + "월")
-			}else {
-				Text(DateFormatter().monthSymbols[currentReferenceDate.month - 1])
-				Text(String(currentReferenceDate.year))
+		let isScrolling = dateLabelScrollX != 0
+		return HStack {
+			if !isScrolling {
+				Image(systemName: "chevron.left")
+					.foregroundColor(Color(settingController.palette.primary))
+			}
+			drawDateLabel(for: states.scheduleViewDate)
+				.offset(x: dateLabelScrollX)
+				.gesture(
+					DragGesture(minimumDistance: 20)
+						.updating($dateLabelScrollX) { gestureValue, dateLabelScrollX, _ in
+							if abs(gestureValue.translation.width) < 100 {
+								dateLabelScrollX = gestureValue.translation.width
+							}
+						}
+						.onEnded { gestureValue in
+							withAnimation {
+								guard abs(gestureValue.translation.width) > 20 else {
+									return
+								}
+								let toNextMonth = gestureValue.translation.width < 0
+								states.scheduleViewDate = toNextMonth ? states.scheduleViewDate.aMonthAfter : states.scheduleViewDate.aMonthAgo
+							}
+						}
+				)
+				.opacity(isScrolling ? 1.0 - abs(dateLabelScrollX/100): 1)
+				.overlay(
+					HStack {
+						drawDateLabel(for: states.scheduleViewDate.aMonthAgo)
+							.frame(width: dateLabelScrollX > 0 ? 100: 0)
+							.opacity(abs(dateLabelScrollX/100))
+						Spacer()
+							.frame(width: 200)
+						drawDateLabel(for: states.scheduleViewDate.aMonthAfter).frame(width: dateLabelScrollX < 0 ? 100: 0)
+							.opacity(abs(dateLabelScrollX/100))
+					}
+						.offset(x: dateLabelScrollX)
+				)
+			if !isScrolling {
+				Image(systemName: "chevron.right")
+					.foregroundColor(Color(settingController.palette.primary))
 			}
 		}
-		.font(.custom(settingController.language.font, fixedSize: 18))
+	}
+	
+	private func drawDateLabel(for date: Date) -> some View {
+		let isScrolling = dateLabelScrollX != 0
+		return HStack {
+			if calendarLanguage == .korean {
+				Text(String(date.year) + "년 " +  String(date.month) + "월")
+					.withCustomFont(size: isScrolling ? .body: .subheadline, for: settingController.language)
+			}else {
+				Text(DateFormatter().monthSymbols[date.month - 1])
+					.withCustomFont(size: isScrolling ? .body: .subheadline, for: settingController.language)
+				Text(String(date.year))
+					.withCustomFont(size: isScrolling ? .body: .subheadline, for: settingController.language)
+			}
+		}	
 	}
 	
 	private var searchButton: some View {
@@ -144,7 +212,7 @@ struct CalendarView: View {
 					showingDatePicker = true
 				}
 			}
-			.onChange(of: currentReferenceDate) { _ in
+			.onChange(of: states.scheduleViewDate) { _ in
 				withAnimation {
 					showingDatePicker = false
 				}
@@ -155,7 +223,7 @@ struct CalendarView: View {
 	
 	private func drawCalendarScrollView(in size: CGSize) -> some View {
 		HStack(alignment: .top, spacing: 0) {
-			TabView(selection: $currentReferenceDate) {
+			TabView(selection: $states.scheduleViewDate) {
 				ForEach(adjacentMonth, id: \.self) { date in
 					VStack(spacing: 10) {
 						drawWeekLabelBar(in: size)
@@ -163,23 +231,24 @@ struct CalendarView: View {
 							referenceDate: date,
 							searchRequest: $searchRequest,
 							size: CGSize(width: size.width,
-										 height: size.height * 0.7)) {
-											 weeklyViewDateInt = $0
-						}
+													 height: size.height * 0.7)) {
+														 states.weeklyViewDateInt = $0
+													 }
+													 .frame(maxHeight: size.height * 0.8)
 						Spacer()
 					}
 					.frame(width: size.width,
-						   height: size.height * 0.9)
+								 height: size.height * 0.9)
 					.tag(date)
 				}
 			}
 			.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-			.onChange(of: currentReferenceDate) { date in
-				if currentReferenceDate == adjacentMonth.first ||
-					currentReferenceDate == adjacentMonth.last ||
-					!adjacentMonth.contains(currentReferenceDate){
+			.onChange(of: states.scheduleViewDate) { date in
+				if states.scheduleViewDate == adjacentMonth.first ||
+						states.scheduleViewDate == adjacentMonth.last ||
+						!adjacentMonth.contains(states.scheduleViewDate){
 					adjacentMonth = (-6...6).reduce(into: []) { array, addedMonth in
-						array.append(Calendar.current.date(byAdding: .month, value: addedMonth, to: currentReferenceDate)!)
+						array.append(Calendar.current.date(byAdding: .month, value: addedMonth, to: states.scheduleViewDate)!)
 					}
 				}
 			}
@@ -189,16 +258,17 @@ struct CalendarView: View {
 	private func drawCalendarPagecurl(in size: CGSize) -> some View {
 		VStack(spacing: 10) {
 			drawWeekLabelBar(in: size)
-			CalendarViewControllerRepresentation(scheduleController: scheduleController,
-												 settingController: settingController,
-												 currentReferenceDate: $currentReferenceDate,
-												 searchRequest: $searchRequest) { dateInt in
-				weeklyViewDateInt = dateInt
-			}
+			CalendarViewControllerRepresentation(
+				scheduleController: scheduleController,
+				settingController: settingController,
+				states: states,
+				searchRequest: $searchRequest) { dateInt in
+					states.weeklyViewDateInt = dateInt
+				}
 			Spacer()
 		}
 		.frame(width: size.width,
-			   height: size.height * 0.95)
+					 height: size.height * 0.95)
 	}
 	
 	private func getColorForWeekday(_ weekday: Int) -> Color {
@@ -213,12 +283,12 @@ struct CalendarView: View {
 	
 	private func drawWeekLabelBar(in size: CGSize) -> some View {
 		HStack(spacing: 0) {
-				ForEach(0..<7) { weekday in
-					Text(calendarLanguage == .korean ? Calendar.koreanWeekDays[weekday]: Calendar.englishWeekDays[weekday])
-						.font(.custom(settingController.language.font, size: 17))
-								.frame(width: size.width / 7, height: 30)
-								.foregroundColor(getColorForWeekday(weekday))
-				}
+			ForEach(0..<7) { weekday in
+				Text(calendarLanguage == .korean ? Calendar.koreanWeekDays[weekday]: Calendar.englishWeekDays[weekday])
+					.withCustomFont(size: .subheadline, for: settingController.language)
+					.frame(width: size.width / 7, height: 40)
+					.foregroundColor(getColorForWeekday(weekday))
+			}
 		}
 		.background(Color(settingController.palette.tertiary.withAlphaComponent(0.5)))
 	}
@@ -231,34 +301,56 @@ struct CalendarView: View {
 				}
 			}
 			if showingDatePicker {
-				DatePickerPopup(date: $currentReferenceDate, language: settingController.language)
+				DatePickerPopup(date: $states.scheduleViewDate, language: settingController.language)
 					.background(Color(settingController.palette.quaternary.withAlphaComponent(0.5))
-									.cornerRadius(30))
+												.cornerRadius(30))
 					.position(x: size.width/2,
-							  y: size.height * 0.3)
+										y: size.height * 0.4)
 					.transition(.move(edge: .top))
 			}
 		}
 	}
 	
-	init(referenceDate: Binding<Date>) {
-		_currentReferenceDate = referenceDate
-		_adjacentMonth = .init(initialValue: (-6...6).reduce(into: []) { array, addedMonth in
-			array.append(Calendar.current.date(byAdding: .month, value: addedMonth, to: referenceDate.wrappedValue)!)
-		})
+	private func showScheduleDetailIfPresenting(in size: CGSize) -> some View {
+		ZStack {
+			showBackgroundBlur {
+				states.presentingScheduleId = nil
+			}
+			.opacity(states.presentingScheduleId != nil && states.weeklyViewDateInt == nil ? 1: 0)
+			.allowsHitTesting(states.presentingScheduleId != nil)
+			if states.presentingScheduleId != nil, states.weeklyViewDateInt == nil {
+				ScheduleDetailView(
+					schedule: scheduleController.getSchedule(by: states.presentingScheduleId!)!,
+					isPresenting: .init(get: {
+						states.presentingScheduleId != nil
+					}, set: { presenting in
+						if !presenting {
+							withAnimation {
+								states.presentingScheduleId = nil
+							}
+						}
+					}))
+					.frame(width: size.width * 0.9)
+					.frame(minHeight: size.height * 0.7, idealHeight: size.height * 0.8,
+								 maxHeight: size.height * 0.9)
+					.fixedSize()
+					
+					.transition(.move(edge: .bottom))
+			}
+		}
 	}
 	
 	private struct CalendarViewControllerRepresentation: UIViewControllerRepresentable {
 		
+		let states: ViewStates
 		let scheduleController: ScheduleModelController
 		let settingController: SettingController
-		@Binding var currentReferenceDate: Date
 		@Binding var searchRequest: (text: String, priority: Int)
 		private let tapCalendarCell: (Int) -> Void
 		
 		private let coordinator: Coordinator
 		
-		func makeUIViewController(context: Context) -> some UIViewController {
+		func makeUIViewController(context: Context) -> UIPageViewController {
 			let pageViewController = UIPageViewController(transitionStyle: .pageCurl, navigationOrientation: .vertical)
 			pageViewController.dataSource = coordinator
 			pageViewController.delegate = coordinator
@@ -271,22 +363,28 @@ struct CalendarView: View {
 			coordinator.pageViewController = pageViewController
 			return pageViewController
 		}
-		func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-			let yearAndMonth = currentReferenceDate.year * 100 + currentReferenceDate.month
-			if yearAndMonth != context.coordinator.currentCalendar?.yearAndMonth {
-				context.coordinator.setDate(currentReferenceDate)
-			}
-			
+		
+		func updateUIViewController(_ uiViewController: UIPageViewController, context: Context) {
+			let yearAndMonth = states.scheduleViewDate.year * 100 + states.scheduleViewDate.month
+			guard let presentedYearAndMonth = context.coordinator.currentCalendar?.yearAndMonth,
+						yearAndMonth != presentedYearAndMonth else {
+							return
+						}
+			let direction: UIPageViewController.NavigationDirection = yearAndMonth > presentedYearAndMonth ? .forward: .reverse
+			uiViewController.setViewControllers([direction == .forward ? context.coordinator.nextCalendar : context.coordinator.prevCalendar], direction: direction, animated: true, completion: nil)
+			context.coordinator.setDate(states.scheduleViewDate)
 		}
 		
 		func makeCoordinator() -> Coordinator {
 			coordinator
 		}
 		
-		init(scheduleController: ScheduleModelController, settingController: SettingController, currentReferenceDate: Binding<Date>, searchRequest: Binding<(text: String, priority: Int)>, tapCalendarCell: @escaping (Int) -> Void) {
+		init(scheduleController: ScheduleModelController, settingController: SettingController,
+				 states: ViewStates,
+				 searchRequest: Binding<(text: String, priority: Int)>, tapCalendarCell: @escaping (Int) -> Void) {
 			self.scheduleController = scheduleController
 			self.settingController = settingController
-			_currentReferenceDate = currentReferenceDate
+			self.states = states
 			_searchRequest = searchRequest
 			self.tapCalendarCell = tapCalendarCell
 			
@@ -299,8 +397,12 @@ struct CalendarView: View {
 			[firstCalendar, secondCalendar, thirdCalendar].forEach {
 				$0.loadViewIfNeeded()
 			}
-			coordinator = Coordinator(firstCalendar: firstCalendar, secondCalendar: secondCalendar, thirdCalendar: thirdCalendar, referenceDate: currentReferenceDate)
-			coordinator.setDate(currentReferenceDate.wrappedValue)
+			coordinator = Coordinator(firstCalendar: firstCalendar, secondCalendar: secondCalendar, thirdCalendar: thirdCalendar, referenceDate: .init(get: {
+				states.scheduleViewDate
+			}, set: {
+				states.scheduleViewDate = $0
+			}))
+			coordinator.setDate(states.scheduleViewDate)
 		}
 		
 		class Coordinator: NSObject, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
@@ -313,7 +415,7 @@ struct CalendarView: View {
 			var currentCalendar: MonthlyVC? {
 				pageViewController?.viewControllers!.first as? MonthlyVC
 			}
-			private var prevCalendar: MonthlyVC {
+			var prevCalendar: MonthlyVC {
 				if currentCalendar == firstCalendar {
 					return thirdCalendar
 				}else if currentCalendar == secondCalendar {
@@ -322,7 +424,7 @@ struct CalendarView: View {
 					return secondCalendar
 				}
 			}
-			private var nextCalendar: MonthlyVC {
+			var nextCalendar: MonthlyVC {
 				if currentCalendar == firstCalendar {
 					return secondCalendar
 				}else if currentCalendar == secondCalendar {
@@ -338,7 +440,6 @@ struct CalendarView: View {
 				}
 				prevCalendar.yearAndMonth = (date.aMonthAgo.year * 100) + date.aMonthAgo.month
 				nextCalendar.yearAndMonth = (date.aMonthAfter.year * 100) + date.aMonthAfter.month
-				currentReferenceDate = date
 			}
 			
 			func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -390,9 +491,9 @@ struct CalendarView: View {
 }
 
 struct CalendarView_Previews: PreviewProvider {
-    static var previews: some View {
-		CalendarView(referenceDate: .constant(Date()))
+	static var previews: some View {
+		CalendarView(states: .init())
 			.environmentObject(SettingController())
 			.environmentObject(ScheduleModelController())
-    }
+	}
 }

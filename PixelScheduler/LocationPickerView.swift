@@ -17,61 +17,28 @@ struct LocationPickerView: View {
 	@State private var isShowingResultView = false
 	@State private var searchResults = [Schedule.Location]()
 	@State private var searchResultViewPositionRatio: CGFloat = 0.75
+	@Binding var isPresenting: Bool
 	@State private var selectedLocation: Schedule.Location?
+	private let selectLocation: (Schedule.Location) -> Void
 	
-	init(location: Schedule.Location?) {
+	
+	init(isPresenting: Binding<Bool>, location: Schedule.Location?, selectLocation: @escaping (Schedule.Location) -> Void) {
 		_selectedLocation = .init(initialValue: location)
+		_isPresenting = isPresenting
+		self.selectLocation = selectLocation
 	}
 	
 	var body: some View {
 		GeometryReader{ geometry in
 			VStack {
-				if let selectedLocation = selectedLocation {
-					HStack(spacing: 30) {
-						Button {
-							searchString = ""
-							searchResults.removeAll()
-							slideSearchResultView(hide: true)
-							withAnimation {
-								self.selectedLocation = nil
-							}
-						} label: {
-							Image(systemName: "chevron.backward")
-						}
-						Text(selectedLocation.title)
-						Spacer()
-					}
-					.padding(.horizontal, 20)
+				if selectedLocation != nil {
+					selectedLocationLabel
 				}else {
-					TextField(settingController.language == .korean ? "장소 검색어를 입력하세요": "Keyword for searching location",
-										text: $searchString,
-										onEditingChanged: { startEditing in
-						if startEditing {
-							searchResults.removeAll()
-						}
-					},
-										onCommit: {
-						if !searchString.isEmpty {
-							searchLocation(keyword: searchString)
-						}
-						slideSearchResultView(hide: false)
-					})
-						.textFieldStyle(.roundedBorder)
-						.padding(.horizontal, 50)
+					searchBar
 				}
 				ZStack {
 					Map(coordinateRegion: $showingRegion, showsUserLocation: true, annotationItems: searchResults) { location in
-						MapAnnotation(coordinate: location.coordinates, anchorPoint: CGPoint(x: 0.5, y: 0.7)) {
-							Image(systemName: "mappin.circle.fill")
-								.font(.title)
-								.foregroundColor(getAnnotationColor(for: location))
-								.onTapGesture {
-									withAnimation {
-										selectedLocation = location
-									}
-								}
-								.zIndex(selectedLocation == location ? 1: 0)
-						}
+						drawAnnotation(for: location)
 					}
 					if isShowingResultView {
 						searchResultView
@@ -102,11 +69,115 @@ struct LocationPickerView: View {
 		}
 	}
 	
-	private func getAnnotationColor(for location: Schedule.Location) -> Color {
-		if let selectedPlace = selectedLocation {
-			return selectedPlace == location ? .blue: .gray
+	private var searchBar: some View {
+		HStack {
+			TextField(searchPlaceHolder,
+								text: $searchString,
+								onEditingChanged: { startEditing in
+				if startEditing {
+					searchResults.removeAll()
+				}
+			},
+								onCommit: {
+				if !searchString.isEmpty {
+					searchLocation(keyword: searchString)
+				}
+				slideSearchResultView(hide: false)
+			})
+				.textFieldStyle(.roundedBorder)
+				.padding(.horizontal)
+			Button {
+				withAnimation {
+					isPresenting = false
+				}
+			} label: {
+				Image(systemName: "xmark.circle")
+					.foregroundColor(.pink)
+					.frame(width: 40, height: 40)
+			}
+		}
+		.padding(.horizontal, 20)
+	}
+	
+	private var searchPlaceHolder: String {
+		if location.lastLocation != nil {
+			return settingController.language == .korean ? "장소 검색어를 입력하세요": "Keyword for searching location"
 		}else {
-			return .orange
+			return settingController.language == .korean ? "현재 위치 가져오는중...": "Now getting current location..."
+		}
+	}
+	
+	private var selectedLocationLabel: some View {
+		HStack(spacing: 30) {
+			Button {
+				searchString = ""
+				searchResults.removeAll()
+				slideSearchResultView(hide: true)
+				withAnimation {
+					self.selectedLocation = nil
+				}
+			} label: {
+				Image(systemName: "chevron.backward")
+			}
+			
+			Text(selectedLocation!.title)
+				.font(.title2)
+			
+			Button {
+				selectLocation(selectedLocation!)
+				withAnimation {
+					isPresenting = false
+				}
+			} label:  {
+				Image(systemName: "checkmark")
+					.foregroundColor(.green)
+			}
+			Spacer()
+			
+			Button {
+				withAnimation {
+					isPresenting = false
+				}
+			} label: {
+				Image(systemName: "xmark")
+					.foregroundColor(.red)
+			}
+			
+			Spacer()
+		}
+		.padding(.horizontal, 20)
+	}
+	
+	private struct AnnotationView: View {
+		let settingController: SettingController
+		@Binding var selectedLocation: Schedule.Location?
+		let location: Schedule.Location
+		
+		var body: some View {
+			Image(systemName: "mappin.circle.fill")
+				.font(.title)
+				.foregroundColor(foreGroundColor)
+				.onTapGesture {
+					withAnimation {
+						selectedLocation = location
+					}
+				}
+				.zIndex(selectedLocation == location ? 1: 0)
+		}
+		
+		private var foreGroundColor: Color {
+			if let selectedPlace = selectedLocation {
+				return selectedPlace == location ? Color(settingController.palette.primary): Color(settingController.palette.primary.withAlphaComponent(0.5))
+			}else {
+				return Color(settingController.palette.secondary)
+			}
+		}
+	}
+	
+	private func drawAnnotation(for location: Schedule.Location) -> MapAnnotation<AnnotationView>{
+		MapAnnotation(coordinate: location.coordinates, anchorPoint: CGPoint(x: 0.5, y: 0.7)) {
+			AnnotationView(settingController: settingController, selectedLocation: $selectedLocation,
+								 location: location)
 		}
 	}
 
@@ -145,22 +216,54 @@ struct LocationPickerView: View {
 			}
 		}
 	}
+	
 	@GestureState var searchResultViewGestureOffset: CGFloat = 0
+	
+	private var sortedSearchResults: [(Schedule.Location, Double)] {
+		if let lastLocation = location.lastLocation {
+			let currentLocation = Schedule.Location(title: "currentLocation", address: "", coordinates: lastLocation.coordinate)
+			return searchResults.compactMap { location in
+				(location, currentLocation.calcDistance(to: location))
+			}.sorted {
+				$0.1 < $1.1
+			}
+		}else {
+			return searchResults.compactMap { location in
+				(location, 0)
+			}
+		}
+	}
+	
 	private var searchResultView: some View {
 		List {
 			if searchResults.isEmpty {
 				Text(settingController.language == .korean ? "검색 결과가 없습니다": "No location is found")
 					.font(.title)
 			}
-			ForEach(searchResults) { location in
-				Text(location.title)
-					.onTapGesture {
-						selectedLocation = location
-						withAnimation {
-							showingRegion = MKCoordinateRegion(center: location.coordinates, span: LocationManager.streetBounds)
-							slideSearchResultView(hide: true)
+			
+			ForEach(sortedSearchResults, id: \.0.id) { (location, distance) in
+				VStack(alignment: .leading) {
+					HStack(spacing: 10) {
+						Text(location.title)
+							.font(.body)
+							.foregroundColor(Color(settingController.palette.primary))
+						if self.location.lastLocation != nil {
+							Text(distance > 1000 ? String(format: "%.2f", Double(distance)/1000) + "km": String(format: "%.1f", Double(distance)) + "m")
+								.font(.caption2)
+								.foregroundColor(Color(settingController.palette.secondary))
 						}
 					}
+					Text(location.address)
+						.font(.caption)
+						.foregroundColor(Color(settingController.palette.secondary))
+				}
+				.onTapGesture {
+					selectedLocation = location
+					withAnimation {
+						showingRegion = MKCoordinateRegion(center: location.coordinates, span: LocationManager.streetBounds)
+						slideSearchResultView(hide: true)
+					}
+				}
 			}
 		}
 		.clipShape(RoundedRectangle(cornerRadius: 15))
@@ -193,13 +296,5 @@ struct LocationPickerView: View {
 				)
 		}
 		.transition(.opacity)
-	}
-}
-
-struct LocationPickerView_Previews: PreviewProvider {
-	static var previews: some View {
-		LocationPickerView(location: nil)
-			.previewLayout(.fixed(width: 350, height: 400))
-			.environmentObject(SettingController())
 	}
 }

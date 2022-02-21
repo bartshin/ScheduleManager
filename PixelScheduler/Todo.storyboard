@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nOP-UW-9Ee">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nOP-UW-9Ee">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -39,7 +40,7 @@
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCollectionCell" rowHeight="60" id="zRw-89-qWH" customClass="CollectionCell" customModule="PixelScheduler" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zRw-89-qWH" id="9a3-ps-J6K">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
@@ -433,7 +434,7 @@
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="70" id="lQ4-j3-uRY" customClass="ListTaskCell" customModule="PixelScheduler" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="414" height="70"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lQ4-j3-uRY" id="d5L-Cy-4o4">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
@@ -447,7 +448,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MZl-Xa-P0c">
-                                                    <rect key="frame" x="148" y="25" width="30" height="40"/>
+                                                    <rect key="frame" x="147.5" y="25" width="30" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="aJ5-q8-0Ep"/>
                                                         <constraint firstAttribute="height" constant="40" id="kqP-AG-HPf"/>
@@ -461,7 +462,7 @@
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="리스트" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="04u-OL-Jsq" customClass="PaddingLabel" customModule="PixelScheduler" customModuleProvider="target">
-                                                    <rect key="frame" x="188" y="27.5" width="38.5" height="15"/>
+                                                    <rect key="frame" x="187.5" y="21.5" width="39" height="27.5"/>
                                                     <fontDescription key="fontDescription" name="YANGJIN" family="YANGJIN" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -554,6 +555,11 @@
             <point key="canvasLocation" x="1597" y="1847"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="04u-OL-Jsq">
+            <size key="intrinsicContentSize" width="39" height="27.5"/>
+        </designable>
+    </designables>
     <resources>
         <image name="bulletin_board" width="75" height="37"/>
         <image name="list.dash" catalog="system" width="128" height="85"/>

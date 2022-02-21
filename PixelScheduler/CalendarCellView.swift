@@ -1,6 +1,7 @@
 
 
 import SwiftUI
+import simd
 
 struct CalendarCellView: View, HolidayColor {
 	
@@ -35,17 +36,6 @@ struct CalendarCellView: View, HolidayColor {
 		return filtered.sortedByPriority.prefix(3)
 	}
 	
-	private func isScheduleDraggable(_ schedule: Schedule) -> Bool {
-		switch schedule.time{
-		case .spot(_):
-			return true
-		case .period(let startDate, let endDate):
-			return startDate.isSameDay(with: endDate)
-		case .cycle(_, _, _):
-			return false
-		}
-	}
-	
 	var body: some View {
 		GeometryReader{ geometry in
 			dateLabel
@@ -66,7 +56,7 @@ struct CalendarCellView: View, HolidayColor {
 				VStack(alignment: .leading){
 					ForEach(filteredSchedules, id:\.id) { schedule in
 						Group {
-							if isScheduleDraggable(schedule) {
+							if schedule.time.isMovable {
 								draggableScheduleRow(for: schedule)
 							}else {
 								drawScheduleRow(for: schedule)
@@ -95,6 +85,7 @@ struct CalendarCellView: View, HolidayColor {
 							cornerRadius: 30)
 							.stroke(Color.red.opacity(0.8),
 									lineWidth: 3)
+							.scaleEffect(1.5)
 					}
 					if holiday != nil{
 						let title = holiday!.translateTitle(to: labelLanguage)
@@ -122,11 +113,57 @@ struct CalendarCellView: View, HolidayColor {
 	}
 	
 	private func draggableScheduleRow(for schedule: Schedule) -> some View {
-		drawScheduleRow(for: schedule)
-			.onDrag {
-				UIImpactFeedbackGenerator().generateFeedback(for: hapticMode)
-				return NSItemProvider(object: schedule.id.uuidString as NSString)
+		Group {
+			if #available(iOS 15.0, *) {
+				drawScheduleRow(for: schedule)
+					.onDrag({
+						UIImpactFeedbackGenerator().generateFeedback(for: hapticMode)
+						SoundEffect.playSound(.pin)
+						return createItemProvider(for: schedule)
+					}, preview: {
+						createPreview(for: schedule)
+					})
+			} else {
+				drawScheduleRow(for: schedule)
+					.onDrag {
+						UIImpactFeedbackGenerator().generateFeedback(for: hapticMode)
+						SoundEffect.playSound(.pin)
+						return createItemProvider(for: schedule)
+					}
 			}
+		}
+	}
+	
+	private func createItemProvider(for schedule: Schedule) -> NSItemProvider {
+		let dict = [
+			"itemType": "schedule",
+			"id": schedule.id.uuidString
+		]
+		guard let data = try? JSONSerialization.data(withJSONObject: dict, options: []),
+					let json = String(data: data, encoding: .utf8) else {
+						return NSItemProvider()
+					}
+		let provider = NSItemProvider()
+		provider.registerObject(json as NSString, visibility: .ownProcess)
+		return provider
+	}
+	
+	private func createPreview(for schedule: Schedule) -> some View{
+		let size = CGSize(width: 200, height: 150)
+		return ZStack {
+			DailyTableScheduleBackground(
+				for: schedule,
+					 width: size.width,
+					 height: size.height,
+					 date: date)
+			// MARK: Schedule Content
+			DailyScheduleContentsView(
+				for: schedule,
+					 with: colorPalette,
+					 watch: nil)
+		}
+		.frame(width: size.width,
+					 height: size.height)
 	}
 	
 	private func drawScheduleRow(for schedule: Schedule) -> some View {

@@ -33,8 +33,8 @@ struct TaskProvider: TimelineProvider {
     func getSnapshot(in context: Context, completion: @escaping (TaskEntry) -> Void) {
         
         let entry = [
-            TaskEntry(date: Date(), collection: TaskCollection.listCollection,  tasks: Task.shopingList),
-            TaskEntry(date: Date(), collection: TaskCollection.puzzleCollection,  tasks: Task.moviePuzzle)
+            TaskEntry(date: Date(), collection: TaskCollection.listCollectionDummy,  tasks: Task.shopingList),
+            TaskEntry(date: Date(), collection: TaskCollection.puzzleCollectionDummy,  tasks: Task.moviePuzzle)
         ].randomElement()!
         completion(entry)
     }

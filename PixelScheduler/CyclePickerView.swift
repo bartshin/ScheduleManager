@@ -1,6 +1,6 @@
 //
 //  CyclePickerView.swift
-//  Schedule_B
+//  PixelScheduler
 //
 //  Created by Shin on 2/28/21.
 //
@@ -100,8 +100,8 @@ struct CyclePickerView: View {
 					   height: 33)
 			Text(weekday)
 				.foregroundColor(isSelected(index) ? .white : colorOfDay(weekday))
-				.font(language == .korean ? .title3: .body)
 				.bold()
+				.withCustomFont(size: .body, for: language)
 		}
 		.scaleEffect(isSelected(index) ? 1.2: 1)
 	}

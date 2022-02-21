@@ -109,8 +109,22 @@ struct SettingKey {
 				return nil
 			}
 		}
-		var arrowImage: UIImage {
-			return UIImage(named: ["arrow_wooden", "arrow_gold"].randomElement()!)!
+		
+		var attackSound: String {
+			switch self {
+			case .dragon, .wizard:
+				return self.rawValue
+			case .princess, .soldier:
+				return "swing_short"
+			case .goblin:
+				return "bow"
+			case .barbarian, .gargoyle:
+				return "swing_long"
+			}
+		}
+		
+		var arrowImageName: String {
+			return  ["arrow_wooden", "arrow_golden"].randomElement()!
 		}
 		
 		var attackGif: String {
@@ -125,6 +139,22 @@ struct SettingKey {
 		}
 		var idleGif: String {
 			self.rawValue + "_idle"
+		}
+		
+		var projectile: ProjectileType? {
+			switch self {
+			case .princess, .soldier, .gargoyle, .barbarian:
+				return nil
+			case .dragon, .wizard:
+				return .gif(fileName: magicGif!)
+			case .goblin:
+				return .image(fileName: arrowImageName)
+			}
+		}
+		
+		enum ProjectileType {
+			case gif (fileName: String)
+			case image (fileName: String)
 		}
 	}
 	

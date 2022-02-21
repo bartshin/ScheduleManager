@@ -1,6 +1,6 @@
 //
 //  EventListCell.swift
-//  Schedule_B
+//  PixelScheduler
 //
 //  Created by Shin on 2/24/21.
 //

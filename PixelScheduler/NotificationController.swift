@@ -132,11 +132,15 @@ class NotificationController {
 		}
 	}
 	
-	init() {
+	func checkAuthorized() {
 		let center = UNUserNotificationCenter.current()
 		center.getNotificationSettings { settings in
 			self.authorizationStatus = settings.authorizationStatus
 		}
+	}
+	
+	init() {
+		checkAuthorized()
 	}
 }
 
