@@ -29,6 +29,10 @@
 ### 코드
  퍼즐 https://github.com/PGSSoft/PuzzleMaker </br>
  iCalendar https://github.com/tbartelmess/swift-ical
+ 
+### License 
+Pixel Scheduler is under MIT License, The Mozilla Public License (MPL) v2.0 
+according to other open sources
 
 ### 그래픽 아트
 character (https://mobilegamegraphics.com/product )</br>
@@ -39,7 +43,7 @@ puzzle frame1( https://www.turbosquid.com/ko/3d-models/free-max-mode-frame/71903
 puzzle frame2 (https://sketchfab.com/3d-models/4-97209f977a9e44079dbeba5942ebb700) </br>
 puzzle piece ( https://www.thingiverse.com/thing:2838001 ) </br>
 puzzle sheaves (https://www.freepik.com/racool-studio) </br>
-puzzle list (https://crevassestudio.gumroad.com)
+puzzle list (https://crevassestudio.gumroad.com
 
 ### 아이콘
 stamp: Designed by flacticon (https://www.freepik.com/blog/author/flaticon/)  </br>
